@@ -8,6 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CoreModule,
     StoreModule.forRoot({}, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
