@@ -6,6 +6,8 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { FormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -20,6 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     MatButtonModule,
     MatToolbarModule,
+    FormsModule,
+    MatSelectModule
   ],
   exports: [HeaderComponent],
 })
