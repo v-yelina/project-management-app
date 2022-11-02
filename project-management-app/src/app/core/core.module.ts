@@ -12,8 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { RouterModule, Routes } from '@angular/router';
 
-
+const routes: Routes = [
+  { path: '', component: WelcomePageComponent },
+];
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { MatFormFieldModule } from "@angular/material/form-field";
     MatIconModule,
     MatTooltipModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    RouterModule.forChild(routes),
   ],
   exports: [HeaderComponent],
 })
