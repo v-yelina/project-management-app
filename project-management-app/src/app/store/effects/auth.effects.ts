@@ -24,7 +24,7 @@ export class AuthEffects {
     tap(() => {
       this.localStorageService.clearAll();
     }),
-  ));
+  ), { dispatch: false });
 
   constructor(private actions$: Actions, private localStorageService: LocalStorageService) {}
 }

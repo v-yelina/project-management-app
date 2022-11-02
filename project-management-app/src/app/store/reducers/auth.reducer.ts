@@ -8,5 +8,7 @@ export const authReducer = createReducer(
     ...state,
     ...action.payload,
   })),
-  on(logOut, () => initialState),
+  on(logOut, () => ({
+    ...initialState,
+  })),
 );
