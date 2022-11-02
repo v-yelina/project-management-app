@@ -1,0 +1,43 @@
+import { Injectable } from '@angular/core';
+import {
+  HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpInterceptor,
+} from '@angular/common/http';
+import { mergeMap, Observable, tap } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getAuthToken } from '../../store/selectors/auth.selectors';
+import {
+  APP_API_URL, AUTH_ERROR, TOKEN_HEADER_KEY, TOKEN_TYPE,
+} from '../../core/constants/constants';
+import { logOut } from '../../store/actions/auth.actions';
+
+@Injectable()
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(private store: Store) {
+  }
+
+  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return this.store.select(getAuthToken).pipe(
+      mergeMap((token) => {
+        if (token) {
+          const moddedHttpRequest = request.clone({
+            headers: request.headers.set(TOKEN_HEADER_KEY, `${TOKEN_TYPE}${token}`),
+            url: `${APP_API_URL}${request.url}`,
+          });
+          return next.handle(moddedHttpRequest);
+        }
+        return next.handle(request.clone({ url: `${APP_API_URL}${request.url}` })).pipe(
+          tap({
+            error: (err) => {
+              if (err.error.message === AUTH_ERROR) {
+                this.store.dispatch(logOut());
+              }
+            },
+          }),
+        );
+      }),
+    );
+  }
+}
