@@ -1,9 +1,17 @@
 <mat-toolbar class="header" color="primary">
-  <mat-form-field appearance="outline">
+  <mat-form-field>
     <select matNativeControl required class="header__lang">
       <option value="en">EN</option>
       <option value="ru">RU</option>
     </select>
   </mat-form-field>
   <button mat-raised-button color="accent" class="header__btn--new-board">Create new board</button>
+  <div class="header__user">
+    <button mat-button class="header__btn--profile" matTooltip="Edit profile">
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <button mat-button class="header__btn--logout" matTooltip="Log out">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
 </mat-toolbar>
