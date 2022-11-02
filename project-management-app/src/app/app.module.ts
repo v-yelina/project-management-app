@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { reducers } from './store/state.models';
 
@@ -20,6 +21,7 @@ import { reducers } from './store/state.models';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CoreModule,
     StoreModule.forRoot(reducers, {}),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
