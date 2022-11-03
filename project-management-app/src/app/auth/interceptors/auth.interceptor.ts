@@ -9,7 +9,7 @@ import { mergeMap, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { getAuthToken } from '../../store/selectors/auth.selectors';
 import {
-  APP_API_URL, AUTH_ERROR, TOKEN_HEADER_KEY, TOKEN_TYPE,
+  APP_API_URL, INVALID_TOKEN_ERROR, TOKEN_HEADER_KEY, TOKEN_TYPE,
 } from '../../core/constants/constants';
 import { logOut } from '../../store/actions/auth.actions';
 
@@ -31,7 +31,7 @@ export class AuthInterceptor implements HttpInterceptor {
         return next.handle(request.clone({ url: `${APP_API_URL}${request.url}` })).pipe(
           tap({
             error: (err) => {
-              if (err.error.message === AUTH_ERROR) {
+              if (err.error.message === INVALID_TOKEN_ERROR) {
                 this.store.dispatch(logOut());
               }
             },
