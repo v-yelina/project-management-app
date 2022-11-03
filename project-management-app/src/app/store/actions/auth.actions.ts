@@ -15,3 +15,7 @@ export const signIn = createAction('SIGN_IN', props<{ payload: Pick<UserCredenti
 export const signUp = createAction('SIGN_UP', props<{ payload: Required<UserCredentials> }>());
 
 export const getAdditionalUserData = createAction('GET_ADDITIONAL_USER_DATA');
+
+export const setErrorMessage = createAction('SET_ERROR_MESSAGE', props<{ msg: string }>());
+
+export const setResponseMessage = createAction('SET_RESPONSE_MESSAGE', props<{ msg: string }>());
