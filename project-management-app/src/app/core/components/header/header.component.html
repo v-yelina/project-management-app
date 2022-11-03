@@ -9,7 +9,7 @@
     new board</button>
   <div class="header__user" *ngIf="isLogged">
     <button mat-button class="header__btn--profile" matTooltip="Edit profile"
-      routerLink="/auth/profile">
+      routerLink="/login/profile">
       <mat-icon>account_circle</mat-icon>
     </button>
     <button mat-button class="header__btn--logout" matTooltip="Log out" (click)="logout()">
@@ -17,12 +17,12 @@
     </button>
   </div>
   <div class="header__login" *ngIf="!isLogged">
-    <button mat-button class="header__btn--profile" matTooltip="Log in" routerLink="/auth/signin"
+    <button mat-button class="header__btn--profile" matTooltip="Log in" routerLink="/login/signin"
       *ngIf="!isLogged">
       <mat-icon>login</mat-icon>
     </button>
     <button mat-button class="header__btn--logout" matTooltip="Create account"
-      routerLink="/auth/signup" *ngIf=" !isLogged">
+      routerLink="/login/signup" *ngIf=" !isLogged">
       <mat-icon>add_circle</mat-icon>
     </button>
   </div>
