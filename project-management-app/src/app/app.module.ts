@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { effects, reducers } from './store/state.models';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { effects, reducers } from './store/state.models';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     effects,
     HttpClientModule,
+    SharedModule
   ],
   providers: [
     {
