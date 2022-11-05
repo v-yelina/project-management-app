@@ -13,6 +13,7 @@ import { WelcomePageComponent } from './pages/welcome-page/welcome-page.componen
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const routes: Routes = [
   { path: '', component: WelcomePageComponent },
@@ -35,8 +36,13 @@ const routes: Routes = [
     MatTooltipModule,
     MatFormFieldModule,
     MatInputModule,
+    MatTabsModule,
     RouterModule.forChild(routes),
   ],
-  exports: [HeaderComponent, FooterComponent],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+    WelcomePageComponent
+  ],
 })
 export class CoreModule { }
