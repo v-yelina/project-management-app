@@ -9,23 +9,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule, Routes } from '@angular/router';
+import { MatTabsModule } from '@angular/material/tabs';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { MatTabsModule } from '@angular/material/tabs';
 
-const routes: Routes = [
-  { path: '', component: WelcomePageComponent },
-];
+const routes: Routes = [{ path: '', component: WelcomePageComponent }];
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    NotFoundPageComponent,
-    WelcomePageComponent,
-  ],
+  declarations: [HeaderComponent, FooterComponent, NotFoundPageComponent, WelcomePageComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -39,10 +32,6 @@ const routes: Routes = [
     MatTabsModule,
     RouterModule.forChild(routes),
   ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    WelcomePageComponent
-  ],
+  exports: [HeaderComponent, FooterComponent, WelcomePageComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

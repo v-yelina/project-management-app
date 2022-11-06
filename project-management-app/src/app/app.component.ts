@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent /* implements OnInit */ {
   title = 'project-management-app';
 
-/*  constructor(private store: Store, private usersApiService: UsersApiService) {
+  /*  constructor(private store: Store, private usersApiService: UsersApiService) {
   }
 
   ngOnInit() {
