@@ -15,14 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [
-    SignInPageComponent,
-    SignUpPageComponent,
-    AccountPageComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-  ],
+  declarations: [SignInPageComponent, SignUpPageComponent, AccountPageComponent],
+  imports: [CommonModule, RouterModule.forChild(routes)],
 })
-export class AuthModule { }
+export class AuthModule {}

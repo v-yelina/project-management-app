@@ -1,6 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
 import {
-  logOut, setErrorMessage, setResponseMessage, updateAuthState,
+  logOut,
+  setErrorMessage,
+  setResponseMessage,
+  updateAuthState,
 } from '../actions/auth.actions';
 import { initialState } from '../states/auth.state';
 

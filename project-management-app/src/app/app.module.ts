@@ -14,9 +14,7 @@ import { effects, reducers } from './store/state.models';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -26,7 +24,7 @@ import { SharedModule } from './shared/shared.module';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     effects,
     HttpClientModule,
-    SharedModule
+    SharedModule,
   ],
   providers: [
     {
@@ -37,4 +35,4 @@ import { SharedModule } from './shared/shared.module';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

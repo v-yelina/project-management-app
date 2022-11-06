@@ -1,8 +1,6 @@
 :host {
-  height: 100px;
+  height: 10%;
   width: 100%;
-  // position: fixed;
-  // bottom: 0;
 
   @media screen and (max-width: 770px) {
     height: max-content;
@@ -10,7 +8,7 @@
 }
 .footer {
   width: 100%;
-  height: 100px;
+  height: 10%;
 
   @media screen and (max-width: 770px) {
     height: max-content;
@@ -18,14 +16,11 @@
 
   footer {
     width: 100%;
-    // height: 100px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 20px;
-    padding-bottom: 0;
 
     @media screen and (max-width: 770px) {
       flex-direction: column;
@@ -60,6 +55,6 @@
   }
 
   .course-logo {
-    width: 200px;
+    width: 100px;
   }
 }
