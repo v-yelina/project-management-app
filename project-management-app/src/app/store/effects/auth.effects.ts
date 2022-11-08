@@ -15,10 +15,9 @@ import {
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { AUTH_STATE, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from '../../core/constants/constants';
 import { AuthState, initialState } from '../states/auth.state';
-import { AuthApiService } from '../../api/auth-api.service';
-import { UsersApiService } from '../../api/users-api.service';
 import { getAuthState } from '../selectors/auth.selectors';
 import { UserResponse } from '../../core/models/response-api.models';
+import { RestApiService } from '../../core/services/rest-api.service';
 
 @Injectable()
 export class AuthEffects {
@@ -49,7 +48,7 @@ export class AuthEffects {
   signIn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(signIn),
-      switchMap((action) => zip(of(action), this.authApiService.signIn(action.payload))),
+      switchMap((action) => zip(of(action), this.restApiService.signIn(action.payload))),
       map(([action, response]) =>
         updateAuthState({
           payload: {
@@ -71,7 +70,7 @@ export class AuthEffects {
   additionalUserData$ = createEffect(() =>
     this.actions$.pipe(
       ofType(getAdditionalUserData),
-      switchMap(() => zip(this.usersApiService.getUsers(), this.store.select(getAuthState))),
+      switchMap(() => zip(this.restApiService.getUsers(), this.store.select(getAuthState))),
       map(([users, state]) => {
         const user = users.find((item) => item.login === state.login) as UserResponse;
         const authState = {
@@ -101,7 +100,7 @@ export class AuthEffects {
   signUp$ = createEffect(() =>
     this.actions$.pipe(
       ofType(signUp),
-      switchMap((action) => this.authApiService.signUp(action.payload)),
+      switchMap((action) => this.restApiService.signUp(action.payload)),
       map(() => setResponseMessage({ msg: SIGN_UP_SUCCESS })),
       catchError((err) => {
         this.store.dispatch(logOut());
@@ -113,8 +112,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private localStorageService: LocalStorageService,
-    private authApiService: AuthApiService,
-    private usersApiService: UsersApiService,
+    private restApiService: RestApiService,
     private store: Store,
   ) {}
 }
