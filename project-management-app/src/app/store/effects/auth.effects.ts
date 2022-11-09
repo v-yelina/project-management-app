@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, of, switchMap, tap, zip } from 'rxjs';
+import { catchError, first, map, of, switchMap, tap, zip } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import {
   getAdditionalUserData,
   logOut,
@@ -40,6 +41,7 @@ export class AuthEffects {
         ofType(logOut),
         tap(() => {
           this.localStorageService.clearAll();
+          this.router.navigateByUrl('/login/signin');
         }),
       ),
     { dispatch: false },
@@ -48,22 +50,26 @@ export class AuthEffects {
   signIn$ = createEffect(() =>
     this.actions$.pipe(
       ofType(signIn),
-      switchMap((action) => zip(of(action), this.restApiService.signIn(action.payload))),
-      map(([action, response]) =>
-        updateAuthState({
-          payload: {
-            token: response.token,
-            name: null,
-            login: action.payload.login,
-            id: null,
-            responseMessage: null,
-          },
-        }),
+      switchMap((action) =>
+        this.restApiService.signIn(action.payload).pipe(
+          first(),
+          map((response) =>
+            updateAuthState({
+              payload: {
+                token: response.token,
+                name: null,
+                login: action.payload.login,
+                id: null,
+                responseMessage: null,
+              },
+            }),
+          ),
+          catchError((err) => {
+            this.store.dispatch(logOut());
+            return of(setErrorMessage({ msg: err.error.message }));
+          }),
+        ),
       ),
-      catchError((err) => {
-        this.store.dispatch(logOut());
-        return of(setErrorMessage({ msg: err.error.message }));
-      }),
     ),
   );
 
@@ -94,18 +100,27 @@ export class AuthEffects {
           payload: authState,
         });
       }),
+      tap(() => {
+        this.router.navigateByUrl('/boards');
+      }),
     ),
   );
 
   signUp$ = createEffect(() =>
     this.actions$.pipe(
       ofType(signUp),
-      switchMap((action) => this.restApiService.signUp(action.payload)),
-      map(() => setResponseMessage({ msg: SIGN_UP_SUCCESS })),
-      catchError((err) => {
-        this.store.dispatch(logOut());
-        return of(setErrorMessage({ msg: err.error.message }));
-      }),
+      switchMap((action) =>
+        this.restApiService.signUp(action.payload).pipe(
+          first(),
+          map(() => setResponseMessage({ msg: SIGN_UP_SUCCESS })),
+          tap(() => {
+            this.router.navigateByUrl('/login/signin');
+          }),
+          catchError((err) => {
+            return of(setErrorMessage({ msg: err.error.message }));
+          }),
+        ),
+      ),
     ),
   );
 
@@ -114,5 +129,6 @@ export class AuthEffects {
     private localStorageService: LocalStorageService,
     private restApiService: RestApiService,
     private store: Store,
+    private router: Router,
   ) {}
 }
