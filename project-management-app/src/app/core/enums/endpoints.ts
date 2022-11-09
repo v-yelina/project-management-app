@@ -6,3 +6,8 @@ export enum AuthEndpoint {
 export enum UsersEndpoint {
   USERS = '/users',
 }
+
+export enum BoardsEndpoint {
+  BOARDS = '/boards',
+  BOARDS_SET = '/boardsSet',
+}
