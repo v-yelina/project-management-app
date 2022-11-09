@@ -1,1 +1,9 @@
-<p>task works!</p>
+<mat-card class="task">
+  <mat-card-title class="task__title">{{taskData.title}}</mat-card-title>
+  <mat-card-subtitle class="task__description">{{taskData.description}}</mat-card-subtitle>
+  <mat-card-actions class="task__btn">
+    <button mat-button class="task__btn--delete">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>
