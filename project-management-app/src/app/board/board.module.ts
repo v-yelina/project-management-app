@@ -3,11 +3,23 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+import { MatInputModule } from '@angular/material/input';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
-  declarations: [TaskComponent],
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatIconModule],
+  declarations: [TaskComponent, EditTaskComponent],
+  imports: [
+    CommonModule,
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+  ],
   exports: [TaskComponent],
 })
 export class BoardModule {}
