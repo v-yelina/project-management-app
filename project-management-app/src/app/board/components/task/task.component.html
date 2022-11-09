@@ -2,7 +2,7 @@
   <mat-card-title class="task__title">{{taskData.title}}</mat-card-title>
   <mat-card-subtitle class="task__description">{{taskData.description}}</mat-card-subtitle>
   <mat-card-actions class="task__btn">
-    <button mat-button class="task__btn--delete">
+    <button mat-button class="task__btn--delete" (click)="openDialog(taskData._id)">
       <mat-icon>delete</mat-icon>
     </button>
   </mat-card-actions>
