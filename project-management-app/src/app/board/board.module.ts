@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    TaskComponent
+  ],
   imports: [CommonModule],
 })
-export class BoardModule {}
+export class BoardModule { }
