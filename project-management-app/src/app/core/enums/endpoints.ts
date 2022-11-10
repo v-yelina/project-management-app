@@ -11,7 +11,13 @@ export enum BoardsEndpoint {
   BOARDS = '/boards',
   BOARDS_SET = '/boardsSet',
 }
+
 export enum ColumnsEndpoint {
   COLUMNS = '/columns',
   COLUMNS_SET = '/columnsSet',
+}
+
+export enum TasksEndpoint {
+  TASKS = '/tasks',
+  TASKS_SET = '/tasksSet',
 }
