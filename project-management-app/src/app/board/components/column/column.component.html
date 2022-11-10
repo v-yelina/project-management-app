@@ -1,5 +1,14 @@
 <div class="column">
-  <h3 class="column__title">Column title</h3>
+  <h3 *ngIf="!editMode" class="column__title">{{title}}</h3>
+  <form [formGroup]="editTitleForm">
+    <mat-form-field class="column__title column__title--edit">
+      <input matInput type="text" formControlName="columnTitle">
+      <mat-error
+        *ngIf="editTitleForm.controls['columnTitle'].errors && editTitleForm.controls['columnTitle'].errors['required']">
+        Please enter a column title
+      </mat-error>
+    </mat-form-field>
+  </form>
   <button mat-button>
     <mat-icon>add</mat-icon> Create new task
   </button>
