@@ -10,3 +10,10 @@ export interface BoardResponse {
   owner: string;
   users: Array<string>;
 }
+
+export interface ColumnResponse {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}

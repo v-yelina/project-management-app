@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserCredentials } from '../../auth/models/user-credentials.model';
-import { AuthEndpoint, BoardsEndpoint, UsersEndpoint } from '../enums/endpoints';
+import { AuthEndpoint, BoardsEndpoint, ColumnsEndpoint, UsersEndpoint } from '../enums/endpoints';
 import { HTTP_OPTIONS } from '../constants/constants';
-import { BoardResponse, UserResponse } from '../models/response-api.models';
+import { BoardResponse, ColumnResponse, UserResponse } from '../models/response-api.models';
 import { Board } from '../models/board.models';
+import { Column, PartialColumnWithOrder } from '../models/column.model';
 
 @Injectable({
   providedIn: 'root',
@@ -70,6 +71,79 @@ export class RestApiService {
 
   getBoardsByUserId(id: string): Observable<Array<BoardResponse>> {
     return this.http.get<Array<BoardResponse>>(`${BoardsEndpoint.BOARDS_SET}/${id}`, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  getColumns(boardId: string): Observable<Array<ColumnResponse>> {
+    return this.http.get<Array<ColumnResponse>>(
+      `${BoardsEndpoint.BOARDS}/${boardId}${ColumnsEndpoint.COLUMNS}`,
+      {
+        ...HTTP_OPTIONS,
+      },
+    );
+  }
+
+  createColumn(column: Column, boardId: string): Observable<ColumnResponse> {
+    return this.http.post<ColumnResponse>(
+      `${BoardsEndpoint.BOARDS}/${boardId}${ColumnsEndpoint.COLUMNS}`,
+      column,
+      {
+        ...HTTP_OPTIONS,
+      },
+    );
+  }
+
+  getColumnById(id: string, boardId: string): Observable<ColumnResponse> {
+    return this.http.get<ColumnResponse>(
+      `${BoardsEndpoint.BOARDS}/${boardId}${ColumnsEndpoint.COLUMNS}/${id}`,
+      {
+        ...HTTP_OPTIONS,
+      },
+    );
+  }
+
+  updateColumnById(column: Column, id: string, boardId: string): Observable<ColumnResponse> {
+    return this.http.put<ColumnResponse>(
+      `${BoardsEndpoint.BOARDS}/${boardId}${ColumnsEndpoint.COLUMNS}/${id}`,
+      column,
+      {
+        ...HTTP_OPTIONS,
+      },
+    );
+  }
+
+  deleteColumnById(id: string, boardId: string): Observable<ColumnResponse> {
+    return this.http.delete<ColumnResponse>(
+      `${BoardsEndpoint.BOARDS}/${boardId}${ColumnsEndpoint.COLUMNS}/${id}`,
+      {
+        ...HTTP_OPTIONS,
+      },
+    );
+  }
+
+  getColumnsByIds(ids: Array<string>): Observable<Array<ColumnResponse>> {
+    return this.http.get<Array<ColumnResponse>>(ColumnsEndpoint.COLUMNS_SET, {
+      ...HTTP_OPTIONS,
+      params: { ids: ids.join(',') },
+    });
+  }
+
+  getColumnsByUserId(id: string): Observable<Array<ColumnResponse>> {
+    return this.http.get<Array<ColumnResponse>>(ColumnsEndpoint.COLUMNS_SET, {
+      ...HTTP_OPTIONS,
+      params: { userId: id },
+    });
+  }
+
+  updateOrderColumns(columns: Array<PartialColumnWithOrder>): Observable<Array<ColumnResponse>> {
+    return this.http.patch<Array<ColumnResponse>>(ColumnsEndpoint.COLUMNS_SET, columns, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  createColumns(columns: Array<Required<Column>>): Observable<Array<ColumnResponse>> {
+    return this.http.post<Array<ColumnResponse>>(ColumnsEndpoint.COLUMNS_SET, columns, {
       ...HTTP_OPTIONS,
     });
   }
