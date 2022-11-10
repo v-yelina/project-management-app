@@ -13,6 +13,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { effects, reducers } from './store/state.models';
 import { SharedModule } from './shared/shared.module';
 import { BoardModule } from './board/board.module';
+import { BoardModule } from './board/board.module';
 
 @NgModule({
   declarations: [AppComponent],
