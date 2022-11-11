@@ -1,1 +1,97 @@
-<p>sign-up-page works!</p>
+<div class="sign-up__page">
+  <div class="sign-up__container">
+    <div class="sign-up__top">
+      <h2 class="sign-up__title">Registration</h2>
+      <p class="sign-up__text">
+        Already have an account? <a [routerLink]="['/', 'login', 'signin']">Sign In</a>
+      </p>
+    </div>
+    <form class="sign-up__form" [formGroup]="signUpForm" novalidate (ngSubmit)="submit()">
+      <mat-form-field class="form__input" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input
+          type="text"
+          matInput
+          formControlName="name"
+          placeholder="Enter your name."
+          autocomplete="false"
+        />
+        <mat-error *ngIf="displayFormControlErrorMessage('name', 'required')">
+          Name is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="displayFormControlErrorMessage('name', 'maxlength')">
+          Name is <strong>very long</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form__input" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          formControlName="login"
+          placeholder="Enter your login email."
+        />
+        <mat-error *ngIf="displayFormControlErrorMessage('login', 'required')">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="displayFormControlErrorMessage('login', 'email')">
+          The login email is invalid
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form__input" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="password"
+          placeholder="Enter your password."
+          (blur)="fixStyles($event)"
+        />
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')">
+          Please enter a password
+        </mat-error>
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'minlength')">
+          at least 8 characters
+        </mat-error>
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'capitalAndSmallCase')">
+          a mixture of both uppercase and lowercase letters
+        </mat-error>
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'lettersAndNumbers')">
+          a mixture of letters and numbers
+        </mat-error>
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'specialCharacter')">
+          inclusion of at least one special character, e.g., ! @ # ? ]
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="form__input" appearance="fill">
+        <mat-label>Repeat password</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="repeatPassword"
+          placeholder="Enter your password."
+          [errorStateMatcher]="passwordEqualsMatcher"
+        />
+        <mat-error *ngIf="displayFormControlErrorMessage('repeatPassword', 'required')">
+          Repeat password is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            signUpForm.getError('passwordEquals') &&
+            !displayFormControlErrorMessage('repeatPassword', 'required')
+          "
+        >
+          Password is <strong>not equals</strong>
+        </mat-error>
+      </mat-form-field>
+      <div class="sign-up__button">
+        <button mat-raised-button color="primary" type="submit" [disabled]="signUpForm.invalid">
+          Sign Up
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
