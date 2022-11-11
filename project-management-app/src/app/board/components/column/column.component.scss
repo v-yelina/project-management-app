@@ -15,11 +15,20 @@
     font-size: 1.5rem;
     font-weight: 700;
     align-self: flex-start;
+
+    &--input {
+      margin: 0;
+    }
   }
 
   &__task {
     background-color: #fff;
     border-radius: 10px;
     padding: 10px;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-wrapper {
+    margin: 0;
+    padding: 0;
   }
 }
