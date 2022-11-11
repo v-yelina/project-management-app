@@ -19,4 +19,4 @@ import { InfoPopupComponent } from './components/info-popup/info-popup.component
     MatButtonModule,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

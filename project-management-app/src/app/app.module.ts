@@ -25,7 +25,7 @@ import { BoardModule } from './board/board.module';
     effects,
     HttpClientModule,
     SharedModule,
-    BoardModule
+    BoardModule,
   ],
   providers: [
     {
@@ -36,4 +36,4 @@ import { BoardModule } from './board/board.module';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
