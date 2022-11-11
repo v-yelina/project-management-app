@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -12,7 +11,6 @@ import { CoreModule } from './core/core.module';
 import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { effects, reducers } from './store/state.models';
 import { SharedModule } from './shared/shared.module';
-import { BoardModule } from './board/board.module';
 import { BoardModule } from './board/board.module';
 
 @NgModule({

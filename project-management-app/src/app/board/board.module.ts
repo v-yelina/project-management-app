@@ -11,7 +11,7 @@ import { TaskComponent } from './components/task/task.component';
 import { ColumnComponent } from './components/column/column.component';
 
 @NgModule({
-  declarations: [TaskComponent, EditTaskComponent],
+  declarations: [TaskComponent, EditTaskComponent, ColumnComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -20,7 +20,6 @@ import { ColumnComponent } from './components/column/column.component';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
-    ColumnComponent
   ],
   exports: [TaskComponent, ColumnComponent],
 })
