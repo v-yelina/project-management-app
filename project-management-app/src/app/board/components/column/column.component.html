@@ -1,5 +1,5 @@
 <div class="column">
-  <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{title}}</h3>
+  <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{columnData.title}}</h3>
   <form [formGroup]="editTitleForm" *ngIf="editMode">
     <mat-form-field class="column__title--edit" appearance="outline">
       <input matInput type="text" formControlName="columnTitle" class="column__title--input"
@@ -16,7 +16,7 @@
       </mat-error>
     </mat-form-field>
   </form>
-  <button mat-button>
+  <button mat-button (click)="openCreateDialog()">
     <mat-icon>add</mat-icon> Create new task
   </button>
   <app-task *ngFor="let currentTask of tasks" [taskData]="currentTask"></app-task>
