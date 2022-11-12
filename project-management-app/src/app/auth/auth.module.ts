@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
+import { L10nTranslationModule, L10nIntlModule } from 'angular-l10n';
 import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
@@ -17,6 +18,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [SignInPageComponent, SignUpPageComponent, AccountPageComponent],
-  imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    L10nTranslationModule,
+    L10nIntlModule,
+  ],
 })
 export class AuthModule {}

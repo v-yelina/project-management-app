@@ -1,13 +1,13 @@
 <mat-toolbar class="header" color="primary">
   <mat-form-field>
-    <select matNativeControl required class="header__lang">
-      <option value="en">EN</option>
-      <option value="ru">RU</option>
+    <select matNativeControl #langs required class="header__lang" (change)="setLocale()">
+      <option value="EN" [selected]="lang === 'EN'">EN</option>
+      <option value="RU" [selected]="lang === 'RU'">RU</option>
     </select>
   </mat-form-field>
   <ng-container *ngIf="isLogged; else unlogged">
-    <button mat-raised-button color="accent" class="header__btn--new-board">
-      Create new board
+    <button mat-raised-button color="accent" class="header__btn--new-board" l10nTranslate>
+      header.btnCreate
     </button>
 
     <div class="header__user">
