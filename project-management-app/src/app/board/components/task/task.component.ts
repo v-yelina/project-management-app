@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.models';
-import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 
 @Component({
   selector: 'app-task',
@@ -11,7 +11,7 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
-  @Input() taskData!: Pick<TaskResponse, 'description' | 'title' | '_id'>;
+  @Input() taskData!: TaskResponse;
 
   constructor(private dialog: MatDialog) { }
 
@@ -30,10 +30,18 @@ export class TaskComponent {
   }
 
   openEditDialog() {
-    this.dialog.open(EditTaskComponent, {
+    const dialogRef = this.dialog.open(EditTaskComponent, {
       data: {
-        ...this.taskData,
+        taskData: {
+          ...this.taskData
+        }, type: DialogType.EDIT
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result: TaskResponse) => {
+      if (result) {
+        this.taskData = { ...result };
+      }
     });
   }
 
