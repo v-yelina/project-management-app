@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
@@ -11,14 +11,9 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
-  taskData: Pick<TaskResponse, 'description' | 'title' | '_id'> = {
-    title: 'New Task Title',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-    _id: 'sshdh1jsk8767',
-  };
+  @Input() taskData!: Pick<TaskResponse, 'description' | 'title' | '_id'>;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   openConfirmationDialog(id: string) {
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {

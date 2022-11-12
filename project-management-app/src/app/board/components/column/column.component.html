@@ -19,5 +19,5 @@
   <button mat-button>
     <mat-icon>add</mat-icon> Create new task
   </button>
-  <app-task></app-task>
+  <app-task *ngFor="let currentTask of tasks" [taskData]="currentTask"></app-task>
 </div>
