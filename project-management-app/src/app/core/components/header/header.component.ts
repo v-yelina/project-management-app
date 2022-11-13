@@ -22,7 +22,7 @@ import { i18nAsset } from '../../constants/i18n';
 export class HeaderComponent implements OnInit, OnDestroy {
   isLogged = false;
 
-  lang: string | null = this.translation.getLocale().language.toUpperCase();
+  lang: string | null = '';
 
   schema: L10nSchema[] = this.l10nConfig.schema;
 
@@ -79,7 +79,5 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.lang = Languages.russian;
     }
     localStorage.setItem('lang', this.lang!);
-    this.translation.addProviders([{ name: 'lazy', asset: i18nAsset }]);
-    this.translation.loadTranslation([{ name: 'lazy', asset: i18nAsset }]);
   }
 }

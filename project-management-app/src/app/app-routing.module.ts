@@ -8,10 +8,6 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-    resolve: { l10n: L10nResolver },
-    data: {
-      l10nProviders: [{ name: 'lazy', asset: './core/constants/i18n' }],
-    },
   },
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'boards', loadChildren: () => import('./board/board.module').then((m) => m.BoardModule) },
