@@ -3,13 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { getAuthState, getResponseMessage } from '../../../store/selectors/auth.selectors';
-import { InfoPopupComponent } from '../../../shared/components/info-popup/info-popup.component';
-import {
-  getAdditionalUserData,
-  setResponseMessage,
-  signIn,
-} from '../../../store/actions/auth.actions';
+import { getAuthState } from '../../../store/selectors/auth.selectors';
+
+import { getAdditionalUserData, signIn } from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -27,16 +23,6 @@ export class SignInPageComponent implements OnInit, OnDestroy {
   constructor(private store: Store, public dialog: MatDialog) {}
 
   ngOnInit() {
-    const subMsg = this.store.select(getResponseMessage).subscribe((msg) => {
-      if (msg) {
-        this.dialog.open(InfoPopupComponent, {
-          data: { msg },
-        });
-        this.store.dispatch(setResponseMessage({ msg: null }));
-      }
-    });
-    this.subscription.add(subMsg);
-
     const subToken = this.store.select(getAuthState).subscribe((authState) => {
       if (authState.token && !authState.name) {
         this.store.dispatch(getAdditionalUserData());
