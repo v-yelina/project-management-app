@@ -1,10 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import {
-  logOut,
-  setErrorMessage,
-  setResponseMessage,
-  updateAuthState,
-} from '../actions/auth.actions';
+import { logOut, updateAuthState } from '../actions/auth.actions';
 import { initialState } from '../states/auth.state';
 
 export const authReducer = createReducer(
@@ -16,6 +11,4 @@ export const authReducer = createReducer(
   on(logOut, () => ({
     ...initialState,
   })),
-  on(setErrorMessage, (state, action) => ({ ...state, responseMessage: action.msg })),
-  on(setResponseMessage, (state, action) => ({ ...state, responseMessage: action.msg })),
 );
