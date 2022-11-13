@@ -2,6 +2,10 @@ export const i18nAsset = {
   en: {
     header: {
       btnCreate: 'Create new board',
+      btnEditTooltip: 'Edit profile',
+      btnLogInTooltip: 'Log in',
+      btnLogOutTooltip: 'Log out',
+      btnCreateTooltip: 'Create account',
     },
     footer: {
       name1: 'Valiantsina Yelina',
@@ -87,6 +91,10 @@ export const i18nAsset = {
   ru: {
     header: {
       btnCreate: 'Создать борду',
+      btnEditTooltip: 'Обновить профиль',
+      btnLogInTooltip: 'Войти',
+      btnLogOutTooltip: 'Выйти',
+      btnCreateTooltip: 'Создать аккаунт',
     },
     footer: {
       name1: 'Валентина Елина',
