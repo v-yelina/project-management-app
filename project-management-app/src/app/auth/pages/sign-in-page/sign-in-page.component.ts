@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { getAuthState, getResponseMessage } from '../../../store/selectors/auth.selectors';
 import { InfoPopupComponent } from '../../../shared/components/info-popup/info-popup.component';
 import {
@@ -10,7 +11,6 @@ import {
   setResponseMessage,
   signIn,
 } from '../../../store/actions/auth.actions';
-import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 
 @Component({
   selector: 'app-sign-in-page',
@@ -25,7 +25,11 @@ export class SignInPageComponent implements OnInit, OnDestroy {
 
   subscription = new Subscription();
 
-  constructor(private store: Store, public dialog: MatDialog, @Inject(L10N_LOCALE) public locale: L10nLocale) {}
+  constructor(
+    private store: Store,
+    public dialog: MatDialog,
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
+  ) {}
 
   ngOnInit() {
     const subMsg = this.store.select(getResponseMessage).subscribe((msg) => {

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { L10nResolver } from 'angular-l10n';
 import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-page.component';
 import { WelcomePageComponent } from './core/pages/welcome-page/welcome-page.component';
 
