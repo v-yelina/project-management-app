@@ -10,6 +10,9 @@ export const i18nAsset = {
     },
     notFound: 'Error: 404 page not found',
     welcome: {
+      label1: 'Opportunities',
+      label2: 'About the team',
+      label3: 'About courses',
       mainText:
         'This app will help you and your team plan your work better. Break down large tasks into smaller ones, track their progress and achieve success.',
       advantages1: 'Create boards for your tasks',
@@ -92,6 +95,9 @@ export const i18nAsset = {
     },
     notFound: 'Ошибка: 404 страница не найдена',
     welcome: {
+      label1: 'Возможности',
+      label2: 'О Команде',
+      label3: 'О Курсе',
       mainText:
         'Это приложение поможет вам и вашей команде лучше планировать свою работу. Разбивайте большие задачи на более мелкие, отслеживайте их выполнение и добивайтесь успеха.',
       advantages1: 'Создавайте доски для своих задач',
