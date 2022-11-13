@@ -3,3 +3,8 @@ export interface Board {
   owner: string;
   users: Array<string>;
 }
+
+export interface RawBoard {
+  name: string;
+  members: Array<string>;
+}
