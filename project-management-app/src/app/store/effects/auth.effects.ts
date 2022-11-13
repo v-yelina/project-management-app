@@ -41,7 +41,7 @@ export class AuthEffects {
       tap(() => {
         this.localStorageService.removeItem(AUTH_STATE);
         this.store.dispatch(loaded());
-        this.router.navigate(['/', 'login', 'signin']);
+        this.router.navigate(['/', 'welcome']);
       }),
     ),
   );
@@ -99,7 +99,7 @@ export class AuthEffects {
       tap(() => {
         this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS }));
         this.store.dispatch(loaded());
-        this.router.navigate(['/', 'welcome']);
+        this.router.navigate(['/', 'boards']);
       }),
     ),
   );
