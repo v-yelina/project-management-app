@@ -10,6 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule, Routes } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
+
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -31,6 +33,7 @@ const routes: Routes = [{ path: '', component: WelcomePageComponent }];
     MatInputModule,
     MatTabsModule,
     RouterModule.forChild(routes),
+    MatProgressSpinnerModule,
   ],
   exports: [HeaderComponent, FooterComponent, WelcomePageComponent],
 })
