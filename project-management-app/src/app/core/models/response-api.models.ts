@@ -4,6 +4,20 @@ export interface UserResponse {
   login: string;
 }
 
+export interface BoardResponse {
+  _id: string;
+  title: string;
+  owner: string;
+  users: Array<string>;
+}
+
+export interface ColumnResponse {
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
+
 export interface TaskResponse {
   _id: string;
   title: string;
@@ -12,7 +26,7 @@ export interface TaskResponse {
   columnId: string;
   description: string;
   userId: number;
-  users: string[];
+  users: Array<string>;
 }
 
 export interface ColumnResponse {
