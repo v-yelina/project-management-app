@@ -8,9 +8,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
+import { ColumnComponent } from './components/column/column.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [TaskComponent, EditTaskComponent],
+  declarations: [TaskComponent, EditTaskComponent, ColumnComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -19,7 +21,8 @@ import { TaskComponent } from './components/task/task.component';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    SharedModule,
   ],
-  exports: [TaskComponent],
+  exports: [TaskComponent, ColumnComponent],
 })
 export class BoardModule {}

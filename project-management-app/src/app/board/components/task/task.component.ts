@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.models';
-import { EditTaskComponent } from '../edit-task/edit-task.component';
+import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 
 @Component({
   selector: 'app-task',
@@ -11,14 +11,9 @@ import { EditTaskComponent } from '../edit-task/edit-task.component';
   styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
-  taskData: Pick<TaskResponse, 'description' | 'title' | '_id'> = {
-    title: 'New Task Title',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-    _id: 'sshdh1jsk8767',
-  };
+  @Input() taskData!: TaskResponse;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) { }
 
   openConfirmationDialog(id: string) {
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
@@ -35,10 +30,18 @@ export class TaskComponent {
   }
 
   openEditDialog() {
-    this.dialog.open(EditTaskComponent, {
+    const dialogRef = this.dialog.open(EditTaskComponent, {
       data: {
-        ...this.taskData,
+        taskData: {
+          ...this.taskData
+        }, type: DialogType.EDIT
       },
+    });
+
+    dialogRef.afterClosed().subscribe((result: TaskResponse) => {
+      if (result) {
+        this.taskData = { ...result };
+      }
     });
   }
 

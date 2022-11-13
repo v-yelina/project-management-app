@@ -28,3 +28,17 @@ export interface TaskResponse {
   userId: number;
   users: Array<string>;
 }
+
+export interface ColumnResponse {
+  _id: string,
+  title: string,
+  order: number,
+  boardId: string
+}
+
+export interface BoardResponse {
+  _id: string,
+  title: string,
+  owner: string,
+  users: string[],
+}
