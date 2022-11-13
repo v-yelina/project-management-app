@@ -8,9 +8,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
+import { BoardComponent } from './pages/board/board.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  { path: ':id', component: BoardComponent }
+];
 
 @NgModule({
-  declarations: [TaskComponent, EditTaskComponent],
+  declarations: [TaskComponent, EditTaskComponent, BoardComponent],
   imports: [
     CommonModule,
     MatCardModule,
@@ -19,7 +25,8 @@ import { TaskComponent } from './components/task/task.component';
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    RouterModule.forChild(routes)
   ],
-  exports: [TaskComponent],
+  exports: [BoardComponent],
 })
-export class BoardModule {}
+export class BoardModule { }

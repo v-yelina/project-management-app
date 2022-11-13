@@ -1,0 +1,8 @@
+<div class="board">
+  <div class="column" *ngFor="let column of columns">
+    <p>{{column.title}}</p>
+  </div>
+  <button mat-button class="board__btn--add">
+    <mat-icon>add</mat-icon> Create new column
+  </button>
+</div>
