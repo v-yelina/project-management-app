@@ -20,4 +20,3 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes), SharedModule],
 })
 export class AuthModule {}
-// fix
