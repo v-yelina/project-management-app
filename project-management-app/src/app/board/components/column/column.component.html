@@ -1,0 +1,23 @@
+<div class="column">
+  <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{columnData.title}}</h3>
+  <form [formGroup]="editTitleForm" *ngIf="editMode">
+    <mat-form-field class="column__title--edit" appearance="outline">
+      <input matInput type="text" formControlName="columnTitle" class="column__title--input"
+        autofocus>
+      <button mat-button (click)="saveColumnTitle()">
+        <mat-icon>done</mat-icon>
+      </button>
+      <button mat-button (click)="openConfirmationDialog()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+      <mat-error
+        *ngIf="editTitleForm.controls['columnTitle'].errors && editTitleForm.controls['columnTitle'].errors['required']">
+        Please enter a column title
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <button mat-button (click)="openCreateDialog()">
+    <mat-icon>add</mat-icon> Create new task
+  </button>
+  <app-task *ngFor="let currentTask of tasks" [taskData]="currentTask"></app-task>
+</div>
