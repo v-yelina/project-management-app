@@ -10,10 +10,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { RouterModule, Routes } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
+import { L10nTranslationModule, L10nIntlModule } from 'angular-l10n';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+
+import { l10nConfig } from './constants/l10n-config';
 
 const routes: Routes = [{ path: '', component: WelcomePageComponent }];
 
@@ -31,6 +34,8 @@ const routes: Routes = [{ path: '', component: WelcomePageComponent }];
     MatInputModule,
     MatTabsModule,
     RouterModule.forChild(routes),
+    L10nTranslationModule.forRoot(l10nConfig),
+    L10nIntlModule,
   ],
   exports: [HeaderComponent, FooterComponent, WelcomePageComponent],
 })

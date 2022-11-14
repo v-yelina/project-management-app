@@ -1,14 +1,14 @@
 <div class="sign-up__page">
   <div class="sign-up__container">
     <div class="sign-up__top">
-      <h2 class="sign-up__title">Registration</h2>
-      <p class="sign-up__text">
-        Already have an account? <a [routerLink]="['/', 'login', 'signin']">Sign In</a>
+      <h2 class="sign-up__title" l10nTranslate>signUp.title</h2>
+      <p class="sign-up__text" l10nTranslate>
+        signUp.question <a [routerLink]="['/', 'login', 'signin']" l10nTranslate>signUp.answer</a>
       </p>
     </div>
     <form class="sign-up__form" [formGroup]="signUpForm" novalidate (ngSubmit)="submit()">
       <mat-form-field class="form__input" appearance="fill">
-        <mat-label>Name</mat-label>
+        <mat-label l10nTranslate>signUp.name</mat-label>
         <input
           type="text"
           matInput
@@ -16,80 +16,87 @@
           placeholder="Enter your name."
           autocomplete="false"
         />
-        <mat-error *ngIf="displayFormControlErrorMessage('name', 'required')">
-          Name is <strong>required</strong>
+        <mat-error *ngIf="displayFormControlErrorMessage('name', 'required')" l10nTranslate>
+          signUp.nameErrorRequired
         </mat-error>
-        <mat-error *ngIf="displayFormControlErrorMessage('name', 'maxlength')">
-          Name is <strong>very long</strong>
+        <mat-error *ngIf="displayFormControlErrorMessage('name', 'maxlength')" l10nTranslate>
+          signUp.nameErrorLong
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form__input" appearance="fill">
-        <mat-label>Email</mat-label>
+        <mat-label l10nTranslate>signUp.email</mat-label>
         <input
           type="email"
           matInput
           formControlName="login"
           placeholder="Enter your login email."
         />
-        <mat-error *ngIf="displayFormControlErrorMessage('login', 'required')">
-          Email is <strong>required</strong>
+        <mat-error *ngIf="displayFormControlErrorMessage('login', 'required')" l10nTranslate>
+          signUp.emailErrorRequired
         </mat-error>
-        <mat-error *ngIf="displayFormControlErrorMessage('login', 'email')">
-          The login email is invalid
+        <mat-error *ngIf="displayFormControlErrorMessage('login', 'email')" l10nTranslate>
+          signUp.emailErrorInvalid
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form__input" appearance="fill">
-        <mat-label>Password</mat-label>
+        <mat-label l10nTranslate>signUp.password</mat-label>
         <input
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           matInput
           formControlName="password"
           placeholder="Enter your password."
           (blur)="fixStyles($event)"
         />
-        <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')">
-          Please enter a password
+        <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')" l10nTranslate>
+          signUp.passwordErrorRequired
         </mat-error>
-        <mat-error *ngIf="displayFormControlErrorMessage('password', 'minlength')">
-          at least 8 characters
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'minlength')" l10nTranslate>
+          signUp.passwordErrorLength
         </mat-error>
-        <mat-error *ngIf="displayFormControlErrorMessage('password', 'capitalAndSmallCase')">
-          a mixture of both uppercase and lowercase letters
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'capitalAndSmallCase')" l10nTranslate>
+          signUp.passwordErrorCase
         </mat-error>
-        <mat-error *ngIf="displayFormControlErrorMessage('password', 'lettersAndNumbers')">
-          a mixture of letters and numbers
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'lettersAndNumbers')" l10nTranslate>
+          signUp.passwordErrorNumber
         </mat-error>
-        <mat-error *ngIf="displayFormControlErrorMessage('password', 'specialCharacter')">
-          inclusion of at least one special character, e.g., ! @ # ? ]
+        <mat-error *ngIf="displayFormControlErrorMessage('password', 'specialCharacter')" l10nTranslate>
+          signUp.passwordErrorSpecial
         </mat-error>
       </mat-form-field>
 
       <mat-form-field class="form__input" appearance="fill">
-        <mat-label>Repeat password</mat-label>
+        <mat-label l10nTranslate>signUp.passwordRepeat</mat-label>
         <input
-          type="password"
+          [type]="hideRepeat ? 'password' : 'text'"
           matInput
           formControlName="repeatPassword"
           placeholder="Enter your password."
           [errorStateMatcher]="passwordEqualsMatcher"
         />
-        <mat-error *ngIf="displayFormControlErrorMessage('repeatPassword', 'required')">
-          Repeat password is <strong>required</strong>
+        <button mat-icon-button matSuffix (click)="toggleHideRepeat($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat" class="hide__btn">
+          <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="displayFormControlErrorMessage('repeatPassword', 'required')" l10nTranslate>
+          signUp.passwordRepeatErrorRequired
         </mat-error>
         <mat-error
           *ngIf="
             signUpForm.getError('passwordEquals') &&
             !displayFormControlErrorMessage('repeatPassword', 'required')
           "
+          l10nTranslate
         >
-          Password is <strong>not equals</strong>
+          signUp.passwordRepeatErrorEqual
         </mat-error>
       </mat-form-field>
       <div class="sign-up__button">
-        <button mat-raised-button color="primary" type="submit" [disabled]="signUpForm.invalid">
-          Sign Up
+        <button mat-raised-button color="primary" type="submit" [disabled]="signUpForm.invalid" l10nTranslate>
+          signUp.btn
         </button>
       </div>
     </form>

@@ -35,6 +35,10 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
 
   subscription = new Subscription();
 
+  hide = true;
+
+  hideRepeat = true;
+
   constructor(private store: Store, public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -109,5 +113,15 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
     const payload = { ...this.signUpForm.value };
     delete payload.repeatPassword;
     this.store.dispatch(signUp({ payload }));
+  }
+
+  toggleHide(event: Event) {
+    event.preventDefault();
+    this.hide = !this.hide;
+  }
+
+  toggleHideRepeat(event: Event) {
+    event.preventDefault();
+    this.hideRepeat = !this.hideRepeat;
   }
 }
