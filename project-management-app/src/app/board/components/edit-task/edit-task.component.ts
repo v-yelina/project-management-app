@@ -6,7 +6,7 @@ import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/c
 
 export enum DialogType {
   CREATE = 'Create',
-  EDIT = 'Edit'
+  EDIT = 'Edit',
 }
 
 @Component({
@@ -16,6 +16,7 @@ export enum DialogType {
 })
 export class EditTaskComponent {
   dialogType!: DialogType;
+
   id = '';
 
   title = '';
@@ -28,7 +29,7 @@ export class EditTaskComponent {
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: { taskData: Partial<TaskResponse>, type: DialogType },
+    @Inject(MAT_DIALOG_DATA) private data: { taskData: Partial<TaskResponse>; type: DialogType },
     private dialogRef: MatDialogRef<ConfirmPopupComponent>,
     private dialog: MatDialog,
   ) {

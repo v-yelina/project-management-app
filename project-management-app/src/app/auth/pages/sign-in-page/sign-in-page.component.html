@@ -26,11 +26,14 @@
       <mat-form-field class="form__input" appearance="fill">
         <mat-label l10nTranslate>signIn.password</mat-label>
         <input
-          type="password"
+          [type]="hide ? 'password' : 'text'"
           matInput
           formControlName="password"
           placeholder="Enter your password."
         />
+        <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
         <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')" l10nTranslate>
           signIn.passwordErrorRequired
         </mat-error>

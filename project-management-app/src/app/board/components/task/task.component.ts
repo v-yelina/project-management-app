@@ -13,7 +13,7 @@ import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component'
 export class TaskComponent {
   @Input() taskData!: TaskResponse;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
 
   openConfirmationDialog(id: string) {
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
@@ -33,8 +33,9 @@ export class TaskComponent {
     const dialogRef = this.dialog.open(EditTaskComponent, {
       data: {
         taskData: {
-          ...this.taskData
-        }, type: DialogType.EDIT
+          ...this.taskData,
+        },
+        type: DialogType.EDIT,
       },
     });
 
