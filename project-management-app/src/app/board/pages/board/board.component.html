@@ -1,7 +1,5 @@
 <div class="board">
-  <div class="column" *ngFor="let column of columns">
-    <p>{{column.title}}</p>
-  </div>
+  <app-column *ngFor="let currentColumn of columns" [columnData]="currentColumn"></app-column>
   <button mat-button class="board__btn--add">
     <mat-icon>add</mat-icon> Create new column
   </button>

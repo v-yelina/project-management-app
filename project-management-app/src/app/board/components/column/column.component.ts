@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnResponse, TaskResponse } from 'src/app/core/models/response-api.models';
@@ -11,12 +11,7 @@ import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component'
   styleUrls: ['./column.component.scss'],
 })
 export class ColumnComponent {
-  columnData: ColumnResponse = {
-    _id: 'firstColumn',
-    title: 'Column title',
-    order: 0,
-    boardId: 'firstBoard'
-  }
+  @Input() columnData!: ColumnResponse;
 
   editMode = false;
 
@@ -63,7 +58,7 @@ export class ColumnComponent {
   }]
 
   editTitleForm: FormGroup = new FormGroup({
-    columnTitle: new FormControl(this.columnData.title, [Validators.required]),
+    columnTitle: new FormControl(this.columnData ? this.columnData.title : '', [Validators.required]),
   });
 
   constructor(private dialog: MatDialog) { }
