@@ -22,7 +22,7 @@ import { i18nAsset } from '../../constants/i18n';
 export class HeaderComponent implements OnInit, OnDestroy {
   isLogged = false;
 
-  lang: string | null = '';
+  lang: string | null = this.translation.getLocale().language.toUpperCase();
 
   schema: L10nSchema[] = this.l10nConfig.schema;
 
