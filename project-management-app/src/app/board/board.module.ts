@@ -14,7 +14,7 @@ import { SharedModule } from '../shared/shared.module';
 import { BoardComponent } from './pages/board/board.component';
 import { CreateColumnComponent } from './components/create-column/create-column.component';
 
-const routes: Routes = [{ path: ':id', component: BoardComponent }];
+const routes: Routes = [{ path: 'board', component: BoardComponent }, { path: ':id', component: BoardComponent }];
 
 @NgModule({
   declarations: [
@@ -37,4 +37,4 @@ const routes: Routes = [{ path: ':id', component: BoardComponent }];
   ],
   exports: [BoardComponent],
 })
-export class BoardModule {}
+export class BoardModule { }
