@@ -25,6 +25,8 @@ export class SignInPageComponent implements OnInit, OnDestroy {
 
   subscription = new Subscription();
 
+  hide = true;
+
   constructor(
     private store: Store,
     public dialog: MatDialog,
@@ -63,5 +65,10 @@ export class SignInPageComponent implements OnInit, OnDestroy {
 
   submit() {
     this.store.dispatch(signIn({ payload: this.signInForm.value }));
+  }
+
+  toggleHide(event: Event) {
+    event.preventDefault();
+    this.hide = !this.hide;
   }
 }

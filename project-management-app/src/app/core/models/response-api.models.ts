@@ -30,15 +30,15 @@ export interface TaskResponse {
 }
 
 export interface ColumnResponse {
-  _id: string,
-  title: string,
-  order: number,
-  boardId: string
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
 }
 
 export interface BoardResponse {
-  _id: string,
-  title: string,
-  owner: string,
-  users: string[],
+  _id: string;
+  title: string;
+  owner: string;
+  users: string[];
 }

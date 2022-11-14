@@ -15,58 +15,63 @@ export class ColumnComponent {
     _id: 'firstColumn',
     title: 'Column title',
     order: 0,
-    boardId: 'firstBoard'
-  }
+    boardId: 'firstBoard',
+  };
 
   editMode = false;
 
-  tasks: TaskResponse[] = [{
-    _id: 'sshdh1jsk8767',
-    title: 'First Task Title',
-    order: 0,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-    boardId: 'firstBoard',
-    columnId: 'firstColumn',
-    userId: 0,
-    users: [],
-  }, {
-    _id: 'sshdh1jsk8768',
-    title: 'Second Task Title',
-    order: 1,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-    boardId: 'firstBoard',
-    columnId: 'firstColumn',
-    userId: 0,
-    users: [],
-  }, {
-    _id: 'sshdh1jsk8769',
-    title: 'Third Task Title',
-    order: 2,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-    boardId: 'firstBoard',
-    columnId: 'firstColumn',
-    userId: 0,
-    users: [],
-  }, {
-    _id: 'sshdh1jsk87610',
-    title: 'Fourth Task Title',
-    order: 3,
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-    boardId: 'firstBoard',
-    columnId: 'firstColumn',
-    userId: 0,
-    users: [],
-  }]
+  tasks: TaskResponse[] = [
+    {
+      _id: 'sshdh1jsk8767',
+      title: 'First Task Title',
+      order: 0,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+      boardId: 'firstBoard',
+      columnId: 'firstColumn',
+      userId: 0,
+      users: [],
+    },
+    {
+      _id: 'sshdh1jsk8768',
+      title: 'Second Task Title',
+      order: 1,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+      boardId: 'firstBoard',
+      columnId: 'firstColumn',
+      userId: 0,
+      users: [],
+    },
+    {
+      _id: 'sshdh1jsk8769',
+      title: 'Third Task Title',
+      order: 2,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+      boardId: 'firstBoard',
+      columnId: 'firstColumn',
+      userId: 0,
+      users: [],
+    },
+    {
+      _id: 'sshdh1jsk87610',
+      title: 'Fourth Task Title',
+      order: 3,
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
+      boardId: 'firstBoard',
+      columnId: 'firstColumn',
+      userId: 0,
+      users: [],
+    },
+  ];
 
   editTitleForm: FormGroup = new FormGroup({
     columnTitle: new FormControl(this.columnData.title, [Validators.required]),
   });
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
 
   turnOnEditMode() {
     this.editMode = true;
@@ -96,12 +101,13 @@ export class ColumnComponent {
           columnId: this.columnData._id,
           userId: 0,
           users: [],
-        }, type: DialogType.CREATE
+        },
+        type: DialogType.CREATE,
       },
     });
 
     dialogRef.afterClosed().subscribe((result: TaskResponse) => {
-      this.tasks.push(result)
+      this.tasks.push(result);
     });
   }
 
