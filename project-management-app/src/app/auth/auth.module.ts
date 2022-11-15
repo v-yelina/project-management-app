@@ -9,6 +9,7 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 
 import { NotFoundPageComponent } from '../core/pages/not-found-page/not-found-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 
 const routes: Routes = [
   { path: 'signin', component: SignInPageComponent },
@@ -26,6 +27,13 @@ const routes: Routes = [
     MatIconModule,
     L10nTranslationModule,
     L10nIntlModule,
+    MatDialogModule
+  ],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {}
+    }
   ],
 })
-export class AuthModule {}
+export class AuthModule { }
