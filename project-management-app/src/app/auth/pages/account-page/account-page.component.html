@@ -1,14 +1,16 @@
 <h2>Edit profile</h2>
 <form [formGroup]="editProfileForm" class="edit-profile">
   <mat-form-field class="example-full-width" appearance="outline">
-    <input matInput placeholder="Name" value='username' formControlName="name" required>
+    <label for="name">Name</label>
+    <input matInput formControlName="name" required>
     <mat-error *ngIf="editProfileForm.controls['name'].hasError('required')">
       Please enter your name
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="outline">
-    <input matInput placeholder="Email" value='email' formControlName="login" required>
+    <label for="login">Email</label>
+    <input matInput formControlName="login" required>
     <mat-error *ngIf="editProfileForm.controls['login'].hasError('required')">
       Please enter your email
     </mat-error>

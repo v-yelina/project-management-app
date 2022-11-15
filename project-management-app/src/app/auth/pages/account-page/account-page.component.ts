@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AUTH_STATE } from 'src/app/core/constants/constants';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
+import { AuthState } from 'src/app/store/states/auth.state';
 
 @Component({
   selector: 'app-account-page',
@@ -9,18 +11,21 @@ import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/c
   styleUrls: ['./account-page.component.scss'],
 })
 export class AccountPageComponent implements OnInit {
+  userData: Omit<AuthState, 'responseMessage'> = {
+    ...JSON.parse(localStorage.getItem(AUTH_STATE) as string),
+  };
+
   editProfileForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     login: new FormControl('', [Validators.required, Validators.email]),
   });
-  constructor(
-    private dialogRef: MatDialogRef<ConfirmPopupComponent>,
-    private dialog: MatDialog,
-  ) { }
-  ngOnInit(): void {
-    console.log(localStorage.getItem('AUTH_STATE'));
 
+  constructor(private dialogRef: MatDialogRef<ConfirmPopupComponent>, private dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.editProfileForm.setValue({ name: this.userData.name, login: this.userData.login });
   }
+
   openConfirmationDialog() {
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
@@ -35,11 +40,7 @@ export class AccountPageComponent implements OnInit {
     });
   }
 
-  onConfirmClick() {
+  onConfirmClick() {}
 
-  }
-
-  deleteUser() {
-
-  }
+  deleteUser() {}
 }
