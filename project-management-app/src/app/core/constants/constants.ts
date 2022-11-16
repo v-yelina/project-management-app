@@ -11,3 +11,5 @@ export const AUTH_STATE = 'AUTH_STATE';
 
 export const SIGN_IN_SUCCESS = 'Welcome!';
 export const SIGN_UP_SUCCESS = 'Success! Use your login and password for sign in!';
+export const BOARD_CREATED = 'Board was created!';
+export const BOARD_DELETED = 'Board was deleted!';

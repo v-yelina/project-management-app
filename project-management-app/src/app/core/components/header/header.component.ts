@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   L10N_CONFIG,
   L10nConfig,
@@ -11,8 +13,16 @@ import {
 import { L10nSchema } from 'angular-l10n/lib/models/types';
 import { logOut, updateAuthStateFromLocalStorage } from '../../../store/actions/auth.actions';
 import { getUserId } from '../../../store/selectors/auth.selectors';
+import { CreateBoardPopupComponent } from '../../../shared/components/create-board-popup/create-board-popup.component';
+import { RawBoard } from '../../models/board.models';
+import { createBoard } from '../../../store/actions/boards.actions';
+import { getLoadStatus, getMessage } from '../../../store/selectors/notifications.selectors';
+import { setMessage } from '../../../store/actions/notifications.actions';
+import { NotificationSnackBarComponent } from '../../../shared/components/notification-snack-bar/notification-snack-bar.component';
 import { Languages } from '../../constants/l10n-config';
 import { i18nAsset } from '../../constants/i18n';
+
+const SNACK_BAR_TIME_DELAY_MS = 1500;
 
 @Component({
   selector: 'app-header',
@@ -21,6 +31,8 @@ import { i18nAsset } from '../../constants/i18n';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isLogged = false;
+
+  isLoad = false;
 
   lang: string | null = this.translation.getLocale().language.toUpperCase();
 
@@ -36,6 +48,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     private store: Store,
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar,
     @Inject(L10N_LOCALE) public locale: L10nLocale,
     @Inject(L10N_CONFIG) private l10nConfig: L10nConfig,
     private translation: L10nTranslationService,
@@ -45,11 +59,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.store.dispatch(updateAuthStateFromLocalStorage());
 
     const subUserId = this.store.select(getUserId).subscribe((id) => {
-      if (id) {
-        this.isLogged = true;
-      }
+      this.isLogged = !!id;
     });
     this.subscription.add(subUserId);
+
+    const subMsg = this.store.select(getMessage).subscribe((msg) => {
+      if (msg) {
+        this.snackBar.openFromComponent(NotificationSnackBarComponent, {
+          data: msg,
+          duration: SNACK_BAR_TIME_DELAY_MS,
+        });
+        this.store.dispatch(setMessage({ msg: null }));
+      }
+    });
+    this.subscription.add(subMsg);
+
+    const subLoad = this.store.select(getLoadStatus).subscribe((status) => {
+      this.isLoad = status;
+    });
+    this.subscription.add(subLoad);
+
     if (localStorage.getItem('lang')) {
       this.lang = localStorage.getItem('lang');
       if (this.lang === Languages.english) this.translation.setLocale(this.EN);
@@ -67,6 +96,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.isLogged = false;
     this.store.dispatch(logOut());
+  }
+
+  openCreateBoard() {
+    const dialogRef = this.dialog.open(CreateBoardPopupComponent);
+    const subRawBoard = dialogRef.afterClosed().subscribe((rawBoard: RawBoard) => {
+      if (rawBoard) {
+        this.store.dispatch(createBoard({ payload: rawBoard }));
+      }
+    });
+    this.subscription.add(subRawBoard);
   }
 
   setLocale(): void {
