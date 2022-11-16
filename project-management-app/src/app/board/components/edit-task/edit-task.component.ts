@@ -4,12 +4,19 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 
+export enum DialogType {
+  CREATE = 'Create',
+  EDIT = 'Edit',
+}
+
 @Component({
   selector: 'app-edit-task',
   templateUrl: './edit-task.component.html',
   styleUrls: ['./edit-task.component.scss'],
 })
 export class EditTaskComponent {
+  dialogType!: DialogType;
+
   id = '';
 
   title = '';
@@ -22,14 +29,15 @@ export class EditTaskComponent {
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: Pick<TaskResponse, '_id' | 'description' | 'title'>,
+    @Inject(MAT_DIALOG_DATA) private data: { taskData: Partial<TaskResponse>; type: DialogType },
     private dialogRef: MatDialogRef<ConfirmPopupComponent>,
     private dialog: MatDialog,
   ) {
     if (this.data) {
-      this.id = data._id;
-      this.title = data.title;
-      this.description = data.description;
+      this.dialogType = data.type;
+      this.id = data.taskData._id || '';
+      this.title = data.taskData.title || '';
+      this.description = data.taskData.description || '';
       this.editTaskForm.setValue({ title: this.title, description: this.description });
     }
   }
@@ -49,7 +57,15 @@ export class EditTaskComponent {
   }
 
   onConfirmClick() {
-    // edit task
-    this.dialogRef.close();
+    this.dialogRef.close({
+      _id: this.data.taskData._id || '',
+      title: this.editTaskForm.value.title,
+      order: this.data.taskData.order,
+      description: this.editTaskForm.value.description,
+      boardId: this.data.taskData.boardId,
+      columnId: this.data.taskData.columnId,
+      userId: this.data.taskData.userId,
+      users: this.data.taskData.users,
+    });
   }
 }

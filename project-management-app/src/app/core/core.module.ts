@@ -12,10 +12,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatTabsModule } from '@angular/material/tabs';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { L10nTranslationModule, L10nIntlModule } from 'angular-l10n';
 import { WelcomePageComponent } from './pages/welcome-page/welcome-page.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
+
+import { l10nConfig } from './constants/l10n-config';
 
 const routes: Routes = [{ path: '', component: WelcomePageComponent }];
 
@@ -34,6 +37,8 @@ const routes: Routes = [{ path: '', component: WelcomePageComponent }];
     MatTabsModule,
     RouterModule.forChild(routes),
     MatProgressSpinnerModule,
+    L10nTranslationModule.forRoot(l10nConfig),
+    L10nIntlModule,
   ],
   exports: [HeaderComponent, FooterComponent, WelcomePageComponent],
 })

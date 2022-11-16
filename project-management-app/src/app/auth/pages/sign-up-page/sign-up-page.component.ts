@@ -31,6 +31,10 @@ export class SignUpPageComponent {
 
   passwordEqualsMatcher = new PasswordErrorStateMatcher();
 
+  hide = true;
+
+  hideRepeat = true;
+
   constructor(private store: Store, public dialog: MatDialog) {}
 
   displayFormControlErrorMessage(formControlName: string, typeError: string): boolean {
@@ -89,5 +93,15 @@ export class SignUpPageComponent {
     const payload = { ...this.signUpForm.value };
     delete payload.repeatPassword;
     this.store.dispatch(signUp({ payload }));
+  }
+
+  toggleHide(event: Event) {
+    event.preventDefault();
+    this.hide = !this.hide;
+  }
+
+  toggleHideRepeat(event: Event) {
+    event.preventDefault();
+    this.hideRepeat = !this.hideRepeat;
   }
 }

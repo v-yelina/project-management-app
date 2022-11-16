@@ -10,6 +10,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
+import { ColumnComponent } from './components/column/column.component';
+import { SharedModule } from '../shared/shared.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { BoardComponent } from './components/board/board.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
@@ -23,6 +25,7 @@ const routes: Routes = [
   declarations: [
     TaskComponent,
     EditTaskComponent,
+    ColumnComponent,
     BoardsPageComponent,
     BoardComponent,
     BoardPageComponent,
@@ -35,9 +38,10 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    SharedModule,
     RouterModule.forChild(routes),
     MatMenuModule,
   ],
-  exports: [TaskComponent],
+  exports: [TaskComponent, ColumnComponent],
 })
 export class BoardModule {}

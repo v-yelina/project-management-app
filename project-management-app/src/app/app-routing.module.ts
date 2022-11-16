@@ -4,7 +4,10 @@ import { NotFoundPageComponent } from './core/pages/not-found-page/not-found-pag
 import { WelcomePageComponent } from './core/pages/welcome-page/welcome-page.component';
 
 const routes: Routes = [
-  { path: 'login', loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule) },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
   { path: 'welcome', component: WelcomePageComponent },
   { path: 'boards', loadChildren: () => import('./board/board.module').then((m) => m.BoardModule) },
   { path: '', redirectTo: '/boards', pathMatch: 'full' },
