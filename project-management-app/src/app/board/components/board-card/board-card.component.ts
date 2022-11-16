@@ -6,11 +6,11 @@ import { ConfirmPopupComponent } from '../../../shared/components/confirm-popup/
 import { ItemType } from '../../../shared/components/confirm-popup/confirm-popup.models';
 
 @Component({
-  selector: 'app-board',
-  templateUrl: './board.component.html',
-  styleUrls: ['./board.component.scss'],
+  selector: 'app-board-card',
+  templateUrl: './board-card.component.html',
+  styleUrls: ['./board-card.component.scss'],
 })
-export class BoardComponent implements OnDestroy {
+export class BoardCardComponent implements OnDestroy {
   @Input() boardTitle =
     ' Angular Live Development Server is listening on localhost:4200, open your browser ';
 

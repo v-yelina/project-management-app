@@ -13,7 +13,7 @@ import { TaskComponent } from './components/task/task.component';
 import { ColumnComponent } from './components/column/column.component';
 import { SharedModule } from '../shared/shared.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
-import { BoardComponent } from './components/board/board.component';
+import { BoardCardComponent } from './components/board-card/board-card.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
 
 const routes: Routes = [
@@ -27,7 +27,7 @@ const routes: Routes = [
     EditTaskComponent,
     ColumnComponent,
     BoardsPageComponent,
-    BoardComponent,
+    BoardCardComponent,
     BoardPageComponent,
   ],
   imports: [

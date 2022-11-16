@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { getBoards } from '../../../store/selectors/boards.selectors';
 import { deleteBoard, initUserBoards } from '../../../store/actions/boards.actions';
 import { BoardResponse } from '../../../core/models/response-api.models';
-import { DELETE_BOARD, OPEN_BOARD } from '../../components/board/constants';
+import { DELETE_BOARD, OPEN_BOARD } from '../../components/board-card/constants';
 
 @Component({
   selector: 'app-boards-page',
