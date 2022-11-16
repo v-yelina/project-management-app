@@ -3,7 +3,6 @@ export interface AuthState {
   name: string | null;
   login: string | null;
   token: string | null;
-  responseMessage: string | null;
 }
 
 export const initialState: AuthState = {
@@ -11,5 +10,4 @@ export const initialState: AuthState = {
   name: null,
   login: null,
   token: null,
-  responseMessage: null,
 };

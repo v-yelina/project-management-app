@@ -4,19 +4,37 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
-import { InfoPopupComponent } from './components/info-popup/info-popup.component';
+
+import { CreateBoardPopupComponent } from './components/create-board-popup/create-board-popup.component';
+import { NotificationSnackBarComponent } from './components/notification-snack-bar/notification-snack-bar.component';
 
 @NgModule({
-  declarations: [ConfirmPopupComponent, InfoPopupComponent],
-  imports: [CommonModule, MatDialogModule, MatCardModule, MatButtonModule],
+  declarations: [ConfirmPopupComponent, CreateBoardPopupComponent, NotificationSnackBarComponent],
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatCardModule,
+    MatButtonModule,
+    FormsModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatSnackBarModule,
+  ],
   exports: [
     ConfirmPopupComponent,
-    InfoPopupComponent,
     MatInputModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatSnackBarModule,
   ],
 })
 export class SharedModule {}

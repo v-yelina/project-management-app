@@ -6,8 +6,3 @@ export const getAuthState = createFeatureSelector<AuthState>('authState');
 export const getAuthToken = createSelector(getAuthState, (authState) => authState.token);
 
 export const getUserId = createSelector(getAuthState, (authState) => authState.id);
-
-export const getResponseMessage = createSelector(
-  getAuthState,
-  (authState) => authState.responseMessage,
-);

@@ -4,6 +4,7 @@ export interface UserResponse {
   login: string;
 }
 
+// eslint-disable-next-line import/export
 export interface BoardResponse {
   _id: string;
   title: string;
@@ -11,6 +12,7 @@ export interface BoardResponse {
   users: Array<string>;
 }
 
+// eslint-disable-next-line import/export
 export interface ColumnResponse {
   _id: string;
   title: string;
@@ -29,6 +31,7 @@ export interface TaskResponse {
   users: Array<string>;
 }
 
+// eslint-disable-next-line import/export
 export interface ColumnResponse {
   _id: string;
   title: string;
@@ -36,6 +39,7 @@ export interface ColumnResponse {
   boardId: string;
 }
 
+// eslint-disable-next-line import/export
 export interface BoardResponse {
   _id: string;
   title: string;

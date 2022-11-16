@@ -6,13 +6,30 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule, Routes } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
 import { ColumnComponent } from './components/column/column.component';
 import { SharedModule } from '../shared/shared.module';
+import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
+import { BoardCardComponent } from './components/board-card/board-card.component';
+import { BoardPageComponent } from './pages/board-page/board-page.component';
+
+const routes: Routes = [
+  { path: '', component: BoardsPageComponent },
+  { path: ':id', component: BoardPageComponent },
+];
 
 @NgModule({
-  declarations: [TaskComponent, EditTaskComponent, ColumnComponent],
+  declarations: [
+    TaskComponent,
+    EditTaskComponent,
+    ColumnComponent,
+    BoardsPageComponent,
+    BoardCardComponent,
+    BoardPageComponent,
+  ],
   imports: [
     CommonModule,
     MatCardModule,
@@ -22,6 +39,8 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     MatInputModule,
     SharedModule,
+    RouterModule.forChild(routes),
+    MatMenuModule,
   ],
   exports: [TaskComponent, ColumnComponent],
 })
