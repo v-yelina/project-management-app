@@ -14,21 +14,26 @@ import { ColumnComponent } from './components/column/column.component';
 import { SharedModule } from '../shared/shared.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { BoardCardComponent } from './components/board-card/board-card.component';
-import { BoardPageComponent } from './pages/board-page/board-page.component';
+
+import { BoardComponent } from './pages/board/board.component';
+import { CreateColumnComponent } from './components/create-column/create-column.component';
 
 const routes: Routes = [
-  { path: '', component: BoardsPageComponent },
-  { path: ':id', component: BoardPageComponent },
+  { path: 'board', component: BoardComponent },
+  { path: ':id', component: BoardComponent },
 ];
 
 @NgModule({
   declarations: [
     TaskComponent,
+
     EditTaskComponent,
+
     ColumnComponent,
+    BoardComponent,
+    CreateColumnComponent,
     BoardsPageComponent,
     BoardCardComponent,
-    BoardPageComponent,
   ],
   imports: [
     CommonModule,
@@ -38,10 +43,11 @@ const routes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
+    RouterModule.forChild(routes),
     SharedModule,
     RouterModule.forChild(routes),
     MatMenuModule,
   ],
-  exports: [TaskComponent, ColumnComponent],
+  exports: [BoardComponent],
 })
 export class BoardModule {}
