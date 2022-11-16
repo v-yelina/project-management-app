@@ -68,7 +68,7 @@ export class ColumnComponent {
     ]),
   });
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog) {}
 
   turnOnEditMode() {
     this.editMode = true;

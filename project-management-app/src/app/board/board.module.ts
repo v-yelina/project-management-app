@@ -14,7 +14,6 @@ import { ColumnComponent } from './components/column/column.component';
 import { SharedModule } from '../shared/shared.module';
 import { BoardsPageComponent } from './pages/boards-page/boards-page.component';
 import { BoardCardComponent } from './components/board-card/board-card.component';
-import { BoardPageComponent } from './pages/board-page/board-page.component';
 
 import { BoardComponent } from './pages/board/board.component';
 import { CreateColumnComponent } from './components/create-column/create-column.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-
     TaskComponent,
 
     EditTaskComponent,
@@ -36,7 +34,6 @@ const routes: Routes = [
     CreateColumnComponent,
     BoardsPageComponent,
     BoardCardComponent,
-    BoardPageComponent,
   ],
   imports: [
     CommonModule,
@@ -53,4 +50,4 @@ const routes: Routes = [
   ],
   exports: [BoardComponent],
 })
-export class BoardModule { }
+export class BoardModule {}
