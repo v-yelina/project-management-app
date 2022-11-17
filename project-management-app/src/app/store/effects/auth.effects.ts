@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap, zip, mergeMap } from 'rxjs';
+import { catchError, first, map, of, switchMap, tap, zip } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import {
@@ -14,7 +14,7 @@ import {
 } from '../actions/auth.actions';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { AUTH_STATE, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from '../../core/constants/constants';
-import { initialState } from '../states/auth.state';
+import { AuthState, initialState } from '../states/auth.state';
 import { getAuthState } from '../selectors/auth.selectors';
 import { UserResponse } from '../../core/models/response-api.models';
 import { RestApiService } from '../../core/services/rest-api.service';
@@ -127,13 +127,15 @@ export class AuthEffects {
   deleteUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(deleteUser),
-      switchMap((action) => this.restApiService.deleteUserById(action.payload.id).pipe(
-        map(() => logOut()
+      switchMap((action) =>
+        this.restApiService.deleteUserById(action.payload.id).pipe(
+          map(() => logOut()),
+          catchError((err) => {
+            return of(setMessage({ msg: err.error.message }));
+          }),
         ),
-        catchError((err) => {
-          return of(setErrorMessage({ msg: err.error.message }));
-        }),
-      ))),
+      ),
+    ),
   );
 
   constructor(
@@ -142,5 +144,5 @@ export class AuthEffects {
     private restApiService: RestApiService,
     private store: Store,
     private router: Router,
-  ) { }
+  ) {}
 }

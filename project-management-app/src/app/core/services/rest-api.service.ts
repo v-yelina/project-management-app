@@ -24,7 +24,7 @@ import { PartialTaskWithOrder, Task } from '../models/task.models';
   providedIn: 'root',
 })
 export class RestApiService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   signIn(credentials: Pick<UserCredentials, 'login' | 'password'>): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(AuthEndpoint.SIGN_IN, credentials, {

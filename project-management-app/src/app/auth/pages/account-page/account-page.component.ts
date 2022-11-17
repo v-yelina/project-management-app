@@ -22,10 +22,17 @@ export class AccountPageComponent implements OnInit {
     login: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private dialogRef: MatDialogRef<ConfirmPopupComponent>, private dialog: MatDialog, private store: Store,) { }
+  constructor(
+    private dialogRef: MatDialogRef<ConfirmPopupComponent>,
+    private dialog: MatDialog,
+    private store: Store,
+  ) {}
 
   ngOnInit(): void {
-    this.editProfileForm.setValue({ name: this.userData.name || '', login: this.userData.login || '' });
+    this.editProfileForm.setValue({
+      name: this.userData.name || '',
+      login: this.userData.login || '',
+    });
   }
 
   openConfirmationDialog() {
@@ -42,9 +49,9 @@ export class AccountPageComponent implements OnInit {
     });
   }
 
-  onConfirmClick() { }
+  onConfirmClick() {}
 
   deleteUser() {
-    this.store.dispatch(deleteUser({ payload: { id: this.userData.id as string } }))
+    this.store.dispatch(deleteUser({ payload: { id: this.userData.id as string } }));
   }
 }

@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(L10N_LOCALE) public locale: L10nLocale,
     @Inject(L10N_CONFIG) private l10nConfig: L10nConfig,
     private translation: L10nTranslationService,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(updateAuthStateFromLocalStorage());
