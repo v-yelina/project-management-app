@@ -6,5 +6,5 @@ export function PasswordHasSpecialCharacterValidator(): ValidatorFn {
       return { specialCharacter: true };
     }
     return null;
-  }
+  };
 }

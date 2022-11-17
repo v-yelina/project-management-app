@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import {
   deleteUser,
+  updateUserData,
   getAdditionalUserData,
   logOut,
   signIn,
@@ -130,6 +131,39 @@ export class AuthEffects {
       switchMap((action) =>
         this.restApiService.deleteUserById(action.payload.id).pipe(
           map(() => logOut()),
+          tap(() => {
+            this.store.dispatch(loaded());
+          }),
+          catchError((err) => {
+            return of(setMessage({ msg: err.error.message }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUserData),
+      switchMap((action) =>
+        this.restApiService.updateUserById(action.payload.credentials, action.payload.id).pipe(
+          map(() => {
+            const { token } = JSON.parse(this.localStorageService.getItem(AUTH_STATE) as string);
+            this.localStorageService.setItem(
+              AUTH_STATE,
+              JSON.stringify({
+                id: action.payload.id,
+                name: action.payload.credentials.name,
+                login: action.payload.credentials.login,
+                token,
+              }),
+            );
+
+            return updateAuthStateFromLocalStorage();
+          }),
+          tap(() => {
+            this.store.dispatch(loaded());
+          }),
           catchError((err) => {
             return of(setMessage({ msg: err.error.message }));
           }),
@@ -144,5 +178,5 @@ export class AuthEffects {
     private restApiService: RestApiService,
     private store: Store,
     private router: Router,
-  ) {}
+  ) { }
 }

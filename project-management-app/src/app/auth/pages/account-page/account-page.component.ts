@@ -4,7 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AUTH_STATE } from 'src/app/core/constants/constants';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
-import { deleteUser } from 'src/app/store/actions/auth.actions';
+import { deleteUser, updateUserData } from 'src/app/store/actions/auth.actions';
 import { AuthState } from 'src/app/store/states/auth.state';
 import { PasswordHasCapitalAndSmallCaseValidator } from '../../directives/password-has-capital-and-small-case.directive';
 import { PasswordHasLettersAndNumbersValidator } from '../../directives/password-has-letters-and-numbers.directive';
@@ -30,7 +30,7 @@ export class AccountPageComponent implements OnInit {
       Validators.minLength(8),
       PasswordHasCapitalAndSmallCaseValidator(),
       PasswordHasLettersAndNumbersValidator(),
-      PasswordHasSpecialCharacterValidator()
+      PasswordHasSpecialCharacterValidator(),
     ]),
   });
 
@@ -38,13 +38,13 @@ export class AccountPageComponent implements OnInit {
     private dialogRef: MatDialogRef<ConfirmPopupComponent>,
     private dialog: MatDialog,
     private store: Store,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.editProfileForm.setValue({
       name: this.userData.name || '',
       login: this.userData.login || '',
-      password: ''
+      password: '',
     });
   }
 
@@ -60,8 +60,22 @@ export class AccountPageComponent implements OnInit {
         this.editProfileForm.setValue({
           name: this.userData.name,
           login: this.userData.login,
-          password: ''
+          password: '',
         });
+      }
+    });
+  }
+
+  openConfirmationDialogSave() {
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      data: {
+        message: 'Are you sure want to save changes?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.saveChanges();
       }
     });
   }
@@ -85,7 +99,14 @@ export class AccountPageComponent implements OnInit {
     this.hide = !this.hide;
   }
 
-  onConfirmClick() { }
+  saveChanges() {
+    const credentials = {
+      name: this.editProfileForm.value.name,
+      login: this.editProfileForm.value.login,
+      password: this.editProfileForm.value.password,
+    };
+    this.store.dispatch(updateUserData({ payload: { credentials, id: this.userData.id || '' } }));
+  }
 
   deleteUser() {
     this.store.dispatch(deleteUser({ payload: { id: this.userData.id as string } }));

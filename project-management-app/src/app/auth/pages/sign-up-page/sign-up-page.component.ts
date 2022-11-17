@@ -25,7 +25,7 @@ export class SignUpPageComponent {
         Validators.minLength(8),
         PasswordHasCapitalAndSmallCaseValidator(),
         PasswordHasLettersAndNumbersValidator(),
-        PasswordHasSpecialCharacterValidator()
+        PasswordHasSpecialCharacterValidator(),
       ]),
       repeatPassword: new FormControl('', [Validators.required]),
     },
@@ -38,7 +38,7 @@ export class SignUpPageComponent {
 
   hideRepeat = true;
 
-  constructor(private store: Store, public dialog: MatDialog) { }
+  constructor(private store: Store, public dialog: MatDialog) {}
 
   displayFormControlErrorMessage(formControlName: string, typeError: string): boolean {
     return (
