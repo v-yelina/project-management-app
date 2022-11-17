@@ -14,7 +14,13 @@ import {
   updateAuthStateFromLocalStorage,
 } from '../actions/auth.actions';
 import { LocalStorageService } from '../../core/services/local-storage.service';
-import { AUTH_STATE, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from '../../core/constants/constants';
+import {
+  AUTH_STATE,
+  SIGN_IN_SUCCESS,
+  SIGN_UP_SUCCESS,
+  USER_DELETED,
+  USER_UPDATED,
+} from '../../core/constants/constants';
 import { AuthState, initialState } from '../states/auth.state';
 import { getAuthState } from '../selectors/auth.selectors';
 import { UserResponse } from '../../core/models/response-api.models';
@@ -132,6 +138,7 @@ export class AuthEffects {
         this.restApiService.deleteUserById(action.payload.id).pipe(
           map(() => logOut()),
           tap(() => {
+            this.store.dispatch(setMessage({ msg: USER_DELETED }));
             this.store.dispatch(loaded());
           }),
           catchError((err) => {
@@ -162,6 +169,7 @@ export class AuthEffects {
             return updateAuthStateFromLocalStorage();
           }),
           tap(() => {
+            this.store.dispatch(setMessage({ msg: USER_UPDATED }));
             this.store.dispatch(loaded());
           }),
           catchError((err) => {
@@ -178,5 +186,5 @@ export class AuthEffects {
     private restApiService: RestApiService,
     private store: Store,
     private router: Router,
-  ) { }
+  ) {}
 }
