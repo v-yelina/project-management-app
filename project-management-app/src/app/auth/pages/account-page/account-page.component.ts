@@ -44,22 +44,42 @@ export class AccountPageComponent implements OnInit {
     this.editProfileForm.setValue({
       name: this.userData.name || '',
       login: this.userData.login || '',
+      password: ''
     });
   }
 
-  openConfirmationDialog() {
+  openConfirmationDialogExit() {
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
-        message: 'Are you sure want to exit without saving changes?',
+        message: 'Are you sure want to dicard changes?',
       },
     });
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.dialogRef.close();
+        this.editProfileForm.setValue({
+          name: this.userData.name,
+          login: this.userData.login,
+          password: ''
+        });
       }
     });
   }
+
+  openConfirmationDialogDelete() {
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      data: {
+        message: 'Are you sure want to delete user?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteUser();
+      }
+    });
+  }
+
   toggleHide(event: Event) {
     event.preventDefault();
     this.hide = !this.hide;
