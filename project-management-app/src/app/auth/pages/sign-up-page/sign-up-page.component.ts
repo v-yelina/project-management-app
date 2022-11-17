@@ -1,20 +1,18 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
-import { Subscription } from 'rxjs';
+
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordErrorStateMatcher } from './password-error-state-matcher';
-import { setResponseMessage, signUp } from '../../../store/actions/auth.actions';
-import { getResponseMessage } from '../../../store/selectors/auth.selectors';
-import { InfoPopupComponent } from '../../../shared/components/info-popup/info-popup.component';
+import { signUp } from '../../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-sign-up-page',
   templateUrl: './sign-up-page.component.html',
   styleUrls: ['./sign-up-page.component.scss'],
 })
-export class SignUpPageComponent implements OnInit, OnDestroy {
+export class SignUpPageComponent {
   signUpForm: FormGroup = new FormGroup(
     {
       name: new FormControl('', [Validators.required, Validators.maxLength(32)]),
@@ -33,29 +31,11 @@ export class SignUpPageComponent implements OnInit, OnDestroy {
 
   passwordEqualsMatcher = new PasswordErrorStateMatcher();
 
-  subscription = new Subscription();
-
   hide = true;
 
   hideRepeat = true;
 
   constructor(private store: Store, public dialog: MatDialog) {}
-
-  ngOnInit() {
-    const subMsg = this.store.select(getResponseMessage).subscribe((msg) => {
-      if (msg) {
-        this.dialog.open(InfoPopupComponent, {
-          data: { msg },
-        });
-        this.store.dispatch(setResponseMessage({ msg: null }));
-      }
-    });
-    this.subscription.add(subMsg);
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 
   displayFormControlErrorMessage(formControlName: string, typeError: string): boolean {
     return (

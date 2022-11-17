@@ -20,10 +20,3 @@ export const updateUserData = createAction('UPDATE_USER', props<{ payload: { cre
 export const deleteUser = createAction('DELETE_USER', props<{ payload: { id: string } }>());
 
 export const getAdditionalUserData = createAction('GET_ADDITIONAL_USER_DATA');
-
-export const setErrorMessage = createAction('SET_ERROR_MESSAGE', props<{ msg: string }>());
-
-export const setResponseMessage = createAction(
-  'SET_RESPONSE_MESSAGE',
-  props<{ msg: string | null }>(),
-);

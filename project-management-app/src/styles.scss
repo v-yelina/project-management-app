@@ -25,3 +25,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   font-family: cursive;
   font-size: 1.5rem;
 }
+
+.mat-chip-list-wrapper {
+  overflow: auto;
+}

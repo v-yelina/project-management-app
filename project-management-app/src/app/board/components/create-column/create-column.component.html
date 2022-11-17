@@ -1,0 +1,15 @@
+<h2>Create column</h2>
+<form [formGroup]="createColumnForm" class="create-column">
+  <mat-form-field class="example-full-width" appearance="outline">
+    <input matInput placeholder="Title" value={{title}} formControlName="title" required>
+    <mat-error *ngIf="createColumnForm.controls['title'].hasError('required')">
+      Please enter column title
+    </mat-error>
+  </mat-form-field>
+  <div class="create-column__buttons">
+    <button mat-raised-button type="submit" color="primary"
+      class="create-column__btn create-column__btn--edit" (click)="onConfirmClick()">Save</button>
+    <button mat-raised-button type="button" class="create-column__btn create-column__btn--cancel"
+      (click)="openConfirmationDialog()">Cancel</button>
+  </div>
+</form>

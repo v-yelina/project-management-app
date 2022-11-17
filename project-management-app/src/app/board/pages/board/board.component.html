@@ -1,0 +1,6 @@
+<div class="board">
+  <app-column *ngFor="let currentColumn of columns" [columnData]="currentColumn"></app-column>
+  <button mat-button class="board__btn--add" (click)="openCreateDialog()">
+    <mat-icon>add</mat-icon> Create new column
+  </button>
+</div>
