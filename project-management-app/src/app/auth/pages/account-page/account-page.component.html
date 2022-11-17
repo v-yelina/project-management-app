@@ -2,7 +2,7 @@
 <form [formGroup]="editProfileForm" class="edit-profile">
   <mat-form-field class="example-full-width" appearance="outline">
     <label for="name" class="edit-profile__label">Name</label>
-    <input matInput formControlName="name" required>
+    <input matInput formControlName="name" required class="edit-profile__input">
     <mat-error *ngIf="editProfileForm.controls['name'].hasError('required')">
       Please enter your name
     </mat-error>
@@ -10,14 +10,15 @@
 
   <mat-form-field class="example-full-width" appearance="outline">
     <label for="login" class="edit-profile__label">Email</label>
-    <input matInput formControlName="login" required>
+    <input matInput formControlName="login" required class="edit-profile__input">
     <mat-error *ngIf="editProfileForm.controls['login'].hasError('required')">
       Please enter your email
     </mat-error>
   </mat-form-field>
   <mat-form-field class="example-full-width" appearance="outline">
     <label for="password" class="edit-profile__label">Password</label>
-    <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
+    <input [type]="hide ? 'password' : 'text'" matInput formControlName="password"
+      class="edit-profile__input" />
     <button mat-icon-button matSuffix (click)="toggleHide($event)"
       [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
