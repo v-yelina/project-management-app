@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { AUTH_STATE } from 'src/app/core/constants/constants';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
+import { deleteUser, logOut } from 'src/app/store/actions/auth.actions';
 import { AuthState } from 'src/app/store/states/auth.state';
 
 @Component({
@@ -20,10 +22,10 @@ export class AccountPageComponent implements OnInit {
     login: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(private dialogRef: MatDialogRef<ConfirmPopupComponent>, private dialog: MatDialog) {}
+  constructor(private dialogRef: MatDialogRef<ConfirmPopupComponent>, private dialog: MatDialog, private store: Store,) { }
 
   ngOnInit(): void {
-    this.editProfileForm.setValue({ name: this.userData.name, login: this.userData.login });
+    this.editProfileForm.setValue({ name: this.userData.name || '', login: this.userData.login || '' });
   }
 
   openConfirmationDialog() {
@@ -40,7 +42,9 @@ export class AccountPageComponent implements OnInit {
     });
   }
 
-  onConfirmClick() {}
+  onConfirmClick() { }
 
-  deleteUser() {}
+  deleteUser() {
+    this.store.dispatch(deleteUser({ payload: { id: this.userData.id as string } }))
+  }
 }

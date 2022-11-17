@@ -15,6 +15,10 @@ export const signIn = createAction(
 
 export const signUp = createAction('SIGN_UP', props<{ payload: Required<UserCredentials> }>());
 
+export const updateUserData = createAction('UPDATE_USER', props<{ payload: { credentials: Required<UserCredentials>, id: string } }>());
+
+export const deleteUser = createAction('DELETE_USER', props<{ payload: { id: string } }>());
+
 export const getAdditionalUserData = createAction('GET_ADDITIONAL_USER_DATA');
 
 export const setErrorMessage = createAction('SET_ERROR_MESSAGE', props<{ msg: string }>());

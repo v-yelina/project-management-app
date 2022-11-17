@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap, zip } from 'rxjs';
+import { catchError, first, map, of, switchMap, tap, zip, mergeMap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import {
+  deleteUser,
   getAdditionalUserData,
   logOut,
   setErrorMessage,
@@ -40,8 +41,8 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(logOut),
         tap(() => {
-          this.localStorageService.clearAll();
-          this.router.navigateByUrl('/login/signin');
+          this.localStorageService.removeItem(AUTH_STATE)
+          this.router.navigateByUrl('/welcome');
         }),
       ),
     { dispatch: false },
@@ -79,7 +80,7 @@ export class AuthEffects {
       switchMap(() => zip(this.restApiService.getUsers(), this.store.select(getAuthState))),
       map(([users, state]) => {
         const user = users.find((item) => item.login === state.login) as UserResponse;
-        const authState = {
+        const authState: AuthState = {
           ...state,
           name: user.name,
           // eslint-disable-next-line no-underscore-dangle
@@ -124,11 +125,23 @@ export class AuthEffects {
     ),
   );
 
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteUser),
+      switchMap((action) => this.restApiService.deleteUserById(action.payload.id).pipe(
+        map(() => logOut()
+        ),
+        catchError((err) => {
+          return of(setErrorMessage({ msg: err.error.message }));
+        }),
+      ))),
+  );
+
   constructor(
     private actions$: Actions,
     private localStorageService: LocalStorageService,
     private restApiService: RestApiService,
     private store: Store,
     private router: Router,
-  ) {}
+  ) { }
 }

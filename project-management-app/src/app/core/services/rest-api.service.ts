@@ -24,7 +24,7 @@ import { PartialTaskWithOrder, Task } from '../models/task.models';
   providedIn: 'root',
 })
 export class RestApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   signIn(credentials: Pick<UserCredentials, 'login' | 'password'>): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(AuthEndpoint.SIGN_IN, credentials, {
@@ -34,6 +34,18 @@ export class RestApiService {
 
   signUp(credentials: Required<UserCredentials>): Observable<UserResponse> {
     return this.http.post<UserResponse>(AuthEndpoint.SIGN_UP, credentials, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  updateUserById(credentials: Required<UserCredentials>, id: string): Observable<UserResponse> {
+    return this.http.put<UserResponse>(`${UsersEndpoint.USERS}/${id}`, credentials, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  deleteUserById(id: string): Observable<UserResponse> {
+    return this.http.delete<UserResponse>(`${UsersEndpoint.USERS}/${id}`, {
       ...HTTP_OPTIONS,
     });
   }

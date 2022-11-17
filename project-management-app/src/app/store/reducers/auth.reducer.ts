@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import {
+  deleteUser,
   logOut,
   setErrorMessage,
   setResponseMessage,
