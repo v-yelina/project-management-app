@@ -1,7 +1,7 @@
 <h2>Edit profile</h2>
 <form [formGroup]="editProfileForm" class="edit-profile">
   <mat-form-field class="example-full-width" appearance="outline">
-    <label for="name">Name</label>
+    <label for="name" class="edit-profile__label">Name</label>
     <input matInput formControlName="name" required>
     <mat-error *ngIf="editProfileForm.controls['name'].hasError('required')">
       Please enter your name
@@ -9,10 +9,29 @@
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="outline">
-    <label for="login">Email</label>
+    <label for="login" class="edit-profile__label">Email</label>
     <input matInput formControlName="login" required>
     <mat-error *ngIf="editProfileForm.controls['login'].hasError('required')">
       Please enter your email
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" appearance="outline">
+    <label for="password" class="edit-profile__label">Password</label>
+    <input [type]="hide ? 'password' : 'text'" matInput formControlName="password" />
+    <button mat-icon-button matSuffix (click)="toggleHide($event)"
+      [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+    <mat-error *ngIf="editProfileForm.controls['password'].hasError('required')">
+      Please enter your password
+    </mat-error>
+    <mat-error
+      *ngIf="editProfileForm.controls['password'].hasError && !editProfileForm.controls['password'].hasError('required')">
+      Your password isn't strong enough:
+      at least 8 characters,
+      a mixture of both uppercase and lowercase letters,
+      a mixture of letters and numbers,
+      at least one special character, e.g., ! @ # ?
     </mat-error>
   </mat-form-field>
   <div class="edit-profile__buttons">

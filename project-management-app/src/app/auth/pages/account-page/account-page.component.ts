@@ -4,8 +4,11 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { AUTH_STATE } from 'src/app/core/constants/constants';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
-import { deleteUser, logOut } from 'src/app/store/actions/auth.actions';
+import { deleteUser } from 'src/app/store/actions/auth.actions';
 import { AuthState } from 'src/app/store/states/auth.state';
+import { PasswordHasCapitalAndSmallCaseValidator } from '../../directives/password-has-capital-and-small-case.directive';
+import { PasswordHasLettersAndNumbersValidator } from '../../directives/password-has-letters-and-numbers.directive';
+import { PasswordHasSpecialCharacterValidator } from '../../directives/password-has-special-character.directive';
 
 @Component({
   selector: 'app-account-page',
@@ -17,16 +20,25 @@ export class AccountPageComponent implements OnInit {
     ...JSON.parse(localStorage.getItem(AUTH_STATE) as string),
   };
 
+  hide = true;
+
   editProfileForm: FormGroup = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(32)]),
     login: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      PasswordHasCapitalAndSmallCaseValidator(),
+      PasswordHasLettersAndNumbersValidator(),
+      PasswordHasSpecialCharacterValidator()
+    ]),
   });
 
   constructor(
     private dialogRef: MatDialogRef<ConfirmPopupComponent>,
     private dialog: MatDialog,
     private store: Store,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.editProfileForm.setValue({
@@ -48,8 +60,12 @@ export class AccountPageComponent implements OnInit {
       }
     });
   }
+  toggleHide(event: Event) {
+    event.preventDefault();
+    this.hide = !this.hide;
+  }
 
-  onConfirmClick() {}
+  onConfirmClick() { }
 
   deleteUser() {
     this.store.dispatch(deleteUser({ payload: { id: this.userData.id as string } }));
