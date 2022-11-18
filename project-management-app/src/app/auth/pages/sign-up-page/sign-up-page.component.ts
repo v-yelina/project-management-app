@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
@@ -6,6 +6,7 @@ import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
 import { PasswordErrorStateMatcher } from './password-error-state-matcher';
 import { signUp } from '../../../store/actions/auth.actions';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -35,7 +36,7 @@ export class SignUpPageComponent {
 
   hideRepeat = true;
 
-  constructor(private store: Store, public dialog: MatDialog) {}
+  constructor(private store: Store, public dialog: MatDialog, @Inject(L10N_LOCALE) public locale: L10nLocale) {}
 
   displayFormControlErrorMessage(formControlName: string, typeError: string): boolean {
     return (
