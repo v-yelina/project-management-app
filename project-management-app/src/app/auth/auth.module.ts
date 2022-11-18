@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { L10nTranslationModule, L10nIntlModule } from 'angular-l10n';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { SignInPageComponent } from './pages/sign-in-page/sign-in-page.component';
 import { SignUpPageComponent } from './pages/sign-up-page/sign-up-page.component';
 import { AccountPageComponent } from './pages/account-page/account-page.component';
@@ -27,6 +28,13 @@ const routes: Routes = [
     MatIconModule,
     L10nTranslationModule,
     L10nIntlModule,
+    MatDialogModule,
+  ],
+  providers: [
+    {
+      provide: MatDialogRef,
+      useValue: {},
+    },
   ],
 })
 export class AuthModule {}
