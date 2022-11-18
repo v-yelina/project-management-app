@@ -9,11 +9,12 @@ import { AccountPageComponent } from './pages/account-page/account-page.componen
 
 import { NotFoundPageComponent } from '../core/pages/not-found-page/not-found-page.component';
 import { SharedModule } from '../shared/shared.module';
+import { AuthGuard } from '../core/guards/auth.guard';
 
 const routes: Routes = [
   { path: 'signin', component: SignInPageComponent },
   { path: 'signup', component: SignUpPageComponent },
-  { path: 'profile', component: AccountPageComponent },
+  { path: 'profile', canActivate: [AuthGuard], component: AccountPageComponent },
   { path: '', component: NotFoundPageComponent },
 ];
 
