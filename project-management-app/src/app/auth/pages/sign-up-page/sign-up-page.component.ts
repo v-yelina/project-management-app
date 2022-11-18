@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Store } from '@ngrx/store';
 
 import { MatDialog } from '@angular/material/dialog';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { PasswordErrorStateMatcher } from './password-error-state-matcher';
 import { signUp } from '../../../store/actions/auth.actions';
 import { PasswordHasCapitalAndSmallCaseValidator } from '../../directives/password-has-capital-and-small-case.directive';
@@ -38,7 +39,11 @@ export class SignUpPageComponent {
 
   hideRepeat = true;
 
-  constructor(private store: Store, public dialog: MatDialog) {}
+  constructor(
+    private store: Store,
+    public dialog: MatDialog,
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
+  ) {}
 
   displayFormControlErrorMessage(formControlName: string, typeError: string): boolean {
     return (

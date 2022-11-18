@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, first, map, of, switchMap, tap, zip } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Languages } from 'src/app/core/constants/l10n-config';
 import {
   deleteUser,
   updateUserData,
@@ -16,8 +17,10 @@ import {
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import {
   AUTH_STATE,
-  SIGN_IN_SUCCESS,
-  SIGN_UP_SUCCESS,
+  SIGN_IN_SUCCESS_EN,
+  SIGN_IN_SUCCESS_RU,
+  SIGN_UP_SUCCESS_EN,
+  SIGN_UP_SUCCESS_RU,
   USER_DELETED,
   USER_UPDATED,
 } from '../../core/constants/constants';
@@ -105,7 +108,11 @@ export class AuthEffects {
         });
       }),
       tap(() => {
-        this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS }));
+        if (localStorage.getItem('lang') === Languages.english) {
+          this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS_EN }));
+        } else {
+          this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS_RU }));
+        }
         this.store.dispatch(loaded());
         this.router.navigate(['/', 'boards']);
       }),
@@ -118,7 +125,11 @@ export class AuthEffects {
       switchMap((action) =>
         this.restApiService.signUp(action.payload).pipe(
           first(),
-          map(() => setMessage({ msg: SIGN_UP_SUCCESS })),
+          map(() =>
+            localStorage.getItem('lang') === Languages.english
+              ? setMessage({ msg: SIGN_UP_SUCCESS_EN })
+              : setMessage({ msg: SIGN_UP_SUCCESS_RU }),
+          ),
           tap(() => {
             this.store.dispatch(loaded());
             this.router.navigate(['/', 'login', 'signin']);
