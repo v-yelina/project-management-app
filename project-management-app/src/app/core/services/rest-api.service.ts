@@ -38,6 +38,18 @@ export class RestApiService {
     });
   }
 
+  updateUserById(credentials: Required<UserCredentials>, id: string): Observable<UserResponse> {
+    return this.http.put<UserResponse>(`${UsersEndpoint.USERS}/${id}`, credentials, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  deleteUserById(id: string): Observable<UserResponse> {
+    return this.http.delete<UserResponse>(`${UsersEndpoint.USERS}/${id}`, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
   getUsers(): Observable<Array<UserResponse>> {
     return this.http.get<Array<UserResponse>>(UsersEndpoint.USERS, {
       ...HTTP_OPTIONS,

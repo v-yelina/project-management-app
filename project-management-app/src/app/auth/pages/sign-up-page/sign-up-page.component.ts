@@ -7,6 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { PasswordErrorStateMatcher } from './password-error-state-matcher';
 import { signUp } from '../../../store/actions/auth.actions';
+import { PasswordHasCapitalAndSmallCaseValidator } from '../../directives/password-has-capital-and-small-case.directive';
+import { PasswordHasLettersAndNumbersValidator } from '../../directives/password-has-letters-and-numbers.directive';
+import { PasswordHasSpecialCharacterValidator } from '../../directives/password-has-special-character.directive';
 
 @Component({
   selector: 'app-sign-up-page',
@@ -21,9 +24,9 @@ export class SignUpPageComponent {
       password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
-        this.passwordHasCapitalAndSmallCase,
-        this.passwordHasLettersAndNumbers,
-        this.passwordHasSpecialCharacter,
+        PasswordHasCapitalAndSmallCaseValidator(),
+        PasswordHasLettersAndNumbersValidator(),
+        PasswordHasSpecialCharacterValidator(),
       ]),
       repeatPassword: new FormControl('', [Validators.required]),
     },
@@ -47,27 +50,6 @@ export class SignUpPageComponent {
       this.signUpForm.controls[formControlName].hasError(typeError) &&
       this.signUpForm.controls[formControlName].touched
     );
-  }
-
-  passwordHasCapitalAndSmallCase(control: FormControl): { [k: string]: boolean } | null {
-    if (!/[a-z]/g.test(control.value) || !/[A-Z]/g.test(control.value)) {
-      return { capitalAndSmallCase: true };
-    }
-    return null;
-  }
-
-  passwordHasLettersAndNumbers(control: FormControl): { [k: string]: boolean } | null {
-    if (!/[a-z]/gi.test(control.value) || !/[0-9]/g.test(control.value)) {
-      return { lettersAndNumbers: true };
-    }
-    return null;
-  }
-
-  passwordHasSpecialCharacter(control: FormControl): { [k: string]: boolean } | null {
-    if (!/[ !@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/g.test(control.value)) {
-      return { specialCharacter: true };
-    }
-    return null;
   }
 
   passwordEquals(control: AbstractControl): { [k: string]: boolean } | null {

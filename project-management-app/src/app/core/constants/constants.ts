@@ -17,3 +17,5 @@ export const BOARD_CREATED_EN = 'Board was created!';
 export const BOARD_CREATED_RU = 'Доска была создана!';
 export const BOARD_DELETED_EN = 'Board was deleted!';
 export const BOARD_DELETED_RU = 'Доска была удалена!';
+export const USER_DELETED = 'User was deleted!';
+export const USER_UPDATED = 'New user data was successfully saved!';
