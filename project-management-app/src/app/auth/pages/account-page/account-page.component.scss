@@ -1,0 +1,38 @@
+:host {
+  display: flex;
+  gap: 10px;
+  height: 80%;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.edit-profile {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+  &__label {
+    font-size: 16px;
+  }
+
+  &__buttons {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn {
+    font-size: 20px;
+  }
+
+  &__input {
+    margin-top: 5px;
+    font-size: 20px;
+  }
+}
+
+.delete-user {
+  font-size: 20px;
+}

@@ -83,6 +83,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.lang = localStorage.getItem('lang');
       if (this.lang === Languages.english) this.translation.setLocale(this.EN);
       if (this.lang === Languages.russian) this.translation.setLocale(this.RU);
+    } else {
+      localStorage.setItem('lang', this.lang!);
     }
 
     this.translation.addProviders([{ name: 'lazy', asset: i18nAsset }]);
