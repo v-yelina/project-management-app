@@ -31,7 +31,7 @@
           formControlName="password"
           placeholder="{{ 'signIn.passwordPH' | translate:locale.language }}"
         />
-        <button mat-icon-button matSuffix (mousedown)="toggleHide()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+        <button type="button" mat-icon-button matSuffix (mousedown)="toggleHide()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')" l10nTranslate>

@@ -49,7 +49,7 @@
           placeholder="{{ 'signUp.passwordPH' | translate:locale.language }}"
           (blur)="fixStyles($event)"
         />
-        <button mat-icon-button matSuffix (mousedown)="toggleHide()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+        <button type="button" mat-icon-button matSuffix (mousedown)="toggleHide()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')" l10nTranslate>
@@ -78,7 +78,7 @@
           placeholder="{{ 'signUp.passwordPH' | translate:locale.language }}"
           [errorStateMatcher]="passwordEqualsMatcher"
         />
-        <button mat-icon-button matSuffix (mousedown)="toggleHideRepeat()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat" class="hide__btn">
+        <button type="button" mat-icon-button matSuffix (mousedown)="toggleHideRepeat()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat" class="hide__btn">
           <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="displayFormControlErrorMessage('repeatPassword', 'required')" l10nTranslate>
