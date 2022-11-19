@@ -47,8 +47,7 @@ export class SignInPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(signIn({ payload: this.signInForm.value }));
   }
 
-  toggleHide(event: Event) {
-    event.preventDefault();
+  toggleHide() {
     this.hide = !this.hide;
   }
 }

@@ -94,8 +94,7 @@ export class AccountPageComponent implements OnInit {
     });
   }
 
-  toggleHide(event: Event) {
-    event.preventDefault();
+  toggleHide() {
     this.hide = !this.hide;
   }
 
