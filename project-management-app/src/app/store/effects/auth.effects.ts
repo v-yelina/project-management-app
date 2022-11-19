@@ -62,10 +62,10 @@ export class AuthEffects {
               },
             }),
           ),
-          catchError((err) => {
-            this.store.dispatch(logOut());
-            return of(setMessage({ msg: err.error.message }));
-          }),
+          // catchError((err) => {
+          //   this.store.dispatch(logOut());
+          //   return of(setMessage({ msg: err.error.message }));
+          // }),
         ),
       ),
     ),
@@ -115,9 +115,9 @@ export class AuthEffects {
             this.store.dispatch(loaded());
             this.router.navigate(['/', 'login', 'signin']);
           }),
-          catchError((err) => {
-            return of(setMessage({ msg: err.error.message }));
-          }),
+          // catchError((err) => {
+          //   return of(setMessage({ msg: err.error.message }));
+          // }),
         ),
       ),
     ),
@@ -129,5 +129,5 @@ export class AuthEffects {
     private restApiService: RestApiService,
     private store: Store,
     private router: Router,
-  ) {}
+  ) { }
 }

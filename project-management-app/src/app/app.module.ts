@@ -12,6 +12,7 @@ import { AuthInterceptor } from './auth/interceptors/auth.interceptor';
 import { effects, reducers } from './store/state.models';
 import { SharedModule } from './shared/shared.module';
 import { BoardModule } from './board/board.module';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +34,12 @@ import { BoardModule } from './board/board.module';
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
