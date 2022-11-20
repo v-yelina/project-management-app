@@ -50,4 +50,4 @@ const routes: Routes = [
   ],
   exports: [BoardComponent],
 })
-export class BoardModule { }
+export class BoardModule {}

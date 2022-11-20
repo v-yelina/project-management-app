@@ -13,9 +13,6 @@ import {
 import { L10nSchema } from 'angular-l10n/lib/models/types';
 import { logOut, updateAuthStateFromLocalStorage } from '../../../store/actions/auth.actions';
 import { getUserId } from '../../../store/selectors/auth.selectors';
-import { CreateBoardPopupComponent } from '../../../shared/components/create-board-popup/create-board-popup.component';
-import { RawBoard } from '../../models/board.models';
-import { createBoard } from '../../../store/actions/boards.actions';
 import { getLoadStatus, getMessage } from '../../../store/selectors/notifications.selectors';
 import { setMessage } from '../../../store/actions/notifications.actions';
 import { NotificationSnackBarComponent } from '../../../shared/components/notification-snack-bar/notification-snack-bar.component';

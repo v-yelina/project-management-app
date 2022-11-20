@@ -2,13 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { CreateBoardPopupComponent } from 'src/app/shared/components/create-board-popup/create-board-popup.component';
+import { MatDialog } from '@angular/material/dialog';
+import { RawBoard } from 'src/app/core/models/board.models';
 import { getBoards } from '../../../store/selectors/boards.selectors';
 import { createBoard, deleteBoard, initUserBoards } from '../../../store/actions/boards.actions';
 import { BoardResponse } from '../../../core/models/response-api.models';
 import { DELETE_BOARD, OPEN_BOARD } from '../../components/board-card/constants';
-import { CreateBoardPopupComponent } from 'src/app/shared/components/create-board-popup/create-board-popup.component';
-import { MatDialog } from '@angular/material/dialog';
-import { RawBoard } from 'src/app/core/models/board.models';
 
 @Component({
   selector: 'app-boards-page',
@@ -24,7 +24,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
 
   owner = 1;
 
-  constructor(private store: Store, private router: Router, public dialog: MatDialog,) { }
+  constructor(private store: Store, private router: Router, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     const subBoards = this.store.select(getBoards).subscribe((boards) => {
