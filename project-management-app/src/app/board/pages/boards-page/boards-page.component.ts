@@ -3,9 +3,12 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { getBoards } from '../../../store/selectors/boards.selectors';
-import { deleteBoard, initUserBoards } from '../../../store/actions/boards.actions';
+import { createBoard, deleteBoard, initUserBoards } from '../../../store/actions/boards.actions';
 import { BoardResponse } from '../../../core/models/response-api.models';
 import { DELETE_BOARD, OPEN_BOARD } from '../../components/board-card/constants';
+import { CreateBoardPopupComponent } from 'src/app/shared/components/create-board-popup/create-board-popup.component';
+import { MatDialog } from '@angular/material/dialog';
+import { RawBoard } from 'src/app/core/models/board.models';
 
 @Component({
   selector: 'app-boards-page',
@@ -21,7 +24,7 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
 
   owner = 1;
 
-  constructor(private store: Store, private router: Router) {}
+  constructor(private store: Store, private router: Router, public dialog: MatDialog,) { }
 
   ngOnInit(): void {
     const subBoards = this.store.select(getBoards).subscribe((boards) => {
@@ -45,5 +48,15 @@ export class BoardsPageComponent implements OnInit, OnDestroy {
     if (action.type === OPEN_BOARD) {
       this.router.navigate(['/', 'boards', action.id]);
     }
+  }
+
+  openCreateBoard() {
+    const dialogRef = this.dialog.open(CreateBoardPopupComponent);
+    const subRawBoard = dialogRef.afterClosed().subscribe((rawBoard: RawBoard) => {
+      if (rawBoard) {
+        this.store.dispatch(createBoard({ payload: rawBoard }));
+      }
+    });
+    this.subscription.add(subRawBoard);
   }
 }

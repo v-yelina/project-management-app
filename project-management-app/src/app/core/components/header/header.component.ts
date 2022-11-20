@@ -53,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(L10N_LOCALE) public locale: L10nLocale,
     @Inject(L10N_CONFIG) private l10nConfig: L10nConfig,
     private translation: L10nTranslationService,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.store.dispatch(updateAuthStateFromLocalStorage());
@@ -98,16 +98,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.isLogged = false;
     this.store.dispatch(logOut());
-  }
-
-  openCreateBoard() {
-    const dialogRef = this.dialog.open(CreateBoardPopupComponent);
-    const subRawBoard = dialogRef.afterClosed().subscribe((rawBoard: RawBoard) => {
-      if (rawBoard) {
-        this.store.dispatch(createBoard({ payload: rawBoard }));
-      }
-    });
-    this.subscription.add(subRawBoard);
   }
 
   setLocale(): void {
