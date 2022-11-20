@@ -19,7 +19,7 @@ import { BoardComponent } from './pages/board/board.component';
 import { CreateColumnComponent } from './components/create-column/create-column.component';
 
 const routes: Routes = [
-  { path: 'board', component: BoardComponent },
+  { path: '', component: BoardsPageComponent },
   { path: ':id', component: BoardComponent },
 ];
 

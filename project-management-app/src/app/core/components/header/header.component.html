@@ -6,40 +6,28 @@
     </select>
   </mat-form-field>
   <ng-container *ngIf="isLogged; else unlogged">
-    <button mat-raised-button color="accent" class="header__btn--new-board" (click)="openCreateBoard()" l10nTranslate>
-      header.btnCreate
-    </button>
-
     <div class="header__user">
-      <button
-        mat-button
-        class="header__btn--profile"
+      <button mat-button class="header__btn--profile"
         matTooltip="{{ 'header.btnEditTooltip' | translate:locale.language }}"
-        routerLink="/login/profile"
-      >
+        routerLink="/login/profile">
         <mat-icon>account_circle</mat-icon>
       </button>
-      <button mat-button class="header__btn--logout" matTooltip="{{ 'header.btnLogOutTooltip' | translate:locale.language }}" (click)="logout()">
+      <button mat-button class="header__btn--logout"
+        matTooltip="{{ 'header.btnLogOutTooltip' | translate:locale.language }}" (click)="logout()">
         <mat-icon>logout</mat-icon>
       </button>
     </div>
   </ng-container>
   <ng-template #unlogged>
     <div class="header__login" *ngIf="!isLogged">
-      <button
-        mat-button
-        class="header__btn--profile"
+      <button mat-button class="header__btn--profile"
         matTooltip="{{ 'header.btnLogInTooltip' | translate:locale.language }}"
-        routerLink="/login/signin"
-      >
+        routerLink="/login/signin">
         <mat-icon>login</mat-icon>
       </button>
-      <button
-        mat-button
-        class="header__btn--logout"
+      <button mat-button class="header__btn--logout"
         matTooltip="{{ 'header.btnCreateTooltip' | translate:locale.language }}"
-        routerLink="/login/signup"
-      >
+        routerLink="/login/signup">
         <mat-icon>add_circle</mat-icon>
       </button>
     </div>
