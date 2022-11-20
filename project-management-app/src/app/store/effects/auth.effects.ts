@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap, zip } from 'rxjs';
+import { first, map, of, switchMap, tap, zip } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Languages } from 'src/app/core/constants/l10n-config';
@@ -73,10 +73,6 @@ export class AuthEffects {
               },
             }),
           ),
-          // catchError((err) => {
-          //   this.store.dispatch(logOut());
-          //   return of(setMessage({ msg: err.error.message }));
-          // }),
         ),
       ),
     ),
@@ -134,9 +130,6 @@ export class AuthEffects {
             this.store.dispatch(loaded());
             this.router.navigate(['/', 'login', 'signin']);
           }),
-          // catchError((err) => {
-          //   return of(setMessage({ msg: err.error.message }));
-          // }),
         ),
       ),
     ),
@@ -151,9 +144,6 @@ export class AuthEffects {
           tap(() => {
             this.store.dispatch(setMessage({ msg: USER_DELETED }));
             this.store.dispatch(loaded());
-          }),
-          catchError((err) => {
-            return of(setMessage({ msg: err.error.message }));
           }),
         ),
       ),
@@ -182,9 +172,6 @@ export class AuthEffects {
           tap(() => {
             this.store.dispatch(setMessage({ msg: USER_UPDATED }));
             this.store.dispatch(loaded());
-          }),
-          catchError((err) => {
-            return of(setMessage({ msg: err.error.message }));
           }),
         ),
       ),

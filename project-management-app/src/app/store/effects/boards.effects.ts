@@ -64,10 +64,6 @@ export class BoardsEffects {
             }
             this.store.dispatch(loaded());
           }),
-          catchError((err) => {
-            this.store.dispatch(logOut());
-            return of(setMessage({ msg: err.error.message }));
-          }),
         );
       }),
     ),
@@ -88,10 +84,6 @@ export class BoardsEffects {
           tap(() => {
             this.store.dispatch(loaded());
           }),
-          catchError((err) => {
-            this.store.dispatch(logOut());
-            return of(setMessage({ msg: err.error.message }));
-          }),
         );
       }),
     ),
@@ -110,7 +102,6 @@ export class BoardsEffects {
               this.store.dispatch(setMessage({ msg: BOARD_DELETED_RU }));
             }
           }),
-          catchError((err) => of(setMessage({ msg: err.error.message }))),
         );
       }),
     ),
@@ -121,5 +112,5 @@ export class BoardsEffects {
     private localStorageService: LocalStorageService,
     private restApiService: RestApiService,
     private store: Store,
-  ) {}
+  ) { }
 }
