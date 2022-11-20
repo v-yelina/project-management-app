@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap } from 'rxjs';
+import { first, map, of, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Languages } from 'src/app/core/constants/l10n-config';
 import { LocalStorageService } from '../../core/services/local-storage.service';
@@ -14,7 +14,6 @@ import {
 } from '../actions/boards.actions';
 import { getUserId } from '../selectors/auth.selectors';
 import { loaded, setMessage } from '../actions/notifications.actions';
-import { logOut } from '../actions/auth.actions';
 import {
   BOARD_CREATED_EN,
   BOARD_CREATED_RU,
@@ -109,7 +108,6 @@ export class BoardsEffects {
 
   constructor(
     private actions$: Actions,
-    private localStorageService: LocalStorageService,
     private restApiService: RestApiService,
     private store: Store,
   ) { }

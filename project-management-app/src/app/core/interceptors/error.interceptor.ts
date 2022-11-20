@@ -7,11 +7,13 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { logOut } from 'src/app/store/actions/auth.actions';
 import { loaded, setMessage } from 'src/app/store/actions/notifications.actions';
 import { Store } from '@ngrx/store';
 import { AUTH_STATE } from '../constants/constants';
+import { Languages } from '../constants/l10n-config';
+import { BAD_REQUEST_EN, BAD_REQUEST_RU, FORBIDDEN_EN, FORBIDDEN_RU, LOGIN_EXISTS_EN, LOGIN_EXISTS_RU, NOT_FOUND_EN, NOT_FOUND_RU, ResponseCode, UNAUTHORIZED_EN, UNAUTHORIZED_RU } from '../constants/errors';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
@@ -20,30 +22,54 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 400) {
-        this.store.dispatch(setMessage({ msg: 'Something is wrong, please check your request' }));
+      if (error.status === ResponseCode.BAD_REQUEST) {
+        if (localStorage.getItem('lang') === Languages.english) {
+          this.store.dispatch(setMessage({ msg: BAD_REQUEST_EN }));
+        } else {
+          this.store.dispatch(setMessage({ msg: BAD_REQUEST_RU }));
+        }
         this.store.dispatch(loaded());
         return throwError(() => error);
-      } else if (error.status === 401) {
+      } else if (error.status === ResponseCode.UNAUTHORIZED) {
         if (localStorage.getItem(AUTH_STATE)) {
-          this.store.dispatch(setMessage({ msg: 'Your token is invalid, please sign in to your account' }));
+          if (localStorage.getItem('lang') === Languages.english) {
+            this.store.dispatch(setMessage({ msg: FORBIDDEN_EN }));
+          } else {
+            this.store.dispatch(setMessage({ msg: FORBIDDEN_RU }));
+          }
           this.store.dispatch(logOut());
         }
         if (!localStorage.getItem(AUTH_STATE)) {
-          this.store.dispatch(setMessage({ msg: 'The username or password you entered is incorrect' }));
+          if (localStorage.getItem('lang') === Languages.english) {
+            this.store.dispatch(setMessage({ msg: UNAUTHORIZED_EN }));
+          } else {
+            this.store.dispatch(setMessage({ msg: UNAUTHORIZED_RU }));
+          }
         }
         this.store.dispatch(loaded());
         return throwError(() => error);
-      } else if (error.status === 403) {
-        this.store.dispatch(setMessage({ msg: 'Your token is invalid, please sign in to your account' }));
+      } else if (error.status === ResponseCode.FORBIDDEN) {
+        if (localStorage.getItem('lang') === Languages.english) {
+          this.store.dispatch(setMessage({ msg: FORBIDDEN_EN }));
+        } else {
+          this.store.dispatch(setMessage({ msg: FORBIDDEN_RU }));
+        }
         this.store.dispatch(logOut());
         return throwError(() => error);
-      } else if (error.status === 404) {
-        this.store.dispatch(setMessage({ msg: 'The item you searched is not found' }));
+      } else if (error.status === ResponseCode.NOT_FOUND) {
+        if (localStorage.getItem('lang') === Languages.english) {
+          this.store.dispatch(setMessage({ msg: NOT_FOUND_EN }));
+        } else {
+          this.store.dispatch(setMessage({ msg: NOT_FOUND_RU }));
+        }
         this.store.dispatch(loaded());
         return throwError(() => error);
-      } else if (error.status === 409) {
-        this.store.dispatch(setMessage({ msg: 'An account with this email already exists. Please login using this email address or use another email.' }));
+      } else if (error.status === ResponseCode.LOGIN_EXISTS) {
+        if (localStorage.getItem('lang') === Languages.english) {
+          this.store.dispatch(setMessage({ msg: LOGIN_EXISTS_EN }));
+        } else {
+          this.store.dispatch(setMessage({ msg: LOGIN_EXISTS_RU }));
+        }
         this.store.dispatch(loaded());
         return throwError(() => error);
       } else {

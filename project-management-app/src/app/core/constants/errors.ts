@@ -1,3 +1,11 @@
+export enum ResponseCode {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  LOGIN_EXISTS = 409
+}
+
 export const BAD_REQUEST_EN = "Something is wrong, please check your request"
 export const BAD_REQUEST_RU = "Что-то пошло не так. Пожалуйста, проверьте ваш запрос"
 
