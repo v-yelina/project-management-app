@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { first, map, of, switchMap, tap } from 'rxjs';
+import { first, map, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Languages } from 'src/app/core/constants/l10n-config';
-import { LocalStorageService } from '../../core/services/local-storage.service';
 import { RestApiService } from '../../core/services/rest-api.service';
 import {
   addCreatedBoard,
@@ -110,5 +109,5 @@ export class BoardsEffects {
     private actions$: Actions,
     private restApiService: RestApiService,
     private store: Store,
-  ) { }
+  ) {}
 }

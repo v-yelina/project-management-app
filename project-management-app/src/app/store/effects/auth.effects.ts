@@ -184,5 +184,5 @@ export class AuthEffects {
     private restApiService: RestApiService,
     private store: Store,
     private router: Router,
-  ) { }
+  ) {}
 }

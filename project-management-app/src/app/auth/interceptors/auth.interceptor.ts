@@ -8,7 +8,7 @@ import { loading } from '../../store/actions/notifications.actions';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return this.store.select(getAuthToken).pipe(
