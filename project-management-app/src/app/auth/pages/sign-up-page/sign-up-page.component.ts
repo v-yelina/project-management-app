@@ -82,13 +82,11 @@ export class SignUpPageComponent {
     this.store.dispatch(signUp({ payload }));
   }
 
-  toggleHide(event: Event) {
-    event.preventDefault();
+  toggleHide() {
     this.hide = !this.hide;
   }
 
-  toggleHideRepeat(event: Event) {
-    event.preventDefault();
+  toggleHideRepeat() {
     this.hideRepeat = !this.hideRepeat;
   }
 }

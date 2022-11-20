@@ -19,7 +19,7 @@
     <label for="password" class="edit-profile__label">Password</label>
     <input [type]="hide ? 'password' : 'text'" matInput formControlName="password"
       class="edit-profile__input" />
-    <button mat-icon-button matSuffix (click)="toggleHide($event)"
+    <button type="button" mat-icon-button matSuffix (mousedown)="toggleHide()"
       [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
       <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
     </button>
