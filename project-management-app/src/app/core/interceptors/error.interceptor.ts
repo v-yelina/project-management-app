@@ -20,7 +20,11 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(catchError((error: HttpErrorResponse) => {
-      if (error.status === 401) {
+      if (error.status === 400) {
+        this.store.dispatch(setMessage({ msg: 'Something is wrong, please check your request' }));
+        this.store.dispatch(loaded());
+        return throwError(() => error);
+      } else if (error.status === 401) {
         if (localStorage.getItem(AUTH_STATE)) {
           this.store.dispatch(setMessage({ msg: 'Your token is invalid, please sign in to your account' }));
           this.store.dispatch(logOut());
@@ -35,10 +39,16 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.store.dispatch(logOut());
         return throwError(() => error);
       } else if (error.status === 404) {
-        this.store.dispatch(setMessage({ msg: error.message }));
+        this.store.dispatch(setMessage({ msg: 'The item you searched is not found' }));
+        this.store.dispatch(loaded());
+        return throwError(() => error);
+      } else if (error.status === 409) {
+        this.store.dispatch(setMessage({ msg: 'An account with this email already exists. Please login using this email address or use another email.' }));
+        this.store.dispatch(loaded());
         return throwError(() => error);
       } else {
         this.store.dispatch(setMessage({ msg: error.message }));
+        this.store.dispatch(loaded());
         return throwError(() => error);
       }
     }));
