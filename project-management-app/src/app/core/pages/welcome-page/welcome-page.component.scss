@@ -1,3 +1,5 @@
+$marker-color: #77dd77;
+
 .welcome__wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -23,8 +25,9 @@
   align-self: center;
   font-size: 1.3rem;
   padding: 20px;
-  font-family: cursive;
   width: 80%;
+  line-height: 2rem;
+  text-align: center;
 }
 
 .tabs__items {
@@ -35,10 +38,9 @@
 
 .tabs__item {
   margin-top: 10px;
-  font-family: cursive;
   font-size: 1.3rem;
   &::marker {
-    color: #77dd77;
+    color: $marker-color;
   }
 }
 
@@ -64,51 +66,63 @@
   flex-direction: column;
   align-items: center;
   font-size: 1.1rem;
-  font-family: cursive;
   margin-top: 10px;
 }
 
-.courses__info__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 10px;
-  justify-content: space-around;
+.courses__info {
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    justify-content: space-around;
+  }
+
+  &__card {
+    width: 40%;
+    margin: 10px;
+  }
 }
 
-.courses__info__card {
-  width: 40%;
-  margin: 10px;
-}
+.courses {
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.1rem;
+  }
 
-.courses__wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.1rem;
-  font-family: cursive;
+  &__btn {
+    background-color: $marker-color;
+    height: 20px;
+    width: 50px;
+  }
 }
 
 .courses_title {
   margin-top: 10px;
+  font-weight: 700;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.3rem;
+  line-height: 2rem;
 }
 
-.courses__card__title {
-  text-align: center;
-  color: #535DF2;
-}
-
-.courses__card__text {
-  margin-top: 1em;
-}
-
-.courses__card__text_li {
-  &::marker {
-    color: #77dd77;
+.courses__card {
+  &__title {
+    text-align: center;
+    color: #535df2;
   }
-}
 
-.courses__btn {
-  background-color: #77dd77;
-  height: 20px;
-  width: 50px;
+  &__text {
+    margin-top: 0.5rem;
+    line-height: 1.5rem;
+    text-indent: 1rem;
+  }
+
+  &__text_li {
+    &::marker {
+      color: $marker-color;
+    }
+  }
 }
