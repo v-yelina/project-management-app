@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 
-export const APP_API_URL = 'https://pms-api-frxc.onrender.com';
+export const APP_API_URL = 'https://project-management-system-be-production.up.railway.app';
 export const TOKEN_HEADER_KEY = 'Authorization';
 export const TOKEN_TYPE = 'Bearer ';
 
