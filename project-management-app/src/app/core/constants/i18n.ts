@@ -16,7 +16,7 @@ export const i18nAsset = {
     welcome: {
       label1: 'Opportunities',
       label2: 'About the team',
-      label3: 'About courses',
+      label3: 'About course',
       mainText:
         'This app will help you and your team plan your work better. Break down large tasks into smaller ones, track their progress and achieve success.',
       advantages1: 'Create boards for your tasks',
