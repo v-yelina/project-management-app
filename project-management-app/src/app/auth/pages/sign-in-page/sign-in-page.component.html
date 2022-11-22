@@ -13,7 +13,7 @@
           type="email"
           matInput
           formControlName="login"
-          placeholder="Enter your login email."
+          placeholder="{{ 'signIn.emailPH' | translate:locale.language }}"
         />
         <mat-error *ngIf="displayFormControlErrorMessage('login', 'required')" l10nTranslate>
           signIn.emailErrorRequired
@@ -29,9 +29,9 @@
           [type]="hide ? 'password' : 'text'"
           matInput
           formControlName="password"
-          placeholder="Enter your password."
+          placeholder="{{ 'signIn.passwordPH' | translate:locale.language }}"
         />
-        <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+        <button type="button" mat-icon-button matSuffix (mousedown)="toggleHide()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')" l10nTranslate>

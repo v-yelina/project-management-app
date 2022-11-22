@@ -13,7 +13,7 @@
           type="text"
           matInput
           formControlName="name"
-          placeholder="Enter your name."
+          placeholder="{{ 'signUp.namePH' | translate:locale.language }}"
           autocomplete="false"
         />
         <mat-error *ngIf="displayFormControlErrorMessage('name', 'required')" l10nTranslate>
@@ -30,7 +30,7 @@
           type="email"
           matInput
           formControlName="login"
-          placeholder="Enter your login email."
+          placeholder="{{ 'signUp.emailPH' | translate:locale.language }}"
         />
         <mat-error *ngIf="displayFormControlErrorMessage('login', 'required')" l10nTranslate>
           signUp.emailErrorRequired
@@ -46,10 +46,10 @@
           [type]="hide ? 'password' : 'text'"
           matInput
           formControlName="password"
-          placeholder="Enter your password."
+          placeholder="{{ 'signUp.passwordPH' | translate:locale.language }}"
           (blur)="fixStyles($event)"
         />
-        <button mat-icon-button matSuffix (click)="toggleHide($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
+        <button type="button" mat-icon-button matSuffix (mousedown)="toggleHide()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" class="hide__btn">
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="displayFormControlErrorMessage('password', 'required')" l10nTranslate>
@@ -75,10 +75,10 @@
           [type]="hideRepeat ? 'password' : 'text'"
           matInput
           formControlName="repeatPassword"
-          placeholder="Enter your password."
+          placeholder="{{ 'signUp.passwordPH' | translate:locale.language }}"
           [errorStateMatcher]="passwordEqualsMatcher"
         />
-        <button mat-icon-button matSuffix (click)="toggleHideRepeat($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat" class="hide__btn">
+        <button type="button" mat-icon-button matSuffix (mousedown)="toggleHideRepeat()" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideRepeat" class="hide__btn">
           <mat-icon>{{hideRepeat ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
         <mat-error *ngIf="displayFormControlErrorMessage('repeatPassword', 'required')" l10nTranslate>

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap } from 'rxjs';
+import { first, map, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { LocalStorageService } from '../../core/services/local-storage.service';
+import { Languages } from 'src/app/core/constants/l10n-config';
 import { RestApiService } from '../../core/services/rest-api.service';
 import {
   addCreatedBoard,
@@ -13,8 +13,12 @@ import {
 } from '../actions/boards.actions';
 import { getUserId } from '../selectors/auth.selectors';
 import { loaded, setMessage } from '../actions/notifications.actions';
-import { logOut } from '../actions/auth.actions';
-import { BOARD_CREATED, BOARD_DELETED } from '../../core/constants/constants';
+import {
+  BOARD_CREATED_EN,
+  BOARD_CREATED_RU,
+  BOARD_DELETED_EN,
+  BOARD_DELETED_RU,
+} from '../../core/constants/constants';
 
 @Injectable()
 export class BoardsEffects {
@@ -51,12 +55,12 @@ export class BoardsEffects {
             );
           }),
           tap(() => {
-            this.store.dispatch(setMessage({ msg: BOARD_CREATED }));
+            if (localStorage.getItem('lang') === Languages.english) {
+              this.store.dispatch(setMessage({ msg: BOARD_CREATED_EN }));
+            } else {
+              this.store.dispatch(setMessage({ msg: BOARD_CREATED_RU }));
+            }
             this.store.dispatch(loaded());
-          }),
-          catchError((err) => {
-            this.store.dispatch(logOut());
-            return of(setMessage({ msg: err.error.message }));
           }),
         );
       }),
@@ -78,10 +82,6 @@ export class BoardsEffects {
           tap(() => {
             this.store.dispatch(loaded());
           }),
-          catchError((err) => {
-            this.store.dispatch(logOut());
-            return of(setMessage({ msg: err.error.message }));
-          }),
         );
       }),
     ),
@@ -94,9 +94,12 @@ export class BoardsEffects {
         return this.restApiService.deleteBoardById(action.boardId).pipe(
           map(() => initUserBoards()),
           tap(() => {
-            this.store.dispatch(setMessage({ msg: BOARD_DELETED }));
+            if (localStorage.getItem('lang') === Languages.english) {
+              this.store.dispatch(setMessage({ msg: BOARD_DELETED_EN }));
+            } else {
+              this.store.dispatch(setMessage({ msg: BOARD_DELETED_RU }));
+            }
           }),
-          catchError((err) => of(setMessage({ msg: err.error.message }))),
         );
       }),
     ),
@@ -104,7 +107,6 @@ export class BoardsEffects {
 
   constructor(
     private actions$: Actions,
-    private localStorageService: LocalStorageService,
     private restApiService: RestApiService,
     private store: Store,
   ) {}

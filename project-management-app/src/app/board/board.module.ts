@@ -20,7 +20,6 @@ import { CreateColumnComponent } from './components/create-column/create-column.
 
 const routes: Routes = [
   { path: '', component: BoardsPageComponent },
-  { path: 'board', component: BoardComponent },
   { path: ':id', component: BoardComponent },
 ];
 

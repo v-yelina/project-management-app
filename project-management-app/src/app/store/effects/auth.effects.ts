@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, first, map, of, switchMap, tap, zip } from 'rxjs';
+import { first, map, of, switchMap, tap, zip } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { Languages } from 'src/app/core/constants/l10n-config';
 import {
+  deleteUser,
+  updateUserData,
   getAdditionalUserData,
   logOut,
   signIn,
@@ -12,8 +15,16 @@ import {
   updateAuthStateFromLocalStorage,
 } from '../actions/auth.actions';
 import { LocalStorageService } from '../../core/services/local-storage.service';
-import { AUTH_STATE, SIGN_IN_SUCCESS, SIGN_UP_SUCCESS } from '../../core/constants/constants';
-import { initialState } from '../states/auth.state';
+import {
+  AUTH_STATE,
+  SIGN_IN_SUCCESS_EN,
+  SIGN_IN_SUCCESS_RU,
+  SIGN_UP_SUCCESS_EN,
+  SIGN_UP_SUCCESS_RU,
+  USER_DELETED,
+  USER_UPDATED,
+} from '../../core/constants/constants';
+import { AuthState, initialState } from '../states/auth.state';
 import { getAuthState } from '../selectors/auth.selectors';
 import { UserResponse } from '../../core/models/response-api.models';
 import { RestApiService } from '../../core/services/rest-api.service';
@@ -62,10 +73,6 @@ export class AuthEffects {
               },
             }),
           ),
-          catchError((err) => {
-            this.store.dispatch(logOut());
-            return of(setMessage({ msg: err.error.message }));
-          }),
         ),
       ),
     ),
@@ -77,7 +84,7 @@ export class AuthEffects {
       switchMap(() => zip(this.restApiService.getUsers(), this.store.select(getAuthState))),
       map(([users, state]) => {
         const user = users.find((item) => item.login === state.login) as UserResponse;
-        const authState = {
+        const authState: AuthState = {
           ...state,
           name: user.name,
           id: user._id,
@@ -97,7 +104,11 @@ export class AuthEffects {
         });
       }),
       tap(() => {
-        this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS }));
+        if (localStorage.getItem('lang') === Languages.english) {
+          this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS_EN }));
+        } else {
+          this.store.dispatch(setMessage({ msg: SIGN_IN_SUCCESS_RU }));
+        }
         this.store.dispatch(loaded());
         this.router.navigate(['/', 'boards']);
       }),
@@ -110,13 +121,57 @@ export class AuthEffects {
       switchMap((action) =>
         this.restApiService.signUp(action.payload).pipe(
           first(),
-          map(() => setMessage({ msg: SIGN_UP_SUCCESS })),
+          map(() =>
+            localStorage.getItem('lang') === Languages.english
+              ? setMessage({ msg: SIGN_UP_SUCCESS_EN })
+              : setMessage({ msg: SIGN_UP_SUCCESS_RU }),
+          ),
           tap(() => {
             this.store.dispatch(loaded());
             this.router.navigate(['/', 'login', 'signin']);
           }),
-          catchError((err) => {
-            return of(setMessage({ msg: err.error.message }));
+        ),
+      ),
+    ),
+  );
+
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteUser),
+      switchMap((action) =>
+        this.restApiService.deleteUserById(action.payload.id).pipe(
+          map(() => logOut()),
+          tap(() => {
+            this.store.dispatch(setMessage({ msg: USER_DELETED }));
+            this.store.dispatch(loaded());
+          }),
+        ),
+      ),
+    ),
+  );
+
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateUserData),
+      switchMap((action) =>
+        this.restApiService.updateUserById(action.payload.credentials, action.payload.id).pipe(
+          map(() => {
+            const { token } = JSON.parse(this.localStorageService.getItem(AUTH_STATE) as string);
+            this.localStorageService.setItem(
+              AUTH_STATE,
+              JSON.stringify({
+                id: action.payload.id,
+                name: action.payload.credentials.name,
+                login: action.payload.credentials.login,
+                token,
+              }),
+            );
+
+            return updateAuthStateFromLocalStorage();
+          }),
+          tap(() => {
+            this.store.dispatch(setMessage({ msg: USER_UPDATED }));
+            this.store.dispatch(loaded());
           }),
         ),
       ),

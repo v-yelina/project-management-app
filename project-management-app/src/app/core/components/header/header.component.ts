@@ -13,9 +13,6 @@ import {
 import { L10nSchema } from 'angular-l10n/lib/models/types';
 import { logOut, updateAuthStateFromLocalStorage } from '../../../store/actions/auth.actions';
 import { getUserId } from '../../../store/selectors/auth.selectors';
-import { CreateBoardPopupComponent } from '../../../shared/components/create-board-popup/create-board-popup.component';
-import { RawBoard } from '../../models/board.models';
-import { createBoard } from '../../../store/actions/boards.actions';
 import { getLoadStatus, getMessage } from '../../../store/selectors/notifications.selectors';
 import { setMessage } from '../../../store/actions/notifications.actions';
 import { NotificationSnackBarComponent } from '../../../shared/components/notification-snack-bar/notification-snack-bar.component';
@@ -83,6 +80,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.lang = localStorage.getItem('lang');
       if (this.lang === Languages.english) this.translation.setLocale(this.EN);
       if (this.lang === Languages.russian) this.translation.setLocale(this.RU);
+    } else {
+      localStorage.setItem('lang', this.lang!);
     }
 
     this.translation.addProviders([{ name: 'lazy', asset: i18nAsset }]);
@@ -96,16 +95,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     this.isLogged = false;
     this.store.dispatch(logOut());
-  }
-
-  openCreateBoard() {
-    const dialogRef = this.dialog.open(CreateBoardPopupComponent);
-    const subRawBoard = dialogRef.afterClosed().subscribe((rawBoard: RawBoard) => {
-      if (rawBoard) {
-        this.store.dispatch(createBoard({ payload: rawBoard }));
-      }
-    });
-    this.subscription.add(subRawBoard);
   }
 
   setLocale(): void {
