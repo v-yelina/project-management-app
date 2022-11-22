@@ -3,7 +3,7 @@ $marker-color: #77dd77;
 .welcome__wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  height: 86vh;
+  min-height: 86vh;
 }
 
 .project__wrapper {
@@ -13,27 +13,33 @@ $marker-color: #77dd77;
 }
 
 .project__logo {
-  object-fit: contain;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &--img {
+    margin-top: 10px;
+    width: 30%;
+  }
+
+  &--text {
+    align-self: center;
+    font-size: 1.3rem;
+    padding: 20px;
+    width: 80%;
+    line-height: 2rem;
+    text-align: center;
+    font-weight: 300;
+  }
 }
 
 .project__work {
-  object-fit: contain;
-  width: 40%;
-}
-
-.logo__text {
+  max-width: 40%;
   align-self: center;
-  font-size: 1.3rem;
-  padding: 20px;
-  width: 80%;
-  line-height: 2rem;
-  text-align: center;
-}
 
-.tabs__items {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+  @media screen and (max-width: 650px) {
+    display: none;
+  }
 }
 
 .tabs__item {
@@ -42,31 +48,71 @@ $marker-color: #77dd77;
   &::marker {
     color: $marker-color;
   }
+
+  @media screen and (max-width: 450px) {
+    font-size: 1.1rem;
+    max-width: 95%;
+  }
 }
 
 .tabs {
-  height: 50vh;
+  min-height: 50vh;
 }
 
-.team__avatar {
-  width: 40%;
-  border-radius: 30%;
-  margin-bottom: 10px;
+.tab {
+  font-weight: 300;
+  line-height: 1.5rem;
+
+  &--opportunities {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--team {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &--course {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.1rem;
+  }
 }
 
-.team__wrapper {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
+.team {
+  &__card {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.1rem;
 
-.team__card {
-  width: 25%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.1rem;
-  margin-top: 10px;
+    @media screen and (max-width: 650px) {
+      width: 40%;
+      font-size: 1.1rem;
+    }
+
+    @media screen and (max-width: 470px) {
+      width: 80%;
+      font-size: 1.1rem;
+    }
+  }
+
+  &__name {
+    font-weight: 500;
+    font-size: 1.3rem;
+  }
+
+  &__avatar {
+    width: 50%;
+    border-radius: 30%;
+    margin-bottom: 10px;
+  }
 }
 
 .courses__info {
@@ -75,37 +121,39 @@ $marker-color: #77dd77;
     flex-wrap: wrap;
     margin-top: 10px;
     justify-content: space-around;
+
+    @media screen and (max-width: 460px) {
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   &__card {
     width: 40%;
     margin: 10px;
+
+    @media screen and (max-width: 460px) {
+      width: 95%;
+    }
   }
 }
 
 .courses {
-  &__wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 1.1rem;
-  }
-
   &__btn {
     background-color: $marker-color;
     height: 20px;
     width: 50px;
   }
-}
 
-.courses_title {
-  margin-top: 10px;
-  font-weight: 700;
-  font-size: 1.5rem;
-  text-transform: uppercase;
-  text-decoration: none;
-  letter-spacing: 0.3rem;
-  line-height: 2rem;
+  &_title {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.3rem;
+    line-height: 2rem;
+  }
 }
 
 .courses__card {
@@ -116,7 +164,6 @@ $marker-color: #77dd77;
 
   &__text {
     margin-top: 0.5rem;
-    line-height: 1.5rem;
     text-indent: 1rem;
   }
 

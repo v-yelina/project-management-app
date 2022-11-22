@@ -1,14 +1,14 @@
 <div class="welcome__wrapper">
   <div class="project__wrapper">
-    <div>
-      <img src="../../../../assets/img/Logo.jpg" alt="project logo" class="project__logo">
-      <div class="logo__text" l10nTranslate>welcome.mainText</div>
+    <div class="project__logo">
+      <img src="../../../../assets/img/logo-2.png" alt="project logo" class="project__logo--img">
+      <div class="project__logo--text" l10nTranslate>welcome.mainText</div>
     </div>
     <img src="../../../../assets/img/welcome-img-work.png" alt="work" class="project__work">
   </div>
   <mat-tab-group mat-align-tabs="center" class="tabs">
     <mat-tab label="{{ 'welcome.label1' | translate:locale.language }}">
-      <div class="tabs__items">
+      <div class="tab tab--opportunities">
         <img src="../../../../assets/img/advantages-img.png" alt="work" class="project__work">
         <ul>
           <li class="tabs__item" l10nTranslate>welcome.advantages1</li>
@@ -20,7 +20,7 @@
       </div>
     </mat-tab>
     <mat-tab label="{{ 'welcome.label2' | translate:locale.language }}">
-      <div class="team__wrapper">
+      <div class="tab tab--team">
         <div class="team__card">
           <img src="../../../../assets/img/SokolW.jpg" alt="Vadim Sokolov photo"
             class="team__avatar">
@@ -45,7 +45,7 @@
       </div>
     </mat-tab>
     <mat-tab label="{{ 'welcome.label3' | translate:locale.language }}">
-      <div class="courses__wrapper">
+      <div class="tab tab--course">
         <a class="courses_title" l10nTranslate
           href="https://rs.school/angular/">welcome.courses.mainTitle</a>
         <div class="courses_title--description" l10nTranslate>welcome.courses.mainDescription</div>
