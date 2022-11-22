@@ -1,9 +1,16 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ColumnResponse, TaskResponse } from 'src/app/core/models/response-api.models';
+import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
+import { Store } from '@ngrx/store';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
+import { ColumnWithTasks } from '../../../store/states/board.state';
+import {
+  createTaskOnServer,
+  deleteColumnOnServer,
+  updateColumnOnServer,
+} from '../../../store/actions/board.actions';
 
 @Component({
   selector: 'app-column',
@@ -11,56 +18,9 @@ import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component'
   styleUrls: ['./column.component.scss'],
 })
 export class ColumnComponent {
-  @Input() columnData!: ColumnResponse;
+  @Input() columnData!: ColumnWithTasks;
 
   editMode = false;
-
-  tasks: TaskResponse[] = [
-    {
-      _id: 'sshdh1jsk8767',
-      title: 'First Task Title',
-      order: 0,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-      boardId: 'firstBoard',
-      columnId: 'firstColumn',
-      userId: 0,
-      users: [],
-    },
-    {
-      _id: 'sshdh1jsk8768',
-      title: 'Second Task Title',
-      order: 1,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-      boardId: 'firstBoard',
-      columnId: 'firstColumn',
-      userId: 0,
-      users: [],
-    },
-    {
-      _id: 'sshdh1jsk8769',
-      title: 'Third Task Title',
-      order: 2,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-      boardId: 'firstBoard',
-      columnId: 'firstColumn',
-      userId: 0,
-      users: [],
-    },
-    {
-      _id: 'sshdh1jsk87610',
-      title: 'Fourth Task Title',
-      order: 3,
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et',
-      boardId: 'firstBoard',
-      columnId: 'firstColumn',
-      userId: 0,
-      users: [],
-    },
-  ];
 
   editTitleForm: FormGroup = new FormGroup({
     columnTitle: new FormControl(this.columnData ? this.columnData.title : '', [
@@ -68,7 +28,7 @@ export class ColumnComponent {
     ]),
   });
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private store: Store) {}
 
   turnOnEditMode() {
     this.editMode = true;
@@ -93,7 +53,7 @@ export class ColumnComponent {
     const dialogRef = this.dialog.open(EditTaskComponent, {
       data: {
         taskData: {
-          order: this.tasks.length + 1,
+          order: this.columnData.tasks.length,
           boardId: this.columnData.boardId,
           columnId: this.columnData._id,
           userId: 0,
@@ -104,12 +64,40 @@ export class ColumnComponent {
     });
 
     dialogRef.afterClosed().subscribe((result: TaskResponse) => {
-      this.tasks.push(result);
+      this.store.dispatch(
+        createTaskOnServer({
+          task: {
+            title: result.title,
+            order: result.order,
+            description: result.description,
+            userId: result.userId,
+            users: result.users,
+          },
+          boardId: result.boardId,
+          columnId: result.columnId,
+        }),
+      );
     });
   }
 
   saveColumnTitle() {
     this.columnData.title = this.editTitleForm.value.columnTitle;
+    this.store.dispatch(updateColumnOnServer({ column: this.columnData }));
     this.editMode = false;
+  }
+
+  handleDeleteColumn() {
+    const dialogRef = this.dialog.open(ConfirmPopupComponent, {
+      data: {
+        message: 'Are you sure want delete column?',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.store.dispatch(deleteColumnOnServer({ column: this.columnData }));
+        dialogRef.close();
+      }
+    });
   }
 }
