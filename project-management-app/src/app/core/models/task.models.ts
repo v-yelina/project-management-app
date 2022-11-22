@@ -11,3 +11,7 @@ export interface PartialTaskWithOrder {
   order: number;
   columnId: string;
 }
+
+export interface TaskWithColumnId extends Task {
+  columnId: string;
+}
