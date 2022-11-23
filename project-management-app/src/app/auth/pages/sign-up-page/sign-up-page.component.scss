@@ -1,3 +1,5 @@
+$form-title-color: #5d4037;
+
 .sign-up {
   &__page {
     width: 100%;
@@ -39,6 +41,10 @@
 
   &__title {
     text-align: center;
+    color: $form-title-color;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
   }
 }
 

@@ -1,7 +1,7 @@
 <img src="../../../../assets/img/profile.jpg" alt="profile" class="edit__img">
 <section class="edit__container">
-  <h2>Edit profile</h2>
-  <form [formGroup]="editProfileForm" class="edit-profile">
+  <h2 class="edit-profile__title">Edit profile</h2>
+  <form [formGroup]=" editProfileForm" class="edit-profile">
     <mat-form-field appearance="fill">
       <mat-label for="name" class="edit-profile__label">Name</mat-label>
       <input matInput formControlName="name" required class="edit-profile__input">
