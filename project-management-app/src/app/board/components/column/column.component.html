@@ -1,10 +1,16 @@
 <div class="column">
-  <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{columnData.title}}</h3>
+  <div class="column__top">
+    <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{columnData.title}}</h3>
+    <button mat-button class="column__btn--delete" (click)="handleDeleteColumn()" *ngIf="!editMode">
+      <mat-icon class="column__btn--delete">delete</mat-icon>
+    </button>
+  </div>
+
   <form [formGroup]="editTitleForm" *ngIf="editMode">
     <mat-form-field class="column__title--edit" appearance="outline">
       <input matInput type="text" formControlName="columnTitle" class="column__title--input"
         autofocus>
-      <button mat-button (click)="saveColumnTitle()">
+      <button mat-button (click)="saveColumnTitle()" [disabled]="editTitleForm.invalid">
         <mat-icon>done</mat-icon>
       </button>
       <button mat-button (click)="openConfirmationDialog()">
@@ -19,5 +25,5 @@
   <button mat-button (click)="openCreateDialog()">
     <mat-icon>add</mat-icon> Create new task
   </button>
-  <app-task *ngFor="let currentTask of tasks" [taskData]="currentTask"></app-task>
+  <ng-content></ng-content>
 </div>

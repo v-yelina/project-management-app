@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 
 import { CreateBoardPopupComponent } from './components/create-board-popup/create-board-popup.component';
@@ -28,6 +29,7 @@ import { NotificationSnackBarComponent } from './components/notification-snack-b
     ReactiveFormsModule,
     MatInputModule,
     MatSnackBarModule,
+    NgxSmoothDnDModule,
   ],
   exports: [
     ConfirmPopupComponent,
@@ -35,6 +37,7 @@ import { NotificationSnackBarComponent } from './components/notification-snack-b
     ReactiveFormsModule,
     MatButtonModule,
     MatSnackBarModule,
+    NgxSmoothDnDModule,
   ],
 })
 export class SharedModule {}

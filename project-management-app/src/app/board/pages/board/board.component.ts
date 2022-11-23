@@ -1,62 +1,121 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { BoardResponse, ColumnResponse } from 'src/app/core/models/response-api.models';
+import { DropResult } from 'ngx-smooth-dnd';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { CreateColumnComponent } from '../../components/create-column/create-column.component';
+import {
+  createColumn,
+  initBoardState,
+  setColumnsOrder,
+  setColumnsOrderOnServer,
+  setTasksOrderOnServer,
+} from '../../../store/actions/board.actions';
+import { getBoard } from '../../../store/selectors/board.selector';
+import { BoardState, ColumnWithTasks } from '../../../store/states/board.state';
+import { applyDrag } from '../../../core/utils/apply-drag';
+import { rebindOrder } from '../../../core/utils/rebind-order';
+import { Column } from '../../../core/models/column.model';
 
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent {
-  boardData: BoardResponse = {
-    _id: 'firstBoard',
-    title: 'First Board Title',
-    owner: 'new owner',
-    users: [],
-  };
+export class BoardComponent implements OnInit, OnDestroy {
+  board: BoardState | undefined;
 
-  columns: ColumnResponse[] = [
-    {
-      _id: 'firstColumn',
-      title: 'First Column title',
-      order: 0,
-      boardId: 'firstBoard',
-    },
-    {
-      _id: 'secondColumn',
-      title: 'Second Column title',
-      order: 1,
-      boardId: 'firstBoard',
-    },
-    {
-      _id: 'thirdColumn',
-      title: 'Third Column title',
-      order: 2,
-      boardId: 'firstBoard',
-    },
-    {
-      _id: 'fourthColumn',
-      title: 'FourthColumn title',
-      order: 3,
-      boardId: 'firstBoard',
-    },
-  ];
+  subscription = new Subscription();
 
-  constructor(private dialog: MatDialog) {}
+  flagOnCardDrop = { add: false, del: false };
+
+  constructor(
+    private dialog: MatDialog,
+    private store: Store,
+    private activatedRoute: ActivatedRoute,
+  ) {}
+
+  ngOnInit() {
+    const subscribeToParamMap = this.activatedRoute.paramMap.subscribe((params) => {
+      this.store.dispatch(initBoardState({ id: String(params.get('id')) }));
+    });
+    this.subscription.add(subscribeToParamMap);
+
+    const subBoardInit = this.store.select(getBoard).subscribe((board) => {
+      if (board._id.length > 0) {
+        this.board = JSON.parse(JSON.stringify(board));
+      }
+    });
+    this.subscription.add(subBoardInit);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 
   openCreateDialog() {
-    const dialogRef = this.dialog.open(CreateColumnComponent, {
-      data: {
-        columnData: {
-          order: this.columns.length + 1,
-          boardId: this.boardData._id,
+    if (this.board) {
+      const dialogRef = this.dialog.open(CreateColumnComponent, {
+        data: {
+          columnData: {
+            order: this.board.columns.length,
+            boardId: this.board._id,
+          },
         },
-      },
-    });
+      });
 
-    dialogRef.afterClosed().subscribe((result: ColumnResponse) => {
-      this.columns.push(result);
-    });
+      const subCreateColumn = dialogRef.afterClosed().subscribe((result: Column) => {
+        if (result?.boardId && result?.title.length > 0) {
+          this.store.dispatch(createColumn({ column: result, boardId: result.boardId }));
+        }
+      });
+      this.subscription.add(subCreateColumn);
+    }
+  }
+
+  onColumnDrop(dropResult: DropResult) {
+    if (this.board) {
+      const switchedColumns = rebindOrder(applyDrag(this.board.columns, dropResult));
+      this.store.dispatch(
+        setColumnsOrderOnServer({
+          columns: switchedColumns,
+        }),
+      );
+      this.store.dispatch(setColumnsOrder({ columns: switchedColumns }));
+    }
+  }
+
+  onCardDrop(columnId: string, dropResult: DropResult) {
+    if ((dropResult.removedIndex !== null || dropResult.addedIndex !== null) && this.board) {
+      const column = this.board.columns.find((item) => item._id === columnId) as ColumnWithTasks;
+      column.tasks = rebindOrder(
+        applyDrag(column.tasks, { ...dropResult, payload: { ...dropResult.payload, columnId } }),
+      );
+      if (
+        (dropResult.removedIndex == null && dropResult.addedIndex !== null) ||
+        (dropResult.removedIndex !== null && dropResult.addedIndex !== null)
+      ) {
+        this.store.dispatch(setTasksOrderOnServer({ tasks: column.tasks, newColumnId: columnId }));
+        this.flagOnCardDrop.del = true;
+        if (dropResult.removedIndex !== null && dropResult.addedIndex !== null) {
+          this.flagOnCardDrop.add = true;
+        }
+      } else {
+        this.flagOnCardDrop.add = true;
+      }
+
+      if (this.flagOnCardDrop.add && this.flagOnCardDrop.del) {
+        this.store.dispatch(setColumnsOrder({ columns: this.board!.columns }));
+        this.flagOnCardDrop.add = false;
+        this.flagOnCardDrop.del = false;
+      }
+    }
+  }
+
+  getCardPayload(columnId: string) {
+    return (index: number) => {
+      return this.board!.columns.find((p) => p._id === columnId)!.tasks[index];
+    };
   }
 }
