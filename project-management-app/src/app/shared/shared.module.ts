@@ -40,4 +40,4 @@ import { NotificationSnackBarComponent } from './components/notification-snack-b
     NgxSmoothDnDModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
