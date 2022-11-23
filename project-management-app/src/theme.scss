@@ -3,7 +3,7 @@
 @include mat-core();
 
 $my-custom-primary: mat-palette($mat-deep-purple);
-$my-custom-accent: mat-palette($mat-brown, 100, 500, A100);
+$my-custom-accent: mat-palette($mat-brown);
 $my-custom-warn: mat-palette($mat-red);
 
 $my-custom-theme: mat.define-light-theme(
