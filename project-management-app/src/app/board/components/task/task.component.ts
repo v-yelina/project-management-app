@@ -1,32 +1,42 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.models';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
+import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/board.actions';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent {
+export class TaskComponent implements OnDestroy {
   @Input() taskData!: TaskResponse;
 
-  constructor(private dialog: MatDialog) {}
+  subscription = new Subscription();
 
-  openConfirmationDialog(id: string) {
+  constructor(private dialog: MatDialog, private store: Store) {}
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  openConfirmationDialog() {
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
         itemType: ItemType.task,
       },
     });
 
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+    const subDelTask = dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        this.deleteTask(id);
+        this.deleteTask();
       }
     });
+    this.subscription.add(subDelTask);
   }
 
   openEditDialog() {
@@ -39,15 +49,16 @@ export class TaskComponent {
       },
     });
 
-    dialogRef.afterClosed().subscribe((result: TaskResponse) => {
+    const subUpdTask = dialogRef.afterClosed().subscribe((result: TaskResponse) => {
       if (result) {
-        this.taskData = { ...result };
+        this.store.dispatch(updateTaskOnServer({ task: { ...result } }));
       }
     });
+    this.subscription.add(subUpdTask);
   }
 
-  deleteTask(id: string) {
-    console.log(`delete task ${id}`);
+  deleteTask() {
+    this.store.dispatch(deleteTaskOnServer({ task: this.taskData }));
   }
 
   onTaskClick(event: Event) {

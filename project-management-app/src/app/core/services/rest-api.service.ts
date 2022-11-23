@@ -18,7 +18,7 @@ import {
 } from '../models/response-api.models';
 import { Board } from '../models/board.models';
 import { Column, PartialColumnWithOrder } from '../models/column.model';
-import { PartialTaskWithOrder, Task } from '../models/task.models';
+import { PartialTaskWithOrder, Task, TaskWithColumnId } from '../models/task.models';
 
 @Injectable({
   providedIn: 'root',
@@ -201,7 +201,7 @@ export class RestApiService {
   }
 
   updateTaskById(
-    task: Task,
+    task: TaskWithColumnId,
     id: string,
     boardId: string,
     columnId: string,
@@ -245,14 +245,14 @@ export class RestApiService {
     });
   }
 
-  updateOrderTasks(columns: Array<PartialTaskWithOrder>): Observable<Array<TaskResponse>> {
-    return this.http.patch<Array<TaskResponse>>(TasksEndpoint.TASKS_SET, columns, {
+  updateOrderTasks(tasks: Array<PartialTaskWithOrder>): Observable<Array<TaskResponse>> {
+    return this.http.patch<Array<TaskResponse>>(TasksEndpoint.TASKS_SET, tasks, {
       ...HTTP_OPTIONS,
     });
   }
 
   getTasksByBoardId(id: string): Observable<Array<TaskResponse>> {
-    return this.http.get<Array<TaskResponse>>(`${ColumnsEndpoint.COLUMNS_SET}/${id}`, {
+    return this.http.get<Array<TaskResponse>>(`${TasksEndpoint.TASKS_SET}/${id}`, {
       ...HTTP_OPTIONS,
     });
   }
