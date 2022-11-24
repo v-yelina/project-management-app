@@ -18,13 +18,13 @@
         <mat-icon>cancel</mat-icon>
       </button>
       <mat-error
-        *ngIf="editTitleForm.controls['columnTitle'].errors && editTitleForm.controls['columnTitle'].errors['required']">
-        Please enter a column title
+        *ngIf="editTitleForm.controls['columnTitle'].errors && editTitleForm.controls['columnTitle'].errors['required']" l10nTranslate>
+        boards.columnErrorTitle
       </mat-error>
     </mat-form-field>
   </form>
-  <button mat-button (click)="openCreateDialog()">
-    <mat-icon>add</mat-icon> Create new task
+  <button mat-button (click)="openCreateDialog()" l10nTranslate>
+    <mat-icon>add</mat-icon> boards.columnCreateTask
   </button>
   <ng-content></ng-content>
 </div>

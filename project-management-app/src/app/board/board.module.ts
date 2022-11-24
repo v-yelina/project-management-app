@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { L10nIntlModule, L10nTranslationModule } from 'angular-l10n';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -21,9 +22,12 @@ import { BoardCardComponent } from './components/board-card/board-card.component
 import { BoardComponent } from './pages/board/board.component';
 import { CreateColumnComponent } from './components/create-column/create-column.component';
 import { PointsComponent } from './components/points/points.component';
+import { SearchComponent } from './pages/search/search.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 const routes: Routes = [
   { path: '', component: BoardsPageComponent },
+  { path: 'search', component: SearchComponent },
   { path: ':id', component: BoardComponent },
 ];
 
@@ -36,6 +40,8 @@ const routes: Routes = [
     CreateColumnComponent,
     BoardsPageComponent,
     BoardCardComponent,
+    SearchComponent,
+    SearchPipe,
     PointsComponent,
   ],
   imports: [
@@ -51,8 +57,9 @@ const routes: Routes = [
     RouterModule.forChild(routes),
     MatMenuModule,
     MatProgressBarModule,
-    MatTooltipModule
-
+    MatTooltipModule,
+    L10nTranslationModule,
+    L10nIntlModule,
   ],
   exports: [BoardComponent],
 })

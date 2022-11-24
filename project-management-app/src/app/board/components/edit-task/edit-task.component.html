@@ -1,23 +1,23 @@
-<h2>{{dialogType}} task</h2>
+<h2>{{dialogType}} {{ 'boards.task' | translate:locale.language }}</h2>
 <form [formGroup]="editTaskForm" class="edit-form">
   <mat-form-field class="example-full-width" appearance="outline">
-    <input matInput placeholder=" Title" value={{title}} formControlName="title" required>
-    <mat-error *ngIf="editTaskForm.controls['title'].hasError('required')">
-      Please enter task title
+    <input matInput placeholder="{{ 'boards.taskTitlePH' | translate:locale.language }}" value={{title}} formControlName="title" required>
+    <mat-error *ngIf="editTaskForm.controls['title'].hasError('required')" l10nTranslate>
+      boards.taskErrorTitle
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="outline">
-    <textarea matInput placeholder=" Description" value={{description}}
+    <textarea matInput placeholder="{{ 'boards.taskDescriptionPH' | translate:locale.language }}" value={{description}}
       formControlName="description" required rows="10"></textarea>
-    <mat-error *ngIf="editTaskForm.controls['description'].hasError('required')">
-      Please enter task description
+    <mat-error *ngIf="editTaskForm.controls['description'].hasError('required')" l10nTranslate>
+      boards.taskErrorDescription
     </mat-error>
   </mat-form-field>
   <div class="edit-form__buttons">
     <button mat-raised-button type="submit" color="primary" [disabled]="editTaskForm.invalid"
-      class="edit-form__btn edit-form__btn--edit" (click)="onConfirmClick()">Save</button>
+      class="edit-form__btn edit-form__btn--edit" (click)="onConfirmClick()" l10nTranslate>boards.taskSave</button>
     <button mat-raised-button type="button" class="edit-form__btn edit-form__btn--cancel"
-      (click)="openConfirmationDialog()">Cancel</button>
+      (click)="openConfirmationDialog()" l10nTranslate>boards.taskCancel</button>
   </div>
 </form>
