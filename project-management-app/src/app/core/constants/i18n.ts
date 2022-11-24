@@ -16,7 +16,7 @@ export const i18nAsset = {
     welcome: {
       label1: 'Opportunities',
       label2: 'About the team',
-      label3: 'About courses',
+      label3: 'About course',
       mainText:
         'This app will help you and your team plan your work better. Break down large tasks into smaller ones, track their progress and achieve success.',
       advantages1: 'Create boards for your tasks',
@@ -25,11 +25,14 @@ export const i18nAsset = {
       advantages4: 'Assign task performers',
       advantages5: 'Search by task boards or performers',
       teamMember1Name: 'Vadim Sokolov',
-      teamMember1Description: 'description',
+      teamMember1Description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, ',
       teamMember2Name: 'Valiantsina Yelina',
-      teamMember2Description: 'description',
+      teamMember2Description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
       teamMember3Name: 'Stepan Volkov',
-      teamMember3Description: 'description',
+      teamMember3Description:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ',
       courses: {
         mainTitle: 'Angular Course',
         mainDescription: 'Free | Online | in English',

@@ -1,18 +1,36 @@
 .boards-page {
-  height: 80%;
-  padding: 40px 120px;
+  min-height: 86vh;
+  padding: 20px;
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  column-gap: 4.542%;
-  row-gap: 30px;
+  gap: 20px;
   box-sizing: border-box;
-  overflow: auto;
+  align-content: flex-start;
+  justify-content: space-between;
+
+  @media screen and (max-width: 480px) {
+    justify-content: center;
+  }
 
   &__btn--new-board {
     font-size: 2rem;
-    width: 250px;
-    height: 120px;
-    padding: 20px;
+    width: 23%;
+    height: 150px;
+    box-sizing: border-box;
+    padding: 10px;
+    margin-right: auto;
+
+    @media screen and (max-width: 930px) {
+      width: 30%;
+    }
+
+    @media screen and (max-width: 750px) {
+      width: 47%;
+    }
+
+    @media screen and (max-width: 480px) {
+      width: 80%;
+      margin-right: 0;
+    }
   }
 }
