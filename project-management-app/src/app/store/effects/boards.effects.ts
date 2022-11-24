@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { first, map, switchMap, tap } from 'rxjs';
+import { filter, first, map, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Languages } from 'src/app/core/constants/l10n-config';
 import { RestApiService } from '../../core/services/rest-api.service';
@@ -27,7 +27,7 @@ export class BoardsEffects {
       ofType(createBoard),
       switchMap((action) => {
         return this.restApiService.getUsers().pipe(
-          first(),
+          filter((response) => response !== null),
           map((users) => {
             return users
               .filter((user) => {
@@ -50,7 +50,10 @@ export class BoardsEffects {
                     owner: userId!,
                     users: rawBoard.members.filter((memberId) => memberId !== userId!),
                   })
-                  .pipe(map((board) => addCreatedBoard({ payload: board })));
+                  .pipe(
+                    filter((response) => response !== null),
+                    map((board) => addCreatedBoard({ payload: board })),
+                  );
               }),
             );
           }),
@@ -75,7 +78,7 @@ export class BoardsEffects {
           first(),
           switchMap((userId) => {
             return this.restApiService.getBoardsByUserId(userId!).pipe(
-              first(),
+              filter((response) => response !== null),
               map((boards) => updateBoardsState({ payload: boards })),
             );
           }),
@@ -92,6 +95,7 @@ export class BoardsEffects {
       ofType(deleteBoard),
       switchMap((action) => {
         return this.restApiService.deleteBoardById(action.boardId).pipe(
+          filter((response) => response !== null),
           map(() => initUserBoards()),
           tap(() => {
             if (localStorage.getItem('lang') === Languages.english) {
