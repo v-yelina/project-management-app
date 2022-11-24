@@ -11,12 +11,16 @@ import { NotificationsState } from './states/notifications.state';
 import { BoardState } from './states/board.state';
 import { boardReducer } from './reducers/board.reducer';
 import { BoardEffects } from './effects/board.effects';
+import { searchReducer } from './reducers/search.reducer';
+import { SearchState } from './states/search.state';
+import { SearchEffects } from './effects/search.effects';
 
 interface AppState {
   authState: AuthState;
   boardsState: BoardsState;
   boardState: BoardState;
   notificationsState: NotificationsState;
+  searchState: SearchState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -24,6 +28,12 @@ export const reducers: ActionReducerMap<AppState> = {
   boardsState: boardsReducer,
   boardState: boardReducer,
   notificationsState: notificationsReducer,
+  searchState: searchReducer,
 };
 
-export const effects = EffectsModule.forRoot([AuthEffects, BoardsEffects, BoardEffects]);
+export const effects = EffectsModule.forRoot([
+  AuthEffects,
+  BoardsEffects,
+  BoardEffects,
+  SearchEffects,
+]);

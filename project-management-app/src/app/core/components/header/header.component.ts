@@ -11,6 +11,8 @@ import {
   L10nTranslationService,
 } from 'angular-l10n';
 import { L10nSchema } from 'angular-l10n/lib/models/types';
+import { Router } from '@angular/router';
+import { startSearchState } from 'src/app/store/actions/search.actions';
 import { logOut, updateAuthStateFromLocalStorage } from '../../../store/actions/auth.actions';
 import { getUserId } from '../../../store/selectors/auth.selectors';
 import { getLoadStatus, getMessage } from '../../../store/selectors/notifications.selectors';
@@ -31,6 +33,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLoad = false;
 
+  userId = '';
+
   lang: string | null = this.translation.getLocale().language.toUpperCase();
 
   schema: L10nSchema[] = this.l10nConfig.schema;
@@ -40,6 +44,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   RU = this.schema[1].locale;
 
   @ViewChild('langs') langs!: ElementRef;
+
+  @ViewChild('searchInput') searchValue!: ElementRef;
 
   subscription = new Subscription();
 
@@ -57,6 +63,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     const subUserId = this.store.select(getUserId).subscribe((id) => {
       this.isLogged = !!id;
+      if (id) {
+        this.userId = id;
+      }
     });
     this.subscription.add(subUserId);
 
@@ -107,5 +116,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.lang = Languages.russian;
     }
     localStorage.setItem('lang', this.lang!);
+  }
+
+  search() {
+    this.store.dispatch(
+      startSearchState({ userId: this.userId, value: this.searchValue.nativeElement.value }),
+    );
   }
 }
