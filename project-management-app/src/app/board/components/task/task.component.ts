@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskResponse } from 'src/app/core/models/response-api.models';
+import { PointsResponce, TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.models';
 import { Store } from '@ngrx/store';
@@ -16,12 +16,32 @@ import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/b
 export class TaskComponent implements OnDestroy {
   @Input() taskData!: TaskResponse;
 
+  points: PointsResponce[] = [{
+    "_id": "1",
+    "title": "First Point title",
+    "taskId": "1",
+    "boardId": "1",
+    "done": false
+  }, {
+    "_id": "2",
+    "title": "Second Point title",
+    "taskId": "1",
+    "boardId": "1",
+    "done": true
+  }]
+
+  donePointsPercent = this.getDonePointsPercent();
+
   subscription = new Subscription();
 
-  constructor(private dialog: MatDialog, private store: Store) {}
+  constructor(private dialog: MatDialog, private store: Store) { }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  getDonePointsPercent(): number {
+    return (this.points.filter(point => point.done).length * 100) / this.points.length;
   }
 
   openConfirmationDialog() {

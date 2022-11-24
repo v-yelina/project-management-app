@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
 import { ColumnComponent } from './components/column/column.component';
@@ -17,6 +18,7 @@ import { BoardCardComponent } from './components/board-card/board-card.component
 
 import { BoardComponent } from './pages/board/board.component';
 import { CreateColumnComponent } from './components/create-column/create-column.component';
+import { PointsComponent } from './components/points/points.component';
 
 const routes: Routes = [
   { path: '', component: BoardsPageComponent },
@@ -26,14 +28,13 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TaskComponent,
-
     EditTaskComponent,
-
     ColumnComponent,
     BoardComponent,
     CreateColumnComponent,
     BoardsPageComponent,
     BoardCardComponent,
+    PointsComponent,
   ],
   imports: [
     CommonModule,
@@ -47,7 +48,8 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     MatMenuModule,
+    MatProgressBarModule
   ],
   exports: [BoardComponent],
 })
-export class BoardModule {}
+export class BoardModule { }

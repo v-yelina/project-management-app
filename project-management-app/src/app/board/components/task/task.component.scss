@@ -18,3 +18,9 @@
     align-self: flex-end;
   }
 }
+
+.points {
+  &__list {
+    list-style: none;
+  }
+}
