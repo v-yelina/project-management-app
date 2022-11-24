@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { L10nIntlModule, L10nTranslationModule } from 'angular-l10n';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
 import { ColumnComponent } from './components/column/column.component';
@@ -52,6 +53,8 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     MatMenuModule,
+    L10nTranslationModule,
+    L10nIntlModule,
   ],
   exports: [BoardComponent],
 })

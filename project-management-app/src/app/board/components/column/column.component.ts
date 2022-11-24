@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { Store } from '@ngrx/store';
+import { Languages } from 'src/app/core/constants/l10n-config';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 import { ColumnWithTasks } from '../../../store/states/board.state';
 import {
@@ -35,9 +36,13 @@ export class ColumnComponent {
   }
 
   openConfirmationDialog() {
+    let exitMessage = 'Are you sure want to exit without saving changes?';
+    if (localStorage.getItem('lang') === Languages.russian) {
+      exitMessage = 'Вы уверены, что хотите выйти без сохранения изменений?';
+    }
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
-        message: 'Are you sure want to exit without saving changes?',
+        message: exitMessage,
       },
     });
 
@@ -50,6 +55,11 @@ export class ColumnComponent {
   }
 
   openCreateDialog() {
+    let typeSelected = DialogType.CREATE;
+    if (localStorage.getItem('lang') === Languages.russian) {
+      typeSelected = DialogType.CREATE_RU;
+    }
+
     const dialogRef = this.dialog.open(EditTaskComponent, {
       data: {
         taskData: {
@@ -59,7 +69,7 @@ export class ColumnComponent {
           userId: 0,
           users: [],
         },
-        type: DialogType.CREATE,
+        type: typeSelected,
       },
     });
 
@@ -87,9 +97,14 @@ export class ColumnComponent {
   }
 
   handleDeleteColumn() {
+    let deleteMessage = 'Are you sure want delete column?';
+    if (localStorage.getItem('lang') === Languages.russian) {
+      deleteMessage = 'Вы уверены, что хотите удалить столбец?';
+    }
+
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
-        message: 'Are you sure want delete column?',
+        message: deleteMessage,
       },
     });
 

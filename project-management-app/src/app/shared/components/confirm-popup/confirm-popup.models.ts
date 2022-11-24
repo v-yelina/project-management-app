@@ -3,6 +3,10 @@ export enum ItemType {
   column = 'column',
   task = 'task',
   user = 'user',
+  board_RU = 'доска',
+  column_RU = 'колонку',
+  task_RU = 'задачу',
+  user_RU = 'пользователь',
 }
 
 export interface ConfirmData {
