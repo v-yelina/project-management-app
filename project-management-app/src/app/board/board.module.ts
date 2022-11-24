@@ -8,6 +8,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
@@ -48,7 +50,9 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     MatMenuModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatTooltipModule
+
   ],
   exports: [BoardComponent],
 })

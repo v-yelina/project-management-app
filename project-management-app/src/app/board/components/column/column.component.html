@@ -1,7 +1,8 @@
 <div class="column">
   <div class="column__top">
     <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{columnData.title}}</h3>
-    <button mat-button class="column__btn--delete" (click)="handleDeleteColumn()" *ngIf="!editMode">
+    <button mat-button class="column__btn--delete" (click)="handleDeleteColumn()" *ngIf="!editMode"
+      matTooltip="Delete column">
       <mat-icon class="column__btn--delete">delete</mat-icon>
     </button>
   </div>
