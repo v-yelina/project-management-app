@@ -1,11 +1,12 @@
-<mat-card class="task" (click)="onTaskClick($event)">
-  <mat-card-title class="task__title">{{taskData.title}}</mat-card-title>
-  <mat-card-actions class="task__btn">
-    <button mat-button class="task__btn--delete" (click)="openConfirmationDialog()">
+<div class="task" (click)="onTaskClick($event)">
+  <div class="task__title--container">
+    <h2 class="task__title">{{taskData.title}}</h2>
+    <button mat-button class="task__btn--delete" (click)="openConfirmationDialog()"
+      matTooltip="Delete task">
       <mat-icon class="task__btn--delete">delete</mat-icon>
     </button>
-  </mat-card-actions>
-  <mat-card-subtitle class="task__description">{{taskData.description}}</mat-card-subtitle>
+  </div>
+  <p class="task__description">{{taskData.description}}</p>
   <section class="points__container" *ngIf="points.length">
     <div class="points__progress">
       <div class="points__progress--title">
@@ -16,9 +17,9 @@
     </div>
     <ul class="points__list">
       <li *ngFor="let point of points">
-        <mat-icon>{{point.done ? 'done' : 'clear'}}</mat-icon>{{point.title}}
+        <mat-icon *ngIf="point.done" class="point--done">done</mat-icon>
+        <mat-icon *ngIf="!point.done" class="point--not-ready">clear</mat-icon>{{point.title}}
       </li>
     </ul>
   </section>
-
-</mat-card>
+</div>
