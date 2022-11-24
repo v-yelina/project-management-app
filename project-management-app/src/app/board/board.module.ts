@@ -17,9 +17,12 @@ import { BoardCardComponent } from './components/board-card/board-card.component
 
 import { BoardComponent } from './pages/board/board.component';
 import { CreateColumnComponent } from './components/create-column/create-column.component';
+import { SearchComponent } from './pages/search/search.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 const routes: Routes = [
   { path: '', component: BoardsPageComponent },
+  { path: 'search', component: SearchComponent },
   { path: ':id', component: BoardComponent },
 ];
 
@@ -34,6 +37,8 @@ const routes: Routes = [
     CreateColumnComponent,
     BoardsPageComponent,
     BoardCardComponent,
+    SearchComponent,
+    SearchPipe,
   ],
   imports: [
     CommonModule,
