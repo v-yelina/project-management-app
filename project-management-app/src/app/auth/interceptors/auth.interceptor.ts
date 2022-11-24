@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { mergeMap, Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { first, mergeMap, Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
 import { getAuthToken } from '../../store/selectors/auth.selectors';
 import { APP_API_URL, TOKEN_HEADER_KEY, TOKEN_TYPE } from '../../core/constants/constants';
 import { loading } from '../../store/actions/notifications.actions';
@@ -11,7 +11,9 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private store: Store) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return this.store.select(getAuthToken).pipe(
+    return this.store.pipe(
+      first(),
+      select(getAuthToken),
       mergeMap((token) => {
         this.store.dispatch(loading());
         if (token) {
