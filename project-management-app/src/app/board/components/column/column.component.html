@@ -1,6 +1,7 @@
 <div class="column">
   <div class="column__top">
-    <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()">{{columnData.title}}</h3>
+    <h3 *ngIf="!editMode" class="column__title" (click)="turnOnEditMode()"
+      title="Click to change column title">{{columnData.title}}</h3>
     <button mat-button class="column__btn--delete" (click)="handleDeleteColumn()" *ngIf="!editMode"
       matTooltip="Delete column">
       <mat-icon class="column__btn--delete">delete</mat-icon>
@@ -18,7 +19,8 @@
         <mat-icon>cancel</mat-icon>
       </button>
       <mat-error
-        *ngIf="editTitleForm.controls['columnTitle'].errors && editTitleForm.controls['columnTitle'].errors['required']" l10nTranslate>
+        *ngIf="editTitleForm.controls['columnTitle'].errors && editTitleForm.controls['columnTitle'].errors['required']"
+        l10nTranslate>
         boards.columnErrorTitle
       </mat-error>
     </mat-form-field>
