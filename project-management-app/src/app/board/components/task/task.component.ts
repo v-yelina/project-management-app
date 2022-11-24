@@ -5,6 +5,7 @@ import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/c
 import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.models';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { Languages } from 'src/app/core/constants/l10n-config';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/board.actions';
 
@@ -25,9 +26,14 @@ export class TaskComponent implements OnDestroy {
   }
 
   openConfirmationDialog() {
+    let itemTypeSelected = ItemType.task;
+    if (localStorage.getItem('lang') === Languages.russian) {
+      itemTypeSelected = ItemType.task_RU;
+    }
+
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
-        itemType: ItemType.task,
+        itemType: itemTypeSelected,
       },
     });
 
@@ -40,12 +46,17 @@ export class TaskComponent implements OnDestroy {
   }
 
   openEditDialog() {
+    let typeSelected = DialogType.EDIT;
+    if (localStorage.getItem('lang') === Languages.russian) {
+      typeSelected = DialogType.EDIT_RU;
+    }
+
     const dialogRef = this.dialog.open(EditTaskComponent, {
       data: {
         taskData: {
           ...this.taskData,
         },
-        type: DialogType.EDIT,
+        type: typeSelected,
       },
     });
 

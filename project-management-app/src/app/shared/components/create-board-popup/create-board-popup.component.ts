@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { RawBoard } from '../../../core/models/board.models';
 
 @Component({
@@ -21,7 +22,10 @@ export class CreateBoardPopupComponent {
     name: new FormControl('', [Validators.required]),
   });
 
-  constructor(public dialogRef: MatDialogRef<CreateBoardPopupComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<CreateBoardPopupComponent>,
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();

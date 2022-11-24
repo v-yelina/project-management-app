@@ -51,9 +51,9 @@ export class AccountPageComponent implements OnInit {
 
   openConfirmationDialogExit() {
     let discardMessage = 'Are you sure want to discard changes?';
-    if(localStorage.getItem('lang') === Languages.russian){
+    if (localStorage.getItem('lang') === Languages.russian) {
       discardMessage = 'Вы уверены, что хотите отменить изменения?';
-    };
+    }
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
         message: discardMessage,
@@ -73,9 +73,9 @@ export class AccountPageComponent implements OnInit {
 
   openConfirmationDialogSave() {
     let saveMessage = 'Are you sure want to save changes?';
-    if(localStorage.getItem('lang') === Languages.russian){
+    if (localStorage.getItem('lang') === Languages.russian) {
       saveMessage = 'Вы уверены, что хотите сохранить изменения?';
-    };
+    }
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
         message: saveMessage,
@@ -91,9 +91,9 @@ export class AccountPageComponent implements OnInit {
 
   openConfirmationDialogDelete() {
     let deleteMessage = 'Are you sure want to delete user?';
-    if(localStorage.getItem('lang') === Languages.russian){
+    if (localStorage.getItem('lang') === Languages.russian) {
       deleteMessage = 'Вы уверены, что хотите удалить пользователя?';
-    };
+    }
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
         message: deleteMessage,
