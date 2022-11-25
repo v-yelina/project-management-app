@@ -8,7 +8,7 @@ import {
   ColumnsEndpoint,
   TasksEndpoint,
   UsersEndpoint,
-  PointsEndpoint
+  PointsEndpoint,
 } from '../enums/endpoints';
 import { HTTP_OPTIONS } from '../constants/constants';
 import {
@@ -16,7 +16,7 @@ import {
   ColumnResponse,
   TaskResponse,
   UserResponse,
-  PointsResponse
+  PointsResponse,
 } from '../models/response-api.models';
 import { Board } from '../models/board.models';
 import { Column, PartialColumnWithOrder } from '../models/column.model';
@@ -26,7 +26,7 @@ import { PartialTaskWithOrder, Task, TaskWithColumnId } from '../models/task.mod
   providedIn: 'root',
 })
 export class RestApiService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   signIn(credentials: Pick<UserCredentials, 'login' | 'password'>): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(AuthEndpoint.SIGN_IN, credentials, {
@@ -271,7 +271,10 @@ export class RestApiService {
     });
   }
 
-  updatePointsById(point: Pick<PointsResponse, 'title' | 'done'>, id: string): Observable<PointsResponse> {
+  updatePointsById(
+    point: Pick<PointsResponse, 'title' | 'done'>,
+    id: string,
+  ): Observable<PointsResponse> {
     return this.http.patch<PointsResponse>(`${PointsEndpoint.POINTS}/${id}`, point, {
       ...HTTP_OPTIONS,
     });

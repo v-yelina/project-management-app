@@ -11,7 +11,6 @@ import {
   L10nTranslationService,
 } from 'angular-l10n';
 import { L10nSchema } from 'angular-l10n/lib/models/types';
-import { Router } from '@angular/router';
 import { startSearchState } from 'src/app/store/actions/search.actions';
 import { logOut, updateAuthStateFromLocalStorage } from '../../../store/actions/auth.actions';
 import { getUserId } from '../../../store/selectors/auth.selectors';

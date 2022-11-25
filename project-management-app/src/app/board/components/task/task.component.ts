@@ -6,10 +6,10 @@ import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Languages } from 'src/app/core/constants/l10n-config';
-import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
-import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/board.actions';
 import { RestApiService } from 'src/app/core/services/rest-api.service';
 import { loaded } from 'src/app/store/actions/notifications.actions';
+import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
+import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/board.actions';
 
 @Component({
   selector: 'app-task',
@@ -19,14 +19,13 @@ import { loaded } from 'src/app/store/actions/notifications.actions';
 export class TaskComponent implements OnInit, OnDestroy {
   @Input() taskData!: TaskResponse;
 
-  points: PointsResponse[] = []
+  points: PointsResponse[] = [];
 
   donePointsPercent = this.getDonePointsPercent();
 
   subscription = new Subscription();
 
-  constructor(private dialog: MatDialog, private store: Store, private restApi: RestApiService) {
-  }
+  constructor(private dialog: MatDialog, private store: Store, private restApi: RestApiService) {}
 
   ngOnInit(): void {
     this.getPoints();
@@ -37,27 +36,31 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   getPoints() {
-    const points = this.restApi.getPointsByTaskId(this.taskData._id).subscribe(res => {
+    const points = this.restApi.getPointsByTaskId(this.taskData._id).subscribe((res) => {
       this.points.push(...res);
       this.store.dispatch(loaded());
       this.donePointsPercent = this.getDonePointsPercent();
-    })
+    });
     this.subscription.add(points);
   }
 
   togglePoint(event: Event, point: PointsResponse) {
-    event.stopPropagation()
+    event.stopPropagation();
     const index = this.points.indexOf(point);
-    const toggle = this.restApi.updatePointsById({ title: point.title, done: !point.done }, point._id).subscribe(() => {
-      this.points[index].done = !this.points[index].done;
-      this.store.dispatch(loaded());
-      this.donePointsPercent = this.getDonePointsPercent();
-    })
+    const toggle = this.restApi
+      .updatePointsById({ title: point.title, done: !point.done }, point._id)
+      .subscribe(() => {
+        this.points[index].done = !this.points[index].done;
+        this.store.dispatch(loaded());
+        this.donePointsPercent = this.getDonePointsPercent();
+      });
     this.subscription.add(toggle);
   }
 
   getDonePointsPercent(): number {
-    return Math.round((this.points.filter(point => point.done).length * 100) / this.points.length);
+    return Math.round(
+      (this.points.filter((point) => point.done).length * 100) / this.points.length,
+    );
   }
 
   openConfirmationDialog() {

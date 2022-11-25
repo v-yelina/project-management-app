@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
-import { map, tap } from 'rxjs';
 import { Languages } from 'src/app/core/constants/l10n-config';
 import { PointsResponse, TaskResponse } from 'src/app/core/models/response-api.models';
 import { RestApiService } from 'src/app/core/services/rest-api.service';
@@ -30,23 +29,26 @@ export class EditTaskComponent {
   title = '';
 
   description = '';
+
   points: PointsResponse[] = [];
 
   editTaskForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
   });
+
   newPointForm: FormGroup = new FormGroup({
     point: new FormControl('', [Validators.required]),
   });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: { taskData: Partial<TaskResponse>; points: PointsResponse[]; type: DialogType },
+    @Inject(MAT_DIALOG_DATA)
+    private data: { taskData: Partial<TaskResponse>; points: PointsResponse[]; type: DialogType },
     private dialogRef: MatDialogRef<ConfirmPopupComponent>,
     private dialog: MatDialog,
     @Inject(L10N_LOCALE) public locale: L10nLocale,
     private restApi: RestApiService,
-    private store: Store
+    private store: Store,
   ) {
     if (this.data) {
       this.dialogType = data.type;
@@ -59,11 +61,16 @@ export class EditTaskComponent {
   }
 
   addPoint() {
-    const newPoint: Omit<PointsResponse, '_id'> = { title: this.newPointForm.value.point, taskId: this.id, boardId: this.data.taskData.boardId || '', done: false };
-    this.restApi.createPoint({ ...newPoint }).subscribe(res => {
+    const newPoint: Omit<PointsResponse, '_id'> = {
+      title: this.newPointForm.value.point,
+      taskId: this.id,
+      boardId: this.data.taskData.boardId || '',
+      done: false,
+    };
+    this.restApi.createPoint({ ...newPoint }).subscribe((res) => {
       this.points.push(res);
       this.store.dispatch(loaded());
-    })
+    });
     this.newPointForm.reset();
   }
 
@@ -71,11 +78,11 @@ export class EditTaskComponent {
     const deleteBtn = event.target as HTMLElement;
     const point = deleteBtn.parentElement as HTMLElement;
     const id = point.dataset['id'] as string;
-    const index = this.points.findIndex(elem => elem._id === id)
+    const index = this.points.findIndex((elem) => elem._id === id);
     this.restApi.deletePointsById(id).subscribe(() => {
       this.points.splice(index, 1);
       this.store.dispatch(loaded());
-    })
+    });
   }
 
   openConfirmationDialog() {

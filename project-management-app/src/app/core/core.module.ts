@@ -42,4 +42,4 @@ const routes: Routes = [{ path: '', component: WelcomePageComponent }];
   ],
   exports: [HeaderComponent, FooterComponent, WelcomePageComponent],
 })
-export class CoreModule { }
+export class CoreModule {}

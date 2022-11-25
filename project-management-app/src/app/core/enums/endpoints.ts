@@ -23,5 +23,5 @@ export enum TasksEndpoint {
 }
 
 export enum PointsEndpoint {
-  POINTS = '/points'
+  POINTS = '/points',
 }
