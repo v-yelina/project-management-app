@@ -48,6 +48,10 @@ $warn-color: #b71c1c;
 
   &--delete-btn {
     margin-left: auto;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 

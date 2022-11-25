@@ -30,9 +30,8 @@
     <mat-icon *ngIf="!point.done" class="point--not-ready">
       clear
     </mat-icon>{{point.title}}
-    <button mat-button class="point--delete-btn" (click)="deletePoint($event)" title="Delete point">
-      <mat-icon>delete</mat-icon>
-    </button>
+    <mat-icon class="point--delete-btn" (click)="deletePoint($event)" title="Delete point">delete
+    </mat-icon>
   </li>
 </ul>
 <form [formGroup]="newPointForm" class="add-point">
