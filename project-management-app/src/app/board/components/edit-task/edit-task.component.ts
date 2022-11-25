@@ -67,6 +67,17 @@ export class EditTaskComponent {
     this.newPointForm.reset();
   }
 
+  deletePoint(event: Event) {
+    const deleteBtn = event.target as HTMLElement;
+    const point = deleteBtn.parentElement as HTMLElement;
+    const id = point.dataset['id'] as string;
+    const index = this.points.findIndex(elem => elem._id === id)
+    this.restApi.deletePointsById(id).subscribe(() => {
+      this.points.splice(index, 1);
+      this.store.dispatch(loaded());
+    })
+  }
+
   openConfirmationDialog() {
     let exitMessage = 'Are you sure want to exit without saving changes?';
     if (localStorage.getItem('lang') === Languages.russian) {

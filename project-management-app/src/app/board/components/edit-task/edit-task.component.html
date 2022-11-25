@@ -16,13 +16,13 @@
     </mat-error>
   </mat-form-field>
   <ul class="points__list" *ngIf="points.length">
-    <li *ngFor="let point of points" data-id="point._id">
+    <li *ngFor="let point of points" [attr.data-id]="point._id">
       <mat-icon *ngIf="point.done" class="point--done">done
       </mat-icon>
       <mat-icon *ngIf="!point.done" class="point--not-ready">
         clear
       </mat-icon>{{point.title}}
-      <mat-icon class="point--delete-btn">delete</mat-icon>
+      <mat-icon class="point--delete-btn" (click)="deletePoint($event)">delete</mat-icon>
     </li>
   </ul>
 </form>
