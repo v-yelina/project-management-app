@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { RawBoard } from '../../../core/models/board.models';
+import { RestApiService } from '../../../core/services/rest-api.service';
 
 @Component({
   selector: 'app-create-board-popup',
@@ -21,7 +22,10 @@ export class CreateBoardPopupComponent {
     name: new FormControl('', [Validators.required]),
   });
 
-  constructor(public dialogRef: MatDialogRef<CreateBoardPopupComponent>) {}
+  constructor(
+    public dialogRef: MatDialogRef<CreateBoardPopupComponent>,
+    private restApiService: RestApiService,
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
