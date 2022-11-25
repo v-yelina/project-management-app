@@ -1,23 +1,46 @@
 <h2>{{dialogType}} {{ 'boards.task' | translate:locale.language }}</h2>
 <form [formGroup]="editTaskForm" class="edit-form">
   <mat-form-field class="example-full-width" appearance="outline">
-    <input matInput placeholder="{{ 'boards.taskTitlePH' | translate:locale.language }}" value={{title}} formControlName="title" required>
+    <input matInput placeholder="{{ 'boards.taskTitlePH' | translate:locale.language }}"
+      value={{title}} formControlName="title" required>
     <mat-error *ngIf="editTaskForm.controls['title'].hasError('required')" l10nTranslate>
       boards.taskErrorTitle
     </mat-error>
   </mat-form-field>
 
   <mat-form-field class="example-full-width" appearance="outline">
-    <textarea matInput placeholder="{{ 'boards.taskDescriptionPH' | translate:locale.language }}" value={{description}}
-      formControlName="description" required rows="10"></textarea>
+    <textarea matInput placeholder="{{ 'boards.taskDescriptionPH' | translate:locale.language }}"
+      value={{description}} formControlName="description" required rows="7"></textarea>
     <mat-error *ngIf="editTaskForm.controls['description'].hasError('required')" l10nTranslate>
       boards.taskErrorDescription
     </mat-error>
   </mat-form-field>
-  <div class="edit-form__buttons">
-    <button mat-raised-button type="submit" color="primary" [disabled]="editTaskForm.invalid"
-      class="edit-form__btn edit-form__btn--edit" (click)="onConfirmClick()" l10nTranslate>boards.taskSave</button>
-    <button mat-raised-button type="button" class="edit-form__btn edit-form__btn--cancel"
-      (click)="openConfirmationDialog()" l10nTranslate>boards.taskCancel</button>
-  </div>
+  <ul class="points__list" *ngIf="points.length">
+    <li *ngFor="let point of points" data-id="point._id">
+      <mat-icon *ngIf="point.done" class="point--done">done
+      </mat-icon>
+      <mat-icon *ngIf="!point.done" class="point--not-ready">
+        clear
+      </mat-icon>{{point.title}}
+      <mat-icon class="point--delete-btn">delete</mat-icon>
+    </li>
+  </ul>
 </form>
+<form [formGroup]="newPointForm">
+  <mat-form-field appearance="outline">
+    <mat-label>Create new point</mat-label>
+    <input matInput formControlName="point" required>
+    <mat-error *ngIf="newPointForm.controls['point'].hasError('required')">
+      Enter new point
+    </mat-error>
+  </mat-form-field>
+  <button mat-raised-button type="submit" color="primary" [disabled]="newPointForm.invalid"
+    class="add-point__btn" (click)="addPoint()">Add point</button>
+</form>
+<div class="edit-form__buttons">
+  <button mat-raised-button type="submit" color="primary" [disabled]="editTaskForm.invalid"
+    class="edit-form__btn edit-form__btn--edit" (click)="onConfirmClick()"
+    l10nTranslate>boards.taskSave</button>
+  <button mat-raised-button type="button" class="edit-form__btn edit-form__btn--cancel"
+    (click)="openConfirmationDialog()" l10nTranslate>boards.taskCancel</button>
+</div>

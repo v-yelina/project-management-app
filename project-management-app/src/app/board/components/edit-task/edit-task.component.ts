@@ -1,10 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
+import { map, tap } from 'rxjs';
 import { Languages } from 'src/app/core/constants/l10n-config';
-import { TaskResponse } from 'src/app/core/models/response-api.models';
+import { PointsResponse, TaskResponse } from 'src/app/core/models/response-api.models';
+import { RestApiService } from 'src/app/core/services/rest-api.service';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
+import { loaded } from 'src/app/store/actions/notifications.actions';
 
 export enum DialogType {
   CREATE = 'Create',
@@ -26,17 +30,23 @@ export class EditTaskComponent {
   title = '';
 
   description = '';
+  points: PointsResponse[] = [];
 
   editTaskForm: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
   });
+  newPointForm: FormGroup = new FormGroup({
+    point: new FormControl('', [Validators.required]),
+  });
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: { taskData: Partial<TaskResponse>; type: DialogType },
+    @Inject(MAT_DIALOG_DATA) private data: { taskData: Partial<TaskResponse>; points: PointsResponse[]; type: DialogType },
     private dialogRef: MatDialogRef<ConfirmPopupComponent>,
     private dialog: MatDialog,
     @Inject(L10N_LOCALE) public locale: L10nLocale,
+    private restApi: RestApiService,
+    private store: Store
   ) {
     if (this.data) {
       this.dialogType = data.type;
@@ -44,7 +54,17 @@ export class EditTaskComponent {
       this.title = data.taskData.title || '';
       this.description = data.taskData.description || '';
       this.editTaskForm.setValue({ title: this.title, description: this.description });
+      this.points.push(...this.data.points);
     }
+  }
+
+  addPoint() {
+    const newPoint: Omit<PointsResponse, '_id'> = { title: this.newPointForm.value.point, taskId: this.id, boardId: this.data.taskData.boardId || '', done: false };
+    this.restApi.createPoint({ ...newPoint }).subscribe(res => {
+      this.points.push(res);
+      this.store.dispatch(loaded());
+    })
+    this.newPointForm.reset();
   }
 
   openConfirmationDialog() {
@@ -75,6 +95,7 @@ export class EditTaskComponent {
       columnId: this.data.taskData.columnId,
       userId: this.data.taskData.userId,
       users: this.data.taskData.users,
+      points: [...this.points],
     });
   }
 }

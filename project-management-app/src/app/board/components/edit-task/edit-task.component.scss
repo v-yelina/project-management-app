@@ -1,3 +1,7 @@
+$title-color: #5d4037;
+$done-color: #2e7d32;
+$warn-color: #b71c1c;
+
 .edit-form {
   display: flex;
   flex-direction: column;
@@ -7,5 +11,27 @@
     display: flex;
     gap: 10px;
     align-self: center;
+  }
+}
+
+.points {
+  &__list {
+    padding: 0;
+    list-style: none;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+  }
+}
+
+.point {
+  &--done {
+    color: $done-color;
+  }
+
+  &--not-ready {
+    color: $warn-color;
   }
 }

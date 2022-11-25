@@ -262,7 +262,7 @@ export class BoardEffects {
     private localStorageService: LocalStorageService,
     private restApiService: RestApiService,
     private store: Store,
-  ) {}
+  ) { }
 
   private transformColumnsForRequest(
     columns: Array<ColumnWithTasks>,
