@@ -8,6 +8,7 @@ import {
   ColumnsEndpoint,
   TasksEndpoint,
   UsersEndpoint,
+  PointsEndpoint
 } from '../enums/endpoints';
 import { HTTP_OPTIONS } from '../constants/constants';
 import {
@@ -15,6 +16,7 @@ import {
   ColumnResponse,
   TaskResponse,
   UserResponse,
+  PointsResponse
 } from '../models/response-api.models';
 import { Board } from '../models/board.models';
 import { Column, PartialColumnWithOrder } from '../models/column.model';
@@ -24,7 +26,7 @@ import { PartialTaskWithOrder, Task, TaskWithColumnId } from '../models/task.mod
   providedIn: 'root',
 })
 export class RestApiService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   signIn(credentials: Pick<UserCredentials, 'login' | 'password'>): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(AuthEndpoint.SIGN_IN, credentials, {
@@ -253,6 +255,30 @@ export class RestApiService {
 
   getTasksByBoardId(id: string): Observable<Array<TaskResponse>> {
     return this.http.get<Array<TaskResponse>>(`${TasksEndpoint.TASKS_SET}/${id}`, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  getPointsByTaskId(id: string): Observable<Array<PointsResponse>> {
+    return this.http.get<Array<PointsResponse>>(`${PointsEndpoint.POINTS}/${id}`, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  createPoint(point: Omit<PointsResponse, '_id'>): Observable<PointsResponse> {
+    return this.http.post<PointsResponse>(PointsEndpoint.POINTS, point, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  updatePointsById(point: Pick<PointsResponse, 'title' | 'done'>, id: string): Observable<PointsResponse> {
+    return this.http.patch<PointsResponse>(`${PointsEndpoint.POINTS}/${id}`, point, {
+      ...HTTP_OPTIONS,
+    });
+  }
+
+  deletePointsById(id: string): Observable<PointsResponse> {
+    return this.http.delete<PointsResponse>(`${PointsEndpoint.POINTS}/${id}`, {
       ...HTTP_OPTIONS,
     });
   }

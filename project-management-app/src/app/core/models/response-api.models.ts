@@ -29,7 +29,7 @@ export interface TaskResponse {
   users: Array<string>;
 }
 
-export interface PointsResponce {
+export interface PointsResponse {
   _id: string;
   title: string;
   taskId: string;
