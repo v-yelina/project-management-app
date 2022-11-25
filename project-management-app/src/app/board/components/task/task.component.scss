@@ -68,9 +68,15 @@ $warn-color: #b71c1c;
 .point {
   &--done {
     color: $done-color;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   &--not-ready {
     color: $warn-color;
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
