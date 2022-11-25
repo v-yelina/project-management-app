@@ -25,7 +25,7 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   subscription = new Subscription();
 
-  constructor(private dialog: MatDialog, private store: Store, private restApi: RestApiService) {}
+  constructor(private dialog: MatDialog, private store: Store, private restApi: RestApiService) { }
 
   ngOnInit(): void {
     this.getPoints();
@@ -37,7 +37,7 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   getPoints() {
     const points = this.restApi.getPointsByTaskId(this.taskData._id).subscribe((res) => {
-      this.points.push(...res);
+      this.points = [...res];
       this.store.dispatch(loaded());
       this.donePointsPercent = this.getDonePointsPercent();
     });
@@ -103,6 +103,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       if (result) {
         this.store.dispatch(updateTaskOnServer({ task: { ...result } }));
       }
+      this.getPoints()
     });
     this.subscription.add(subUpdTask);
   }

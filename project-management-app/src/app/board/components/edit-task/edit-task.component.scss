@@ -21,6 +21,14 @@ $warn-color: #b71c1c;
     justify-content: center;
     margin-bottom: 10px;
   }
+
+  &__btn {
+    &:active {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
 }
 
 .points {
@@ -57,4 +65,9 @@ $warn-color: #b71c1c;
 
 .add-point__btn {
   margin-left: 10px;
+  &:active {
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
