@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { first, map, of, switchMap, tap, zip } from 'rxjs';
+import { filter, map, of, switchMap, tap, zip } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { Languages } from 'src/app/core/constants/l10n-config';
@@ -62,7 +62,7 @@ export class AuthEffects {
       ofType(signIn),
       switchMap((action) =>
         this.restApiService.signIn(action.payload).pipe(
-          first(),
+          filter((response) => response !== null),
           map((response) =>
             updateAuthState({
               payload: {
@@ -82,6 +82,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(getAdditionalUserData),
       switchMap(() => zip(this.restApiService.getUsers(), this.store.select(getAuthState))),
+      filter(([users, state]) => users !== null && state !== null),
       map(([users, state]) => {
         const user = users.find((item) => item.login === state.login) as UserResponse;
         const authState: AuthState = {
@@ -120,7 +121,7 @@ export class AuthEffects {
       ofType(signUp),
       switchMap((action) =>
         this.restApiService.signUp(action.payload).pipe(
-          first(),
+          filter((response) => response !== null),
           map(() =>
             localStorage.getItem('lang') === Languages.english
               ? setMessage({ msg: SIGN_UP_SUCCESS_EN })
@@ -140,6 +141,7 @@ export class AuthEffects {
       ofType(deleteUser),
       switchMap((action) =>
         this.restApiService.deleteUserById(action.payload.id).pipe(
+          filter((response) => response !== null),
           map(() => logOut()),
           tap(() => {
             this.store.dispatch(setMessage({ msg: USER_DELETED }));
@@ -155,6 +157,7 @@ export class AuthEffects {
       ofType(updateUserData),
       switchMap((action) =>
         this.restApiService.updateUserById(action.payload.credentials, action.payload.id).pipe(
+          filter((response) => response !== null),
           map(() => {
             const { token } = JSON.parse(this.localStorageService.getItem(AUTH_STATE) as string);
             this.localStorageService.setItem(
