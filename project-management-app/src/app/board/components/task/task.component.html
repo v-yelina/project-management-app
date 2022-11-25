@@ -17,8 +17,11 @@
     </div>
     <ul class="points__list">
       <li *ngFor="let point of points">
-        <mat-icon *ngIf="point.done" class="point--done">done</mat-icon>
-        <mat-icon *ngIf="!point.done" class="point--not-ready">clear</mat-icon>{{point.title}}
+        <mat-icon *ngIf="point.done" class="point--done" (click)="togglePoint($event, point)">done
+        </mat-icon>
+        <mat-icon *ngIf="!point.done" class="point--not-ready" (click)="togglePoint($event, point)">
+          clear
+        </mat-icon>{{point.title}}
       </li>
     </ul>
   </section>

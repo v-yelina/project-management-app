@@ -45,8 +45,19 @@ export class TaskComponent implements OnInit, OnDestroy {
     this.subscription.add(points);
   }
 
+  togglePoint(event: Event, point: PointsResponse) {
+    event.stopPropagation()
+    const index = this.points.indexOf(point);
+    const toggle = this.restApi.updatePointsById({ title: point.title, done: !point.done }, point._id).subscribe(() => {
+      this.points[index].done = !this.points[index].done;
+      this.store.dispatch(loaded());
+      this.donePointsPercent = this.getDonePointsPercent();
+    })
+    this.subscription.add(toggle);
+  }
+
   getDonePointsPercent(): number {
-    return (this.points.filter(point => point.done).length * 100) / this.points.length;
+    return Math.round((this.points.filter(point => point.done).length * 100) / this.points.length);
   }
 
   openConfirmationDialog() {
