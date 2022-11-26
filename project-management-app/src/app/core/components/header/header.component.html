@@ -8,7 +8,7 @@
   <ng-container *ngIf="isLogged && (isBoardsRoute || isSearchRoute)">
     <form class="search">
       <mat-form-field class="search__input" appearance="fill">
-        <input type="search" #searchInput matInput placeholder="Search tasks" (keyup)="search()">
+        <input type="search" #searchInput matInput placeholder="{{ 'header.taskSearchInputPH' | translate:locale.language }}" (keyup)="search()">
       </mat-form-field>
     </form>
   </ng-container>

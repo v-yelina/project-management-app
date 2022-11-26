@@ -1,6 +1,7 @@
 export const i18nAsset = {
   en: {
     header: {
+      taskSearchInputPH: 'Search tasks',
       btnEditTooltip: 'Edit profile',
       btnLogInTooltip: 'Log in',
       btnLogOutTooltip: 'Log out',
@@ -140,6 +141,7 @@ export const i18nAsset = {
   },
   ru: {
     header: {
+      taskSearchInputPH: 'Найти задание',
       btnEditTooltip: 'Обновить профиль',
       btnLogInTooltip: 'Войти',
       btnLogOutTooltip: 'Выйти',
