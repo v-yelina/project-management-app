@@ -9,6 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule, Routes } from '@angular/router';
 import { MatMenuModule } from '@angular/material/menu';
 import { L10nIntlModule, L10nTranslationModule } from 'angular-l10n';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
 import { TaskComponent } from './components/task/task.component';
 import { ColumnComponent } from './components/column/column.component';
@@ -30,9 +33,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     TaskComponent,
-
     EditTaskComponent,
-
     ColumnComponent,
     BoardComponent,
     CreateColumnComponent,
@@ -53,6 +54,8 @@ const routes: Routes = [
     SharedModule,
     RouterModule.forChild(routes),
     MatMenuModule,
+    MatProgressBarModule,
+    MatTooltipModule,
     L10nTranslationModule,
     L10nIntlModule,
   ],

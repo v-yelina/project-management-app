@@ -1,11 +1,13 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { TaskResponse } from 'src/app/core/models/response-api.models';
+import { PointsResponse, TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { ItemType } from 'src/app/shared/components/confirm-popup/confirm-popup.models';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { Languages } from 'src/app/core/constants/l10n-config';
+import { RestApiService } from 'src/app/core/services/rest-api.service';
+import { loaded } from 'src/app/store/actions/notifications.actions';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/board.actions';
 
@@ -14,15 +16,51 @@ import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/b
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TaskComponent implements OnDestroy {
+export class TaskComponent implements OnInit, OnDestroy {
   @Input() taskData!: TaskResponse;
+
+  points: PointsResponse[] = [];
+
+  donePointsPercent = this.getDonePointsPercent();
 
   subscription = new Subscription();
 
-  constructor(private dialog: MatDialog, private store: Store) {}
+  constructor(private dialog: MatDialog, private store: Store, private restApi: RestApiService) { }
+
+  ngOnInit(): void {
+    this.getPoints();
+  }
 
   ngOnDestroy() {
     this.subscription.unsubscribe();
+  }
+
+  getPoints() {
+    const points = this.restApi.getPointsByTaskId(this.taskData._id).subscribe((res) => {
+      this.points = [...res];
+      this.store.dispatch(loaded());
+      this.donePointsPercent = this.getDonePointsPercent();
+    });
+    this.subscription.add(points);
+  }
+
+  togglePoint(event: Event, point: PointsResponse) {
+    event.stopPropagation();
+    const index = this.points.indexOf(point);
+    const toggle = this.restApi
+      .updatePointsById({ title: point.title, done: !point.done }, point._id)
+      .subscribe(() => {
+        this.points[index].done = !this.points[index].done;
+        this.store.dispatch(loaded());
+        this.donePointsPercent = this.getDonePointsPercent();
+      });
+    this.subscription.add(toggle);
+  }
+
+  getDonePointsPercent(): number {
+    return Math.round(
+      (this.points.filter((point) => point.done).length * 100) / this.points.length,
+    );
   }
 
   openConfirmationDialog() {
@@ -56,6 +94,7 @@ export class TaskComponent implements OnDestroy {
         taskData: {
           ...this.taskData,
         },
+        points: [...this.points],
         type: typeSelected,
       },
     });
@@ -64,6 +103,7 @@ export class TaskComponent implements OnDestroy {
       if (result) {
         this.store.dispatch(updateTaskOnServer({ task: { ...result } }));
       }
+      this.getPoints()
     });
     this.subscription.add(subUpdTask);
   }

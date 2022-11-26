@@ -29,7 +29,7 @@ export class ColumnComponent {
     ]),
   });
 
-  constructor(private dialog: MatDialog, private store: Store) {}
+  constructor(private dialog: MatDialog, private store: Store) { }
 
   turnOnEditMode() {
     this.editMode = true;
@@ -69,24 +69,28 @@ export class ColumnComponent {
           userId: 0,
           users: [],
         },
+        points: [],
         type: typeSelected,
       },
     });
 
     dialogRef.afterClosed().subscribe((result: TaskResponse) => {
-      this.store.dispatch(
-        createTaskOnServer({
-          task: {
-            title: result.title,
-            order: result.order,
-            description: result.description,
-            userId: result.userId,
-            users: result.users,
-          },
-          boardId: result.boardId,
-          columnId: result.columnId,
-        }),
-      );
+      if (result) {
+        this.store.dispatch(
+          createTaskOnServer({
+            task: {
+              title: result.title,
+              order: result.order,
+              description: result.description,
+              userId: result.userId,
+              users: result.users,
+            },
+            boardId: result.boardId,
+            columnId: result.columnId,
+          }),
+        );
+      }
+
     });
   }
 

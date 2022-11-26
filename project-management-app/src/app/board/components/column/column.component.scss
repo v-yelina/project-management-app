@@ -1,9 +1,10 @@
-$column-background: #d8d5db91;
+$column-background: hsla(270, 8%, 85%, 0.2);
+$title-color: #5d4037;
 
 .column {
   box-shadow: rgba(0, 0, 0, 0.12) 0 1px 3px, rgba(0, 0, 0, 0.24) 0 1px 2px;
   width: 330px;
-  height: 75vh;
+  height: 74vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -13,11 +14,14 @@ $column-background: #d8d5db91;
   box-sizing: border-box;
   background-color: $column-background;
   border-radius: 10px;
+  margin-top: 10px;
 
   &__title {
     font-size: 1.5rem;
     font-weight: 700;
     align-self: flex-start;
+    color: $title-color;
+    text-transform: uppercase;
 
     &--input {
       margin: 0;

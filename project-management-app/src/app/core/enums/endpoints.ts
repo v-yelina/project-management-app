@@ -21,3 +21,7 @@ export enum TasksEndpoint {
   TASKS = '/tasks',
   TASKS_SET = '/tasksSet',
 }
+
+export enum PointsEndpoint {
+  POINTS = '/points',
+}
