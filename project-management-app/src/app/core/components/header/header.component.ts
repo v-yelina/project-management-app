@@ -11,6 +11,8 @@ import {
   L10nTranslationService,
 } from 'angular-l10n';
 import { L10nSchema } from 'angular-l10n/lib/models/types';
+import { NavigationEnd, Router } from '@angular/router';
+import { startSearchState } from 'src/app/store/actions/search.actions';
 import { logOut, updateAuthStateFromLocalStorage } from '../../../store/actions/auth.actions';
 import { getUserId } from '../../../store/selectors/auth.selectors';
 import { getLoadStatus, getMessage } from '../../../store/selectors/notifications.selectors';
@@ -31,6 +33,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   isLoad = false;
 
+  isBoardsRoute = false;
+
+  isSearchRoute = false;
+
+  userId = '';
+
   lang: string | null = this.translation.getLocale().language.toUpperCase();
 
   schema: L10nSchema[] = this.l10nConfig.schema;
@@ -41,6 +49,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   @ViewChild('langs') langs!: ElementRef;
 
+  @ViewChild('searchInput') searchValue!: ElementRef;
+
   subscription = new Subscription();
 
   constructor(
@@ -50,13 +60,33 @@ export class HeaderComponent implements OnInit, OnDestroy {
     @Inject(L10N_LOCALE) public locale: L10nLocale,
     @Inject(L10N_CONFIG) private l10nConfig: L10nConfig,
     private translation: L10nTranslationService,
+    private router: Router,
   ) {}
 
   ngOnInit() {
     this.store.dispatch(updateAuthStateFromLocalStorage());
 
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        const { url } = event;
+        if (url !== '/boards') {
+          this.isBoardsRoute = false;
+        } else {
+          this.isBoardsRoute = true;
+        }
+        if (url === '/boards/search') {
+          this.isSearchRoute = true;
+        } else {
+          this.isSearchRoute = false;
+        }
+      }
+    });
+
     const subUserId = this.store.select(getUserId).subscribe((id) => {
       this.isLogged = !!id;
+      if (id) {
+        this.userId = id;
+      }
     });
     this.subscription.add(subUserId);
 
@@ -107,5 +137,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.lang = Languages.russian;
     }
     localStorage.setItem('lang', this.lang!);
+  }
+
+  search() {
+    this.store.dispatch(
+      startSearchState({ userId: this.userId, value: this.searchValue.nativeElement.value }),
+    );
   }
 }

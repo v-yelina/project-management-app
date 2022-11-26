@@ -10,6 +10,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxSmoothDnDModule } from 'ngx-smooth-dnd';
+import { L10nIntlModule, L10nTranslationModule } from 'angular-l10n';
 import { ConfirmPopupComponent } from './components/confirm-popup/confirm-popup.component';
 
 import { CreateBoardPopupComponent } from './components/create-board-popup/create-board-popup.component';
@@ -30,6 +31,8 @@ import { NotificationSnackBarComponent } from './components/notification-snack-b
     MatInputModule,
     MatSnackBarModule,
     NgxSmoothDnDModule,
+    L10nTranslationModule,
+    L10nIntlModule,
   ],
   exports: [
     ConfirmPopupComponent,

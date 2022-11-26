@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { Languages } from 'src/app/core/constants/l10n-config';
 import { DELETE_BOARD, OPEN_BOARD } from './constants';
 import { ConfirmPopupComponent } from '../../../shared/components/confirm-popup/confirm-popup.component';
 import { ItemType } from '../../../shared/components/confirm-popup/confirm-popup.models';
@@ -42,9 +43,13 @@ export class BoardCardComponent implements OnDestroy {
   }
 
   deleteBoard() {
+    let itemTypeSelected = ItemType.board;
+    if (localStorage.getItem('lang') === Languages.russian) {
+      itemTypeSelected = ItemType.board_RU;
+    }
     const dialogRef = this.dialog.open(ConfirmPopupComponent, {
       data: {
-        itemType: ItemType.board,
+        itemType: itemTypeSelected,
       },
     });
 

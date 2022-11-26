@@ -1,10 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Inject } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { RawBoard } from '../../../core/models/board.models';
 import { RestApiService } from '../../../core/services/rest-api.service';
 import { UserResponse } from '../../../core/models/response-api.models';
@@ -36,6 +37,7 @@ export class CreateBoardPopupComponent implements OnDestroy {
     public dialogRef: MatDialogRef<CreateBoardPopupComponent>,
     private restApiService: RestApiService,
     private store: Store,
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
   ) {}
 
   ngOnDestroy() {

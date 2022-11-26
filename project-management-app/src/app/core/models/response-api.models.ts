@@ -28,3 +28,11 @@ export interface TaskResponse {
   userId: number;
   users: Array<string>;
 }
+
+export interface PointsResponse {
+  _id: string;
+  title: string;
+  taskId: string;
+  boardId: string;
+  done: boolean;
+}

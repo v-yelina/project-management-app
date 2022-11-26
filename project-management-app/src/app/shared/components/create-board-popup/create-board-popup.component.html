@@ -1,22 +1,22 @@
 <div mat-dialog-content>
-  <h2>Create new board</h2>
+  <h2 l10nTranslate>shared.createBoard</h2>
   <form class="create-board__form" [formGroup]="boardForm" novalidate>
     <mat-form-field class="form__input" appearance="fill">
-      <mat-label>Board name</mat-label>
+      <mat-label l10nTranslate>shared.createBoardName</mat-label>
       <input
         type="text"
         autocomplete="false"
         matInput
         formControlName="name"
-        placeholder="Enter board name."
+        placeholder="{{ 'shared.createBoardNamePH' | translate:locale.language }}"
       />
-      <mat-error *ngIf="boardForm.controls['name'].hasError('required')">
-        Board name is <strong>required</strong>
+      <mat-error *ngIf="boardForm.controls['name'].hasError('required')" l10nTranslate>
+        shared.createBoardErrorRequired
       </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form__input" appearance="fill">
-      <mat-label>Invite members</mat-label>
+      <mat-label l10nTranslate>shared.inviteMembers</mat-label>
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let member of members" (removed)="remove(member)">
           {{ member }}
@@ -25,7 +25,7 @@
           </button>
         </mat-chip>
         <input
-          placeholder="New member..."
+          placeholder="{{ 'shared.inviteMembersPH' | translate:locale.language }}"
           [matChipInputFor]="chipList"
           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
           [matChipInputAddOnBlur]="addOnBlur"
@@ -40,13 +40,14 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onNoClick()" l10nTranslate>shared.cancelBtn</button>
   <button
     mat-raised-button
     [mat-dialog-close]="getInputResults()"
     color="primary"
     [disabled]="boardForm.invalid"
+    l10nTranslate
   >
-    Create
+  shared.createBtn
   </button>
 </div>
