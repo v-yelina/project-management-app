@@ -128,6 +128,9 @@ export const i18nAsset = {
       taskDescriptionPH: ' Description',
       taskSave: 'Save',
       taskCancel: 'Cancel',
+      pointCreate: 'Create new point',
+      pointErrorRequired: 'Enter new point',
+      pointAddBtn: 'Add point',
     },
     shared: {
       createBoard: 'Create new board',
@@ -266,6 +269,9 @@ export const i18nAsset = {
       taskDescriptionPH: ' Описание',
       taskSave: 'Сохранить',
       taskCancel: 'Отменить',
+      pointCreate: 'Создать новый пункт',
+      pointErrorRequired: 'Введите новый пукнт',
+      pointAddBtn: 'Добавить пункт',
     },
     shared: {
       createBoard: 'Создать новую доску',

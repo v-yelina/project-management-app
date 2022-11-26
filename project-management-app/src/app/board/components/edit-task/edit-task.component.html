@@ -37,12 +37,12 @@
 <form [formGroup]="newPointForm" class="add-point"
   *ngIf="dialogType==='Edit' || dialogType==='Изменить'">
   <mat-form-field appearance="outline">
-    <mat-label>Create new point</mat-label>
+    <mat-label l10nTranslate>boards.pointCreate</mat-label>
     <input matInput formControlName="point" required>
-    <mat-error *ngIf="newPointForm.controls['point'].hasError('required')">
-      Enter new point
+    <mat-error *ngIf="newPointForm.controls['point'].hasError('required')" l10nTranslate>
+      boards.pointErrorRequired
     </mat-error>
   </mat-form-field>
   <button mat-raised-button type="submit" color="primary" [disabled]="newPointForm.invalid"
-    class="add-point__btn" (click)="addPoint()">Add point</button>
+    class="add-point__btn" (click)="addPoint()" l10nTranslate>boards.pointAddBtn</button>
 </form>
