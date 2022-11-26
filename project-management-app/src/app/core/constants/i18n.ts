@@ -1,7 +1,6 @@
 export const i18nAsset = {
   en: {
     header: {
-      btnCreate: 'Create new board',
       btnEditTooltip: 'Edit profile',
       btnLogInTooltip: 'Log in',
       btnLogOutTooltip: 'Log out',
@@ -141,7 +140,6 @@ export const i18nAsset = {
   },
   ru: {
     header: {
-      btnCreate: 'Создать борду',
       btnEditTooltip: 'Обновить профиль',
       btnLogInTooltip: 'Войти',
       btnLogOutTooltip: 'Выйти',
