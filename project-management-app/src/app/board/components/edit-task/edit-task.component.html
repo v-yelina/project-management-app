@@ -23,7 +23,7 @@
       (click)="openConfirmationDialog()" l10nTranslate>boards.taskCancel</button>
   </div>
 </form>
-<ul class="points__list" *ngIf="points.length">
+<ul class="points__list" *ngIf="points.length && dialogType==='Edit'">
   <li *ngFor="let point of points" [attr.data-id]="point._id" class="point">
     <mat-icon *ngIf="point.done" class="point--done">done
     </mat-icon>
@@ -34,7 +34,7 @@
     </mat-icon>
   </li>
 </ul>
-<form [formGroup]="newPointForm" class="add-point">
+<form [formGroup]="newPointForm" class="add-point" *ngIf="dialogType==='Edit'">
   <mat-form-field appearance="outline">
     <mat-label>Create new point</mat-label>
     <input matInput formControlName="point" required>
