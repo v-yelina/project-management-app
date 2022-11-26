@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
@@ -12,6 +12,7 @@ import {
   deleteColumnOnServer,
   updateColumnOnServer,
 } from '../../../store/actions/board.actions';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 
 @Component({
   selector: 'app-column',
@@ -29,7 +30,7 @@ export class ColumnComponent {
     ]),
   });
 
-  constructor(private dialog: MatDialog, private store: Store) { }
+  constructor( @Inject(L10N_LOCALE) public locale: L10nLocale,private dialog: MatDialog, private store: Store) { }
 
   turnOnEditMode() {
     this.editMode = true;
