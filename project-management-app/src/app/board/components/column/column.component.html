@@ -25,8 +25,11 @@
       </mat-error>
     </mat-form-field>
   </form>
-  <button mat-button (click)="openCreateDialog()" l10nTranslate>
-    <mat-icon>add</mat-icon> boards.columnCreateTask
-  </button>
+  <div class="button-wrapper">
+    <button mat-button (click)="openCreateDialog()" l10nTranslate>
+      <mat-icon>add</mat-icon> boards.columnCreateTask
+    </button>
+  </div>
+
   <ng-content></ng-content>
 </div>

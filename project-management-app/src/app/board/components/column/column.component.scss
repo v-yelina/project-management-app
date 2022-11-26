@@ -6,8 +6,6 @@ $title-color: #5d4037;
   width: 330px;
   height: 74vh;
   overflow-y: auto;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 5px;
   padding: 15px 10px;
@@ -46,4 +44,10 @@ $title-color: #5d4037;
     align-items: center;
     justify-content: space-between;
   }
+}
+
+.button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
