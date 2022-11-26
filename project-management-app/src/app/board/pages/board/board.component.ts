@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DropResult } from 'ngx-smooth-dnd';
 import { Store } from '@ngrx/store';
@@ -23,6 +23,7 @@ import { Column } from '../../../core/models/column.model';
   selector: 'app-board',
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class BoardComponent implements OnInit, OnDestroy {
   board: BoardState | undefined;
