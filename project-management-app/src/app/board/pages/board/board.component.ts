@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DropResult } from 'ngx-smooth-dnd';
 import { Store } from '@ngrx/store';
@@ -17,6 +17,7 @@ import { BoardState, ColumnWithTasks } from '../../../store/states/board.state';
 import { applyDrag } from '../../../core/utils/apply-drag';
 import { rebindOrder } from '../../../core/utils/rebind-order';
 import { Column } from '../../../core/models/column.model';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 
 @Component({
   selector: 'app-board',
@@ -31,6 +32,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   flagOnCardDrop = { add: false, del: false };
 
   constructor(
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
     private dialog: MatDialog,
     private store: Store,
     private activatedRoute: ActivatedRoute,

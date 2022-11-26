@@ -5,7 +5,7 @@
       <smooth-dnd-draggable *ngFor="let column of board.columns">
         <div class="board__column">
           <div class="card-column-header">
-            <span class="column-drag-handle" title="Move column">&#8596;</span>
+            <span class="column-drag-handle" title="{{ 'boards.columnMoveHint' | translate:locale.language }}">&#8596;</span>
           </div>
 
           <app-column [columnData]="column">

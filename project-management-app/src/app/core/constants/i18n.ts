@@ -111,6 +111,7 @@ export const i18nAsset = {
       deleteBtn: 'Delete user',
     },
     boards: {
+      columnMoveHint: 'Move column',
       createBoardBtn: 'Create board',
       createColumnBtn: 'Create new column',
       boardDeleteBtn: 'Delete',
@@ -257,6 +258,7 @@ export const i18nAsset = {
       deleteBtn: 'Удалить пользователя',
     },
     boards: {
+      columnMoveHint: 'Переместить столбец',
       createBoardBtn: 'Создать доску',
       createColumnBtn: 'Создать новый столбец',
       boardDeleteBtn: 'Удалить',
