@@ -33,6 +33,9 @@
         />
       </mat-chip-list>
     </mat-form-field>
+    <mat-error class="error__user-status" *ngIf="!userStatus.exist">
+      User named <strong>{{userStatus.name}}</strong> does not exist!
+    </mat-error>
   </form>
 </div>
 
