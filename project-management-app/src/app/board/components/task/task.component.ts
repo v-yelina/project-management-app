@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs';
 import { Languages } from 'src/app/core/constants/l10n-config';
 import { RestApiService } from 'src/app/core/services/rest-api.service';
 import { loaded } from 'src/app/store/actions/notifications.actions';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 import { deleteTaskOnServer, updateTaskOnServer } from '../../../store/actions/board.actions';
-import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 
 @Component({
   selector: 'app-task',
@@ -26,7 +26,12 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   subscription = new Subscription();
 
-  constructor(@Inject(L10N_LOCALE) public locale: L10nLocale, private dialog: MatDialog, private store: Store, private restApi: RestApiService) { }
+  constructor(
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
+    private dialog: MatDialog,
+    private store: Store,
+    private restApi: RestApiService,
+  ) {}
 
   ngOnInit(): void {
     this.getPoints();
@@ -104,7 +109,7 @@ export class TaskComponent implements OnInit, OnDestroy {
       if (result) {
         this.store.dispatch(updateTaskOnServer({ task: { ...result } }));
       }
-      this.getPoints()
+      this.getPoints();
     });
     this.subscription.add(subUpdTask);
   }

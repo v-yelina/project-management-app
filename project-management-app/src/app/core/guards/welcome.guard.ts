@@ -6,7 +6,7 @@ import { AUTH_STATE } from '../constants/constants';
   providedIn: 'root',
 })
 export class WelcomeGuard implements CanActivate, CanLoad {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   canLoad(): boolean {
     return this.canActivate();

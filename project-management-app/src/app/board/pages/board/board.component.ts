@@ -4,6 +4,7 @@ import { DropResult } from 'ngx-smooth-dnd';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { CreateColumnComponent } from '../../components/create-column/create-column.component';
 import {
   createColumn,
@@ -17,7 +18,6 @@ import { BoardState, ColumnWithTasks } from '../../../store/states/board.state';
 import { applyDrag } from '../../../core/utils/apply-drag';
 import { rebindOrder } from '../../../core/utils/rebind-order';
 import { Column } from '../../../core/models/column.model';
-import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 
 @Component({
   selector: 'app-board',
