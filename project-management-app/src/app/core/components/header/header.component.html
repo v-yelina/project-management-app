@@ -13,8 +13,8 @@
     </form>
   </ng-container>
   <ng-container *ngIf="isLogged && !isBoardsRoute">
-    <button mat-raised-button color="accent" routerLink="/boards">
-      To your boards
+    <button mat-raised-button color="accent" routerLink="/boards" l10nTranslate>
+      header.btnBoards
     </button>
   </ng-container>
   <ng-container *ngIf="isLogged; else unlogged">
