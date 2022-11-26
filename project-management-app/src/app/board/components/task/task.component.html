@@ -1,8 +1,8 @@
-<div class="task" (click)="onTaskClick($event)" title="Click to edit task">
+<div class="task" (click)="onTaskClick($event)" title="{{ 'boards.taskHint' | translate:locale.language }}">
   <div class="task__title--container">
     <h2 class="task__title">{{taskData.title}}</h2>
     <button mat-button class="task__btn--delete" (click)="openConfirmationDialog()"
-      title="Delete task">
+    matTooltip="{{ 'boards.taskDeleteHint' | translate:locale.language }}">
       <mat-icon class="task__btn--delete">delete</mat-icon>
     </button>
   </div>
@@ -10,7 +10,7 @@
   <section class="points__container" *ngIf="points.length">
     <div class="points__progress">
       <div class="points__progress--title">
-        <span>Task progress:</span><span>{{donePointsPercent}}%</span>
+        <span l10nTranslate>boards.taskProgress</span><span>{{donePointsPercent}}%</span>
       </div>
       <mat-progress-bar mode="determinate" value="{{donePointsPercent}}" color="accent">
       </mat-progress-bar>
