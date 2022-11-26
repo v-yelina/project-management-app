@@ -6,7 +6,7 @@
   height: 10vh;
   padding: 10px;
 
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 580px) {
     height: max-content;
     flex-wrap: wrap;
   }
@@ -41,7 +41,7 @@
 }
 
 .search {
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 580px) {
     order: 1;
     width: 80vw;
     margin: 0 auto;
@@ -58,7 +58,7 @@
     @media screen and (max-width: 800px) {
       width: 40vw;
     }
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 580px) {
       width: 100%;
     }
   }
