@@ -5,16 +5,17 @@
       <option value="RU" [selected]="lang === 'RU'">RU</option>
     </select>
   </mat-form-field>
-  <ng-container *ngIf="isLogged">
-    <form>
-    <mat-form-field class="search__input">
-      <mat-label>search tasks</mat-label>
-      <input type="search" #searchInput matInput placeholder="task name" (keyup)="search()">
-      <button matSuffix mat-icon-button aria-label="Clear" (click)="search()">
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
+  <ng-container *ngIf="isLogged && (isBoardsRoute || isSearchRoute)">
+    <form class="search">
+      <mat-form-field class="search__input" appearance="fill">
+        <input type="search" #searchInput matInput placeholder="Search tasks" (keyup)="search()">
+      </mat-form-field>
     </form>
+  </ng-container>
+  <ng-container *ngIf="isLogged && !isBoardsRoute">
+    <button mat-raised-button color="accent" routerLink="/boards">
+      To your boards
+    </button>
   </ng-container>
   <ng-container *ngIf="isLogged; else unlogged">
     <div class="header__user">

@@ -5,8 +5,9 @@ import {
   HttpEvent,
   HttpInterceptor,
   HttpErrorResponse,
+  HttpResponse,
 } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { logOut } from 'src/app/store/actions/auth.actions';
 import { loaded, setMessage } from 'src/app/store/actions/notifications.actions';
@@ -41,7 +42,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.store.dispatch(setMessage({ msg: BAD_REQUEST_RU }));
           }
           this.store.dispatch(loaded());
-          return throwError(() => error);
+          return of(new HttpResponse({ body: null }));
         }
         if (error.status === ResponseCode.UNAUTHORIZED) {
           if (localStorage.getItem(AUTH_STATE)) {
@@ -60,7 +61,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             }
           }
           this.store.dispatch(loaded());
-          return throwError(() => error);
+          return of(new HttpResponse({ body: null }));
         }
         if (error.status === ResponseCode.FORBIDDEN) {
           if (localStorage.getItem('lang') === Languages.english) {
@@ -69,7 +70,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.store.dispatch(setMessage({ msg: FORBIDDEN_RU }));
           }
           this.store.dispatch(logOut());
-          return throwError(() => error);
+          return of(new HttpResponse({ body: null }));
         }
         if (error.status === ResponseCode.NOT_FOUND) {
           if (localStorage.getItem('lang') === Languages.english) {
@@ -78,7 +79,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.store.dispatch(setMessage({ msg: NOT_FOUND_RU }));
           }
           this.store.dispatch(loaded());
-          return throwError(() => error);
+          return of(new HttpResponse({ body: null }));
         }
         if (error.status === ResponseCode.LOGIN_EXISTS) {
           if (localStorage.getItem('lang') === Languages.english) {
@@ -87,11 +88,11 @@ export class ErrorInterceptor implements HttpInterceptor {
             this.store.dispatch(setMessage({ msg: LOGIN_EXISTS_RU }));
           }
           this.store.dispatch(loaded());
-          return throwError(() => error);
+          return of(new HttpResponse({ body: null }));
         }
         this.store.dispatch(setMessage({ msg: error.message }));
         this.store.dispatch(loaded());
-        return throwError(() => error);
+        return of(new HttpResponse({ body: null }));
       }),
     );
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, map, of, switchMap, tap, zip } from 'rxjs';
+import { filter, map, switchMap, tap, zip } from 'rxjs';
 import { LocalStorageService } from '../../core/services/local-storage.service';
 import { RestApiService } from '../../core/services/rest-api.service';
 import {
@@ -22,7 +22,7 @@ import {
   updateTask,
   updateTaskOnServer,
 } from '../actions/board.actions';
-import { loaded, setMessage } from '../actions/notifications.actions';
+import { loaded } from '../actions/notifications.actions';
 import { ColumnWithTasks } from '../states/board.state';
 import { PartialColumnWithOrder } from '../../core/models/column.model';
 import { TaskResponse } from '../../core/models/response-api.models';
@@ -39,12 +39,10 @@ export class BoardEffects {
           this.restApiService.getColumns(action.id),
           this.restApiService.getTasksByBoardId(action.id),
         ).pipe(
+          filter(([board, columns, tasks]) => board !== null && columns !== null && tasks !== null),
           map(([board, columns, tasks]) => {
             return transformDataAfterInit({ board, columns, tasks });
           }),
-          catchError((err) =>
-            of(setMessage({ msg: err.error.message ? err.error.message : 'err 1' })),
-          ),
         ),
       ),
       tap(() => {
@@ -60,15 +58,7 @@ export class BoardEffects {
         switchMap((action) =>
           this.restApiService
             .updateOrderColumns(this.transformColumnsForRequest(action.columns))
-            .pipe(
-              catchError((err) =>
-                of(
-                  setMessage({
-                    msg: err.error.message ? err.error.message : 'err 2',
-                  }),
-                ),
-              ),
-            ),
+            .pipe(filter((response) => response !== null)),
         ),
         tap(() => {
           this.store.dispatch(loaded());
@@ -84,15 +74,7 @@ export class BoardEffects {
         switchMap((action) =>
           this.restApiService
             .updateOrderTasks(this.transformTasksForRequest(action.tasks, action.newColumnId))
-            .pipe(
-              catchError((err) =>
-                of(
-                  setMessage({
-                    msg: err.error.message ? err.error.message : 'err 3',
-                  }),
-                ),
-              ),
-            ),
+            .pipe(filter((response) => response !== null)),
         ),
         tap(() => {
           this.store.dispatch(loaded());
@@ -114,14 +96,8 @@ export class BoardEffects {
             action.boardId,
           )
           .pipe(
+            filter((response) => response !== null),
             map((createdColumn) => addCreatedColumn({ column: createdColumn })),
-            catchError((err) =>
-              of(
-                setMessage({
-                  msg: err.error.message ? err.error.message : 'err 4',
-                }),
-              ),
-            ),
           ),
       ),
       tap(() => {
@@ -135,14 +111,8 @@ export class BoardEffects {
       ofType(deleteColumnOnServer),
       switchMap((action) =>
         this.restApiService.deleteColumnById(action.column._id, action.column.boardId).pipe(
+          filter((response) => response !== null),
           map(() => deleteColumn({ column: action.column })),
-          catchError((err) =>
-            of(
-              setMessage({
-                msg: err.error.message ? err.error.message : 'err 5',
-              }),
-            ),
-          ),
         ),
       ),
       tap(() => {
@@ -162,14 +132,8 @@ export class BoardEffects {
             action.column.boardId,
           )
           .pipe(
+            filter((response) => response !== null),
             map(() => updateColumn({ column: action.column })),
-            catchError((err) =>
-              of(
-                setMessage({
-                  msg: err.error.message ? err.error.message : 'err 6',
-                }),
-              ),
-            ),
           ),
       ),
       tap(() => {
@@ -183,14 +147,8 @@ export class BoardEffects {
       ofType(createTaskOnServer),
       switchMap((action) =>
         this.restApiService.createTask(action.task, action.boardId, action.columnId).pipe(
+          filter((response) => response !== null),
           map((createdTask) => addCreatedTask({ task: createdTask })),
-          catchError((err) =>
-            of(
-              setMessage({
-                msg: err.error.message ? err.error.message : 'err 7',
-              }),
-            ),
-          ),
         ),
       ),
       tap(() => {
@@ -218,14 +176,8 @@ export class BoardEffects {
             action.task.columnId,
           )
           .pipe(
+            filter((response) => response !== null),
             map(() => updateTask({ task: action.task })),
-            catchError((err) =>
-              of(
-                setMessage({
-                  msg: err.error.message ? err.error.message : 'err 8',
-                }),
-              ),
-            ),
           ),
       ),
       tap(() => {
@@ -241,14 +193,8 @@ export class BoardEffects {
         this.restApiService
           .deleteTaskById(action.task._id, action.task.boardId, action.task.columnId)
           .pipe(
+            filter((response) => response !== null),
             map(() => deleteTask({ task: action.task })),
-            catchError((err) =>
-              of(
-                setMessage({
-                  msg: err.error.message ? err.error.message : 'err 9',
-                }),
-              ),
-            ),
           ),
       ),
       tap(() => {
