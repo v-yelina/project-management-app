@@ -12,7 +12,7 @@
     <mat-form-field class="column__title--edit" appearance="outline">
       <input matInput type="text" formControlName="columnTitle" class="column__title--input"
         autofocus>
-      <button mat-button (click)="saveColumnTitle()" [disabled]="editTitleForm.invalid">
+      <button mat-button (click)="saveColumnTitle()" [disabled]="editTitleForm.invalid" type="button">
         <mat-icon>done</mat-icon>
       </button>
       <button mat-button (click)="openConfirmationDialog()">
