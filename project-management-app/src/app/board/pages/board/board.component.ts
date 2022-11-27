@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewEncapsulation, Inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DropResult } from 'ngx-smooth-dnd';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { CreateColumnComponent } from '../../components/create-column/create-column.component';
 import {
   createColumn,
@@ -32,6 +33,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   flagOnCardDrop = { add: false, del: false };
 
   constructor(
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
     private dialog: MatDialog,
     private store: Store,
     private activatedRoute: ActivatedRoute,

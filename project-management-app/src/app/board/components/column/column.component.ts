@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskResponse } from 'src/app/core/models/response-api.models';
 import { ConfirmPopupComponent } from 'src/app/shared/components/confirm-popup/confirm-popup.component';
 import { Store } from '@ngrx/store';
 import { Languages } from 'src/app/core/constants/l10n-config';
+import { L10nLocale, L10N_LOCALE } from 'angular-l10n';
 import { DialogType, EditTaskComponent } from '../edit-task/edit-task.component';
 import { ColumnWithTasks } from '../../../store/states/board.state';
 import {
@@ -29,7 +30,11 @@ export class ColumnComponent {
     ]),
   });
 
-  constructor(private dialog: MatDialog, private store: Store) { }
+  constructor(
+    @Inject(L10N_LOCALE) public locale: L10nLocale,
+    private dialog: MatDialog,
+    private store: Store,
+  ) {}
 
   turnOnEditMode() {
     this.editMode = true;
@@ -90,7 +95,6 @@ export class ColumnComponent {
           }),
         );
       }
-
     });
   }
 
