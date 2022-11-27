@@ -1,27 +1,24 @@
 # ProjectManagementApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.7.
+Project management app is an application that helps an individual in a team or group of developers achieve their goals.
 
-## Development server
+**Task:** https://github.com/rolling-scopes-school/js-fe-course-en/blob/main/tasks/angular/project-management-system.md
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+**Deploy:** https://gregarious-melba-2e62f9.netlify.app/
 
-## Code scaffolding
+**Backend:** https://project-management-system-be-production.up.railway.app/api-docs/
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## To run locally:
+1. Clone repository:  
+`git clone git@github.com:OreskaG/Project-Management-app.git`
+2. Move to folder:  
+`cd project-management-app`
+3. Install dependencies:  
+`npm install`
+4. Run application:  
+`npm start`
+5. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
