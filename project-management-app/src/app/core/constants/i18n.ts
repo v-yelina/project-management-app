@@ -2,7 +2,7 @@ export const i18nAsset = {
   en: {
     header: {
       taskSearchInputPH: 'Search tasks',
-      btnBoards: 'To your boards',
+      btnBoards: 'Boards',
       btnEditTooltip: 'Edit profile',
       btnLogInTooltip: 'Log in',
       btnLogOutTooltip: 'Log out',
@@ -152,7 +152,7 @@ export const i18nAsset = {
   ru: {
     header: {
       taskSearchInputPH: 'Найти задание',
-      btnBoards: 'Вернуться к Доскам',
+      btnBoards: 'Доски',
       btnEditTooltip: 'Обновить профиль',
       btnLogInTooltip: 'Войти',
       btnLogOutTooltip: 'Выйти',
